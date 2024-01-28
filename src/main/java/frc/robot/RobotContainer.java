@@ -18,11 +18,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.ElevatorCommand;
 import frc.robot.commands.IntakeDefaultCommand;
 import frc.robot.commands.ShooterDefaultCommand;
 import frc.robot.commands.SpeakerTracking;
 import frc.robot.commands.SwerveControl;
+import frc.robot.commands.ZeroEncoder;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
@@ -32,7 +35,9 @@ public class RobotContainer {
   private final DriveTrain driveTrain = new DriveTrain();
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
+  private final Elevator elevator = new Elevator();
   private final XboxController controller = new XboxController(0);
+  private final XboxController operatorController = new XboxController(1);
   private final SendableChooser<Command> autoChooser;
   
 
@@ -40,6 +45,7 @@ public class RobotContainer {
     driveTrain.setDefaultCommand(new SwerveControl(driveTrain, controller));
     intake.setDefaultCommand(new IntakeDefaultCommand(intake, controller));
     shooter.setDefaultCommand(new ShooterDefaultCommand(shooter, controller));
+    elevator.setDefaultCommand(new ElevatorCommand(elevator, operatorController));
     // Configure the trigger bindings
     configureBindings();
 
@@ -48,12 +54,13 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    //new JoystickButton(controller, Button.kA.value).whileTrue(new TrackingGamePiece(driveTrain, limelight));
     new JoystickButton(controller, Button.kStart.value).whileTrue(new SpeakerTracking(shooter, limelightShooter, driveTrain));
+    new JoystickButton(operatorController, Button.kRightStick.value).toggleOnTrue(new ZeroEncoder(elevator, operatorController));
   }
 
-  // public Command getAutonomousCommand() {
-  //   PathPlannerPath path = PathPlannerPath.fromPathFile("Path1");
-  //   return AutoBuilder.followPath(path);
-  // }
+  public Command getAutonomousCommand() {
+    // PathPlannerPath path = PathPlannerPath.fromPathFile("Path1");
+    // return AutoBuilder.followPath(path);
+    return autoChooser.getSelected();
+  }
 }
