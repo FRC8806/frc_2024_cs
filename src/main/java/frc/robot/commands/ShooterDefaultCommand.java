@@ -10,11 +10,11 @@ import frc.robot.subsystems.Shooter;
 
 public class ShooterDefaultCommand extends Command {
   Shooter shooter;
-  XboxController controller;
+  XboxController operatorController;
   /** Creates a new ShooterDefaultCommand. */
-  public ShooterDefaultCommand(Shooter shooter, XboxController controller) {
+  public ShooterDefaultCommand(Shooter shooter, XboxController operatorController) {
     this.shooter = shooter;
-    this.controller = controller;
+    this.operatorController = operatorController;
     addRequirements(shooter);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -26,9 +26,9 @@ public class ShooterDefaultCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setShootingSpeed(controller.getRightTriggerAxis());
-    shooter.setShooterAngle(controller.getRightBumper() ? 0.15 : controller.getLeftBumper() ? -0.15 : 0);
-    shooter.setTransportSpeed(controller.getLeftTriggerAxis());
+    shooter.setShootingSpeed(operatorController.getRightTriggerAxis());
+    shooter.setShooterAngle(operatorController.getRightBumper() ? 0.15 : operatorController.getLeftBumper() ? -0.15 : 0);
+    shooter.setTransportSpeed(operatorController.getLeftTriggerAxis());
   }
 
   // Called once the command ends or is interrupted.

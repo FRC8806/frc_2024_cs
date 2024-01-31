@@ -10,11 +10,11 @@ import frc.robot.subsystems.Intake;
 
 public class IntakeDefaultCommand extends Command {
   Intake intake;
-  XboxController controller;
+  XboxController operatorController;
   /** Creates a new IntakeDefaultCommand. */
-  public IntakeDefaultCommand(Intake intake, XboxController controller) {
+  public IntakeDefaultCommand(Intake intake, XboxController operatorController) {
     this.intake = intake;
-    this.controller = controller;
+    this.operatorController = operatorController;
     addRequirements(intake);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -26,9 +26,9 @@ public class IntakeDefaultCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setIntakeAngle(controller.getXButton() ? 0.12 : controller.getYButton() ? -0.12 : 0);
-    intake.setRollingSpeed(controller.getBButton() ? 0.6 : 0);
-    intake.setLollipopSpeed(controller.getAButton() ? 0.2 : 0);
+    intake.setIntakeAngle(operatorController.getXButton() ? 0.12 : operatorController.getYButton() ? -0.12 : 0);
+    intake.setRollingSpeed(operatorController.getBButton() ? 0.4 : 0);
+    intake.setLollipopSpeed(operatorController.getAButton() ? 0.2 : 0);
   }
 
   // Called once the command ends or is interrupted.

@@ -32,7 +32,7 @@ public class Elevator extends SubsystemBase {
   }
 
   public void setElevatorLeftSpeed(double speed){
-    speed = new Limit().setLimit(speed, getLeftPosition(), Constants.LEFT_ELEVATOR_HIGH_LIMIT, Constants.LEFT_ELEVATOR_LOW_LIMIT, 0.3, 0.22);
+    speed = new Limit().setLimit(speed, getLeftPosition(), Constants.LEFT_ELEVATOR_HIGH_LIMIT, Constants.LEFT_ELEVATOR_LOW_LIMIT, 0.3, 0.3);
     speed = speed > 0.2 ? speed : speed < -0.2 ? speed : 0;
 
     leftElevatorMotor.set(speed);

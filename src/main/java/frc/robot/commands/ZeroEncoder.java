@@ -8,13 +8,19 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
 public class ZeroEncoder extends Command {
   Elevator elevator;
+  Intake intake;
+  Shooter shooter;
   XboxController operatorController;
   /** Creates a new ZeroEncoder. */
-  public ZeroEncoder(Elevator elevator, XboxController operatorController) {
+  public ZeroEncoder(Elevator elevator, Intake intake, Shooter shooter, XboxController operatorController) {
     this.elevator = elevator;
+    this.intake = intake;
+    this.shooter = shooter;
     this.operatorController = operatorController;
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -30,12 +36,16 @@ public class ZeroEncoder extends Command {
   public void execute() {
     elevator.setElevatorLeftOutOfLimit(operatorController.getLeftY()*0.5);
     elevator.setElevatorRightOutOfLimit(-operatorController.getRightY()*0.5);
+    intake.setIntakeOutOfLimit(0);
+    shooter.setShooterOutOfLimit(0);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     elevator.zeroElevatorEncoder();
+    intake.zeroIntakeEncoder();
+    shooter.zeroShooterEncoder();
     SmartDashboard.putBoolean("reset", false);
   }
 

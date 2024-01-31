@@ -10,6 +10,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
+import frc.robot.Limit;
 
 public class Intake extends SubsystemBase {
   private CANSparkMax rollingMotor = new CANSparkMax(1, MotorType.kBrushless);
@@ -28,10 +30,24 @@ public class Intake extends SubsystemBase {
   }
 
   public void setIntakeAngle(double speed) {
+    //speed = new Limit().setLimit(speed, getIntakePosition(), Constants.INTAKE_HIGH_LIMIT, Constants.INTAKE_LOW_LIMIT, 0.3, 0.3);
+
     angleMotor.set(speed);
   }
 
   public void setLollipopSpeed(double speed){
     lollipop.set(speed);
+  }
+
+  public void zeroIntakeEncoder(){
+    angleMotor.setPosition(0);
+  }
+
+  public double getIntakePosition(){
+    return angleMotor.getPosition().getValue();
+  }
+
+  public void setIntakeOutOfLimit(double speed){
+    angleMotor.set(speed);
   }
 }

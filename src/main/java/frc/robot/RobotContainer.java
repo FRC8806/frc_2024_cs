@@ -6,6 +6,7 @@ package frc.robot;
 
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 
@@ -43,24 +44,24 @@ public class RobotContainer {
 
   public RobotContainer() {
     driveTrain.setDefaultCommand(new SwerveControl(driveTrain, controller));
-    intake.setDefaultCommand(new IntakeDefaultCommand(intake, controller));
-    shooter.setDefaultCommand(new ShooterDefaultCommand(shooter, controller));
+    intake.setDefaultCommand(new IntakeDefaultCommand(intake, operatorController));
+    shooter.setDefaultCommand(new ShooterDefaultCommand(shooter, operatorController));
     elevator.setDefaultCommand(new ElevatorCommand(elevator, operatorController));
     // Configure the trigger bindings
     configureBindings();
-
+    
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
   }
 
   private void configureBindings() {
     new JoystickButton(controller, Button.kStart.value).whileTrue(new SpeakerTracking(shooter, limelightShooter, driveTrain));
-    new JoystickButton(operatorController, Button.kRightStick.value).toggleOnTrue(new ZeroEncoder(elevator, operatorController));
+    new JoystickButton(operatorController, Button.kRightStick.value).toggleOnTrue(new ZeroEncoder(elevator, intake, shooter, operatorController));
   }
 
   public Command getAutonomousCommand() {
-    // PathPlannerPath path = PathPlannerPath.fromPathFile("Path1");
-    // return AutoBuilder.followPath(path);
-    return autoChooser.getSelected();
+    PathPlannerPath path = PathPlannerPath.fromPathFile("Path5");
+    return AutoBuilder.followPath(path);
+    //return autoChooser.getSelected();
   }
 }

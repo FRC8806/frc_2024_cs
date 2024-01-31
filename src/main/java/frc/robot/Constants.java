@@ -54,8 +54,13 @@ public final class Constants {
 
     public static final SwerveDriveKinematics SWERVE_KINEMATIS = new SwerveDriveKinematics(A_TRANSLATION2D, B_TRANSLATION2D, C_TRANSLATION2D, D_TRANSLATION2D);
 
+    //limit
     public static final double RIGHT_ELEVATOR_HIGH_LIMIT = 0;
     public static final double RIGHT_ELEVATOR_LOW_LIMIT = -700;
     public static final double LEFT_ELEVATOR_HIGH_LIMIT = 640;
     public static final double LEFT_ELEVATOR_LOW_LIMIT = 0;
+    public static final double SHOOTER_HIGH_LIMIT = 0;
+    public static final double SHOOTER_LOW_LIMIT = 0;
+    public static final double INTAKE_HIGH_LIMIT = 0;
+    public static final double INTAKE_LOW_LIMIT = 0;
 }

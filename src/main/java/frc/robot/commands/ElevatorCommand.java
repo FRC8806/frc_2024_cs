@@ -26,8 +26,8 @@ public class ElevatorCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-     elevator.setElevatorLeftSpeed(operatorController.getLeftY());
-     elevator.setElevatorRightSpeed(-operatorController.getRightY());
+    elevator.setElevatorLeftSpeed(operatorController.getLeftY());
+    elevator.setElevatorRightSpeed(-operatorController.getRightY());
     
     //elevator.setElevatorSpeed(operatorController.getRightTriggerAxis()-operatorController.getLeftTriggerAxis());
   }
