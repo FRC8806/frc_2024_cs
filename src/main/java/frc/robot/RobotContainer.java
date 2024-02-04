@@ -6,8 +6,6 @@ package frc.robot;
 
 
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.networktables.NetworkTable;
@@ -17,36 +15,34 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.ElevatorCommand;
+import frc.robot.commands.ClimberDefaultCommand;
 import frc.robot.commands.IntakeDefaultCommand;
 import frc.robot.commands.ShooterDefaultCommand;
 import frc.robot.commands.SpeakerTracking;
 import frc.robot.commands.SwerveControl;
-import frc.robot.commands.ZeroEncoder;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
 
 public class RobotContainer {
   private final NetworkTable limelightShooter = NetworkTableInstance.getDefault().getTable("limelight-shooter");
-  private final DriveTrain driveTrain = new DriveTrain();
+  private final Chassis chassis = new Chassis();
   private final Intake intake = new Intake();
   private final Shooter shooter = new Shooter();
-  private final Elevator elevator = new Elevator();
-  private final XboxController controller = new XboxController(0);
+  private final Climber climber = new Climber();
+  private final XboxController driveController = new XboxController(0);
   private final XboxController operatorController = new XboxController(1);
   private final SendableChooser<Command> autoChooser;
   
 
   public RobotContainer() {
-    driveTrain.setDefaultCommand(new SwerveControl(driveTrain, controller));
+    chassis.setDefaultCommand(new SwerveControl(chassis, ()-> driveController.getLeftY(), ()-> driveController.getLeftX(), ()-> driveController.getRightX()));
     intake.setDefaultCommand(new IntakeDefaultCommand(intake, operatorController));
-    shooter.setDefaultCommand(new ShooterDefaultCommand(shooter, operatorController));
-    elevator.setDefaultCommand(new ElevatorCommand(elevator, operatorController));
+    // shooter.setDefaultCommand(new ShooterDefaultCommand(shooter, operatorController));
+    // climber.setDefaultCommand(new ClimberDefaultCommand(climber, operatorController));
     // Configure the trigger bindings
     configureBindings();
     
@@ -55,13 +51,11 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    new JoystickButton(controller, Button.kStart.value).whileTrue(new SpeakerTracking(shooter, limelightShooter, driveTrain));
-    new JoystickButton(operatorController, Button.kRightStick.value).toggleOnTrue(new ZeroEncoder(elevator, intake, shooter, operatorController));
+    new JoystickButton(driveController, Button.kStart.value).whileTrue(new SpeakerTracking(shooter, limelightShooter, chassis));
   }
 
   public Command getAutonomousCommand() {
     PathPlannerPath path = PathPlannerPath.fromPathFile("Path5");
     return AutoBuilder.followPath(path);
-    //return autoChooser.getSelected();
   }
 }

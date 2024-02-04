@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
 public class IntakeDefaultCommand extends Command {
-  Intake intake;
-  XboxController operatorController;
+  private Intake intake;
+  private XboxController operatorController;
   /** Creates a new IntakeDefaultCommand. */
   public IntakeDefaultCommand(Intake intake, XboxController operatorController) {
     this.intake = intake;

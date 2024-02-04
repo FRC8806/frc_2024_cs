@@ -6,17 +6,11 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.constants.SwerveConstants;
 
-import com.ctre.phoenix6.hardware.Pigeon2;
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.commands.FollowPathCommand;
-import com.pathplanner.lib.commands.FollowPathHolonomic;
-import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -29,21 +23,20 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 /** Add your docs here. */
-public class DriveTrain extends SubsystemBase {
+public class Chassis extends SubsystemBase {
   private AHRS ahrs = new AHRS(SPI.Port.kMXP);
-  // private Pigeon2 gyro = new Pigeon2(1);
-  private SwerveModule moduleA = new SwerveModule(Constants.A_THROTTLE_ID, Constants.A_ROTOR_ID, Constants.A_ENCODER_ID,
-      Constants.A_OFFSET);
-  private SwerveModule moduleB = new SwerveModule(Constants.B_THROTTLE_ID, Constants.B_ROTOR_ID, Constants.B_ENCODER_ID,
-      Constants.B_OFFSET);
-  private SwerveModule moduleC = new SwerveModule(Constants.C_THROTTLE_ID, Constants.C_ROTOR_ID, Constants.C_ENCODER_ID,
-      Constants.C_OFFSET);
-  private SwerveModule moduleD = new SwerveModule(Constants.D_THROTTLE_ID, Constants.D_ROTOR_ID, Constants.D_ENCODER_ID,
-      Constants.D_OFFSET);
-  private SwerveDriveOdometry odometry = new SwerveDriveOdometry(Constants.SWERVE_KINEMATIS, getRotation2d(),
+  private SwerveModule moduleA = new SwerveModule(SwerveConstants.A_THROTTLE_ID, SwerveConstants.A_ROTOR_ID, SwerveConstants.A_ENCODER_ID,
+      SwerveConstants.A_OFFSET);
+  private SwerveModule moduleB = new SwerveModule(SwerveConstants.B_THROTTLE_ID, SwerveConstants.B_ROTOR_ID, SwerveConstants.B_ENCODER_ID,
+      SwerveConstants.B_OFFSET);
+  private SwerveModule moduleC = new SwerveModule(SwerveConstants.C_THROTTLE_ID, SwerveConstants.C_ROTOR_ID, SwerveConstants.C_ENCODER_ID,
+      SwerveConstants.C_OFFSET);
+  private SwerveModule moduleD = new SwerveModule(SwerveConstants.D_THROTTLE_ID, SwerveConstants.D_ROTOR_ID, SwerveConstants.D_ENCODER_ID,
+      SwerveConstants.D_OFFSET);
+  private SwerveDriveOdometry odometry = new SwerveDriveOdometry(SwerveConstants.SWERVE_KINEMATIS, getRotation2d(),
       getModulePositions());
 
-  public DriveTrain() {
+  public Chassis() {
     AutoBuilder.configureHolonomic(
         this::getPose, // Robot pose supplier
         this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
@@ -77,15 +70,10 @@ public class DriveTrain extends SubsystemBase {
   }
 
   public void drive(ChassisSpeeds chassisSpeeds) {
-    // if (Math.abs(xAxis) <= 0.05 && Math.abs(yAxis) <= 0.05 && Math.abs(rAxis) <= 0.05) {
-    //   xAxis = 0;
-    //   yAxis = 0;
-    //   rAxis = 0;
-    // }
     double xSpeed = chassisSpeeds.vxMetersPerSecond;
     double ySpeed = chassisSpeeds.vyMetersPerSecond;
     double rSpeed = chassisSpeeds.omegaRadiansPerSecond;
-    SwerveModuleState[] states = Constants.SWERVE_KINEMATIS.toSwerveModuleStates(
+    SwerveModuleState[] states = SwerveConstants.SWERVE_KINEMATIS.toSwerveModuleStates(
         ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rSpeed, getRotation2d()));
     setModuleStates(states);
   }
@@ -125,10 +113,9 @@ public class DriveTrain extends SubsystemBase {
 
   private Rotation2d getRotation2d() {
     return Rotation2d.fromDegrees(-ahrs.getAngle());
-    // return Rotation2d.fromDegrees(gyro.getYaw()+90);
   }
 
   public ChassisSpeeds getRobotRelativeSpeeds() {
-    return Constants.SWERVE_KINEMATIS.toChassisSpeeds(getModuleStates());
+    return SwerveConstants.SWERVE_KINEMATIS.toChassisSpeeds(getModuleStates());
   }
 }

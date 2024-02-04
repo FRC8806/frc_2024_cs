@@ -6,16 +6,16 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Climber;
 
-public class ElevatorCommand extends Command {
-  Elevator elevator;
-  XboxController operatorController;
+public class ClimberDefaultCommand extends Command {
+  private Climber climber;
+  private XboxController operatorController;
   /** Creates a new ElevatorControl. */
-  public ElevatorCommand(Elevator elevator, XboxController operatorController) {
-    this.elevator = elevator;
+  public ClimberDefaultCommand(Climber climber, XboxController operatorController) {
+    this.climber = climber;
     this.operatorController = operatorController;
-    addRequirements(elevator);
+    addRequirements(climber);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -26,8 +26,8 @@ public class ElevatorCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevator.setElevatorLeftSpeed(operatorController.getLeftY());
-    elevator.setElevatorRightSpeed(-operatorController.getRightY());
+    climber.setLeftSpeed(operatorController.getLeftY());
+    climber.setRightSpeed(-operatorController.getRightY());
     
     //elevator.setElevatorSpeed(operatorController.getRightTriggerAxis()-operatorController.getLeftTriggerAxis());
   }

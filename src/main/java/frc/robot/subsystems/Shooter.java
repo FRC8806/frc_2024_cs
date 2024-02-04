@@ -11,47 +11,40 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import frc.robot.Limit;
-
+import frc.robot.SoftLimiter;
+import frc.robot.constants.ShooterConstants;
 public class Shooter extends SubsystemBase {
-  CANSparkMax shootingMotor1 = new CANSparkMax(5, MotorType.kBrushless);
-  CANSparkMax shootingMotor2 = new CANSparkMax(6, MotorType.kBrushless);
-  //TalonFX shootingMotor = new TalonFX(13);
-  //CANSparkFlex shootingMotor1 = new CANSparkFlex(50, MotorType.kBrushless);
-  //CANSparkFlex shootingMotor2 = new CANSparkFlex(51, MotorType.kBrushless);
-  //TalonFX shooterAngleMotor = new TalonFX(12);
-  CANSparkMax shooterAngleMotor = new CANSparkMax(4, MotorType.kBrushless);
-  CANSparkMax transportMotor = new CANSparkMax(2, MotorType.kBrushless);
-  RelativeEncoder shooterEncoder = shooterAngleMotor.getEncoder();
-  /** Creates a new Shooter. */
-  public Shooter() {}
+  private CANSparkMax leftMotor = new CANSparkMax(ShooterConstants.LEFT_MOTOR_ID, MotorType.kBrushless);
+  private CANSparkMax rightMotor = new CANSparkMax(ShooterConstants.RIGHT_MOTOR_ID, MotorType.kBrushless);
+  private CANSparkMax angleMotor = new CANSparkMax(ShooterConstants.ANGLE_MOTOR_ID, MotorType.kBrushless);
+  private CANSparkMax transportMotor = new CANSparkMax(ShooterConstants.TRANSPORT_MOTOR_ID, MotorType.kBrushless);
+  private RelativeEncoder shootingEncoder;
+  private RelativeEncoder angleEncoder;
+  private SoftLimiter shootLimiter;
+
+  public Shooter() {
+    shootingEncoder = leftMotor.getEncoder();
+    angleEncoder = angleMotor.getEncoder();
+    shootLimiter = new SoftLimiter(() -> shootingEncoder.getPosition());
+    shootLimiter.setRange(ShooterConstants.angleHighLimit, ShooterConstants.angleLowLimit);
+    shootLimiter.disableLimiter();
+  }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
   }
 
   public void setShootingSpeed(double speed) {
-    //shootingMotor.set(-speed);
-    shootingMotor1.set(speed);
-    shootingMotor2.set(-speed);
+    leftMotor.set(speed);
+    rightMotor.set(-speed);
   }
-  public void setShooterAngle(double speed) {
-    //speed = new Limit().setLimit(speed, getShooterPosition(), Constants.SHOOTER_HIGH_LIMIT, Constants.SHOOTER_LOW_LIMIT, 0.3, 0.3);
 
-    shooterAngleMotor.set(speed);
+  public void setShooterAngle(double speed) {
+    speed = shootLimiter.getOutput(speed);
+    angleMotor.set(speed);
   }
-  public void setTransportSpeed(double speed){
+
+  public void setTransportSpeed(double speed) {
     transportMotor.set(speed);
-  }
-  public double getShooterPosition(){
-    return shooterEncoder.getPosition();
-  }
-  public void zeroShooterEncoder(){
-    shooterEncoder.setPosition(0);
-  }
-  public void setShooterOutOfLimit(double speed){
-    shooterAngleMotor.set(speed);
   }
 }
