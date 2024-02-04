@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.IntakeConstants;
 import frc.robot.subsystems.Intake;
 
 public class IntakeDefaultCommand extends Command {
@@ -26,7 +27,12 @@ public class IntakeDefaultCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setIntakeAngle(operatorController.getXButton() ? 0.12 : operatorController.getYButton() ? -0.12 : 0);
+    if(operatorController.getYButton()) {
+      intake.setIntakePosition(IntakeConstants.downPosition);
+    }
+    if(operatorController.getXButton()) {
+      intake.setIntakePosition(IntakeConstants.upPosition);
+    }
     intake.setRollingSpeed(operatorController.getBButton() ? 0.4 : 0);
     intake.setLollipopSpeed(operatorController.getAButton() ? 0.2 : 0);
   }

@@ -9,4 +9,6 @@ public class IntakeConstants {
 
   public static final double angleHighLimit = 41;
   public static final double angleLowLimit = 0;
+  public static final double downPosition = 40.8;
+  public static final double upPosition = 5;
 }

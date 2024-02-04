@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.SoftLimiter;
@@ -20,6 +21,7 @@ public class Intake extends SubsystemBase {
   private TalonFX angleMotor = new TalonFX(IntakeConstants.ANGLE_MOTOR_ID);
   private CANSparkMax microphone = new CANSparkMax(IntakeConstants.MICROPHONE_MOTOR_ID, MotorType.kBrushless);
   private SoftLimiter angleLimiter;
+  private PIDController intakePID = new PIDController(0, 0, 0);
   public Intake() {
     angleLimiter = new SoftLimiter(()-> angleMotor.getPosition().getValue());
     angleLimiter.setRange(IntakeConstants.angleHighLimit, IntakeConstants.angleLowLimit);
@@ -29,6 +31,10 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Intake posiiton", angleMotor.getPosition().getValue());
+  }
+
+  public void setIntakePosition(double position) {
+    setIntakeAngle(intakePID.calculate(angleMotor.getPosition().getValue(), position));
   }
 
   public void setRollingSpeed(double rollingSpeed) {
@@ -41,5 +47,17 @@ public class Intake extends SubsystemBase {
 
   public void setLollipopSpeed(double speed){
     microphone.set(speed);
+  }
+
+  public void setLimiter(boolean state) {
+    if(state) {
+      angleLimiter.enableLimiter();
+    }else {
+      angleLimiter.disableLimiter();
+    }
+  }
+
+  public void setToZero() {
+    angleMotor.setPosition(0);
   }
 }

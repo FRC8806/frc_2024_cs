@@ -43,11 +43,18 @@ public class Climber extends SubsystemBase {
     return leftMotor.getRotorPosition().getValue();
   }
 
-  public void setElevatorRightOutOfLimit(double speed) {
-    rightMotor.set(speed);
+  public void setLimiter(boolean state) {
+    if(state) {
+      leftLimiter.enableLimiter();
+      rightLimiter.enableLimiter();
+    }else {
+      leftLimiter.disableLimiter();
+      rightLimiter.disableLimiter();
+    }
   }
 
-  public void setElevatorLeftOutOfLimit(double speed) {
-    leftMotor.set(speed);
+  public void setToZero() {
+    leftMotor.setPosition(0);
+    rightMotor.setPosition(0);
   }
 }

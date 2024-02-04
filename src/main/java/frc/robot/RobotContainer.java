@@ -30,11 +30,11 @@ import frc.robot.subsystems.Shooter;
 public class RobotContainer {
   private final NetworkTable limelightShooter = NetworkTableInstance.getDefault().getTable("limelight-shooter");
   private final Chassis chassis = new Chassis();
-  private final Intake intake = new Intake();
-  private final Shooter shooter = new Shooter();
-  private final Climber climber = new Climber();
+  public final Intake intake = new Intake();
+  public final Shooter shooter = new Shooter();
+  public final Climber climber = new Climber();
   private final XboxController driveController = new XboxController(0);
-  private final XboxController operatorController = new XboxController(1);
+  public final XboxController operatorController = new XboxController(1);
   private final SendableChooser<Command> autoChooser;
   
 
@@ -42,7 +42,7 @@ public class RobotContainer {
     chassis.setDefaultCommand(new SwerveControl(chassis, ()-> driveController.getLeftY(), ()-> driveController.getLeftX(), ()-> driveController.getRightX()));
     intake.setDefaultCommand(new IntakeDefaultCommand(intake, operatorController));
     // shooter.setDefaultCommand(new ShooterDefaultCommand(shooter, operatorController));
-    // climber.setDefaultCommand(new ClimberDefaultCommand(climber, operatorController));
+    climber.setDefaultCommand(new ClimberDefaultCommand(climber, operatorController));
     // Configure the trigger bindings
     configureBindings();
     

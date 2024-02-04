@@ -64,5 +64,4 @@ public class SwerveModule {
 
 		rotorPID.enableContinuousInput(-180, 180);
 	}
-
 }

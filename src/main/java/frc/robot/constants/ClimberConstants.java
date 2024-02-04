@@ -9,5 +9,5 @@ public class ClimberConstants {
   public static final double LEFT_ELEVATOR_HIGH_LIMIT = -10;
   public static final double LEFT_ELEVATOR_LOW_LIMIT = -640;
 
-  public static final double climberGearRitio = 1/80;
+  public static final double climberGearRitio = 1/100;
 }

@@ -27,7 +27,7 @@ public class Shooter extends SubsystemBase {
     angleEncoder = angleMotor.getEncoder();
     shootLimiter = new SoftLimiter(() -> shootingEncoder.getPosition());
     shootLimiter.setRange(ShooterConstants.angleHighLimit, ShooterConstants.angleLowLimit);
-    shootLimiter.disableLimiter();
+    shootLimiter.enableLimiter();
   }
 
   @Override
@@ -40,11 +40,22 @@ public class Shooter extends SubsystemBase {
   }
 
   public void setShooterAngle(double speed) {
-    speed = shootLimiter.getOutput(speed);
-    angleMotor.set(speed);
+    angleMotor.set(shootLimiter.getOutput(speed));
   }
 
   public void setTransportSpeed(double speed) {
     transportMotor.set(speed);
+  }
+
+  public void setLimiter(boolean state) {
+    if(state) {
+      shootLimiter.enableLimiter();
+    } else {
+      shootLimiter.disableLimiter();
+    }
+  }
+
+  public void setToZero() {
+    angleEncoder.setPosition(0);
   }
 }
