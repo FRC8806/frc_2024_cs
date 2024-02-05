@@ -12,7 +12,7 @@ public class IntakeConstants {
   public static final double angleHighLimit = 42;
   public static final double angleLowLimit = 8;
   public static final double downPosition = 42;
-  public static final double upPosition = 15;
+  public static final double upPosition = 10;
   //color
   public static final Color noteColor = new Color(142, 91, 22);
 }
