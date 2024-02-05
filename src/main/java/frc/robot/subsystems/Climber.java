@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.SoftLimiter;
@@ -12,6 +13,7 @@ public class Climber extends SubsystemBase {
   private TalonFX rightMotor = new TalonFX(ClimberConstants.RIGHT_CLIMBER_ID);
   private SoftLimiter leftLimiter;
   private SoftLimiter rightLimiter;
+  private PIDController climbPID = new PIDController(0.03, 0, 0);
 
   public Climber() {
     leftLimiter = new SoftLimiter(()-> getLeftPosition());
@@ -24,6 +26,11 @@ public class Climber extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("leftElevator", getLeftPosition());
     SmartDashboard.putNumber("rightElevator", getRightPosition());
+  }
+
+  public void setToPosition(double position) {
+    setLeftSpeed(climbPID.calculate(getLeftPosition(), -position));
+    setRightSpeed(climbPID.calculate(getRightPosition(),position));
   }
 
   public void setRightSpeed(double speed) {

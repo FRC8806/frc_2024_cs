@@ -18,11 +18,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ClimberDefaultCommand;
-import frc.robot.commands.IntakeDefaultCommand;
 import frc.robot.commands.ShooterDefaultCommand;
 import frc.robot.commands.SpeakerTracking;
 import frc.robot.commands.SwerveControl;
-import frc.robot.commands.Intake.TeleGetNote;
+import frc.robot.commands.Teleop.ClimbCommand;
+import frc.robot.commands.Teleop.TeleGetNote;
 import frc.robot.constants.OIConstants;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Climber;
@@ -49,8 +49,9 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    new JoystickButton(driveController, Button.kStart.value).whileTrue(new SpeakerTracking(shooter, limelightShooter, chassis));
+    // new JoystickButton(driveController, Button.kStart.value).whileTrue(new SpeakerTracking(shooter, limelightShooter, chassis));
     new JoystickButton(operatorController, Button.kA.value).toggleOnTrue(new TeleGetNote(intake));
+    new JoystickButton(operatorController, Button.kBack.value).onTrue(new ClimbCommand(climber, ()-> operatorController.getStartButton()));
   }
 
   public Command getAutonomousCommand() {
@@ -60,15 +61,13 @@ public class RobotContainer {
 
   public void setDefaultCommand() {
     chassis.setDefaultCommand(new SwerveControl(chassis, ()-> driveController.getLeftY(), ()-> driveController.getLeftX(), ()-> driveController.getRightX()));
-    // intake.setDefaultCommand(new IntakeDefaultCommand(intake, operatorController));
     shooter.setDefaultCommand(new ShooterDefaultCommand(shooter, operatorController));
-    climber.setDefaultCommand(new ClimberDefaultCommand(climber, operatorController));
+    // climber.setDefaultCommand(new ClimberDefaultCommand(climber, operatorController));
   }
 
   public void cancelDefaultCommand() {
-    // CommandScheduler.getInstance().removeDefaultCommand(intake);
     CommandScheduler.getInstance().removeDefaultCommand(chassis);
     CommandScheduler.getInstance().removeDefaultCommand(shooter);
-    CommandScheduler.getInstance().removeDefaultCommand(climber);
+    // CommandScheduler.getInstance().removeDefaultCommand(climber);
   }
 }

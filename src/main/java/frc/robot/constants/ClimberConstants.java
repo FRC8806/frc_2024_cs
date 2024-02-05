@@ -9,5 +9,8 @@ public class ClimberConstants {
   public static final double LEFT_ELEVATOR_HIGH_LIMIT = -10;
   public static final double LEFT_ELEVATOR_LOW_LIMIT = -380;
 
+  public static final double SETUP_POSE = 360;
+  public static final double DOWN_POSE = 20;
+
   public static final double climberGearRitio = 1/60;
 }
