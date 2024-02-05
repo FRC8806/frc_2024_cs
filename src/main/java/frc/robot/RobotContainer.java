@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.ClimberDefaultCommand;
 import frc.robot.commands.ShooterDefaultCommand;
 import frc.robot.commands.SpeakerTracking;
 import frc.robot.commands.SwerveControl;
@@ -62,12 +61,10 @@ public class RobotContainer {
   public void setDefaultCommand() {
     chassis.setDefaultCommand(new SwerveControl(chassis, ()-> driveController.getLeftY(), ()-> driveController.getLeftX(), ()-> driveController.getRightX()));
     shooter.setDefaultCommand(new ShooterDefaultCommand(shooter, operatorController));
-    // climber.setDefaultCommand(new ClimberDefaultCommand(climber, operatorController));
   }
 
   public void cancelDefaultCommand() {
     CommandScheduler.getInstance().removeDefaultCommand(chassis);
     CommandScheduler.getInstance().removeDefaultCommand(shooter);
-    // CommandScheduler.getInstance().removeDefaultCommand(climber);
   }
 }
