@@ -15,12 +15,15 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ClimberDefaultCommand;
 import frc.robot.commands.IntakeDefaultCommand;
 import frc.robot.commands.ShooterDefaultCommand;
 import frc.robot.commands.SpeakerTracking;
 import frc.robot.commands.SwerveControl;
+import frc.robot.commands.Intake.TeleGetNote;
+import frc.robot.constants.OIConstants;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
@@ -33,29 +36,39 @@ public class RobotContainer {
   public final Intake intake = new Intake();
   public final Shooter shooter = new Shooter();
   public final Climber climber = new Climber();
-  private final XboxController driveController = new XboxController(0);
-  public final XboxController operatorController = new XboxController(1);
+  private final XboxController driveController = new XboxController(OIConstants.driveControllerID);
+  public final XboxController operatorController = new XboxController(OIConstants.operatorControllerID);
   private final SendableChooser<Command> autoChooser;
   
 
   public RobotContainer() {
-    chassis.setDefaultCommand(new SwerveControl(chassis, ()-> driveController.getLeftY(), ()-> driveController.getLeftX(), ()-> driveController.getRightX()));
-    intake.setDefaultCommand(new IntakeDefaultCommand(intake, operatorController));
-    // shooter.setDefaultCommand(new ShooterDefaultCommand(shooter, operatorController));
-    climber.setDefaultCommand(new ClimberDefaultCommand(climber, operatorController));
-    // Configure the trigger bindings
+    setDefaultCommand();
     configureBindings();
-    
     autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Auto Chooser", autoChooser);
   }
 
   private void configureBindings() {
     new JoystickButton(driveController, Button.kStart.value).whileTrue(new SpeakerTracking(shooter, limelightShooter, chassis));
+    new JoystickButton(operatorController, Button.kA.value).toggleOnTrue(new TeleGetNote(intake));
   }
 
   public Command getAutonomousCommand() {
     PathPlannerPath path = PathPlannerPath.fromPathFile("Path5");
     return AutoBuilder.followPath(path);
+  }
+
+  public void setDefaultCommand() {
+    chassis.setDefaultCommand(new SwerveControl(chassis, ()-> driveController.getLeftY(), ()-> driveController.getLeftX(), ()-> driveController.getRightX()));
+    // intake.setDefaultCommand(new IntakeDefaultCommand(intake, operatorController));
+    shooter.setDefaultCommand(new ShooterDefaultCommand(shooter, operatorController));
+    climber.setDefaultCommand(new ClimberDefaultCommand(climber, operatorController));
+  }
+
+  public void cancelDefaultCommand() {
+    // CommandScheduler.getInstance().removeDefaultCommand(intake);
+    CommandScheduler.getInstance().removeDefaultCommand(chassis);
+    CommandScheduler.getInstance().removeDefaultCommand(shooter);
+    CommandScheduler.getInstance().removeDefaultCommand(climber);
   }
 }

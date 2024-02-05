@@ -8,7 +8,7 @@ public final class ShooterConstants {
 	public static final int TRANSPORT_MOTOR_ID = 2;
 	public static final int ANGLE_MOTOR_ID = 4;
 
-	public static final double angleHighLimit = 0;
-	public static final double angleLowLimit = 0;
+	public static final double angleHighLimit = 80;
+	public static final double angleLowLimit = 2;
 
 }

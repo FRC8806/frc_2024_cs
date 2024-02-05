@@ -49,9 +49,8 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    m_robotContainer.intake.setLimiter(true);
-    m_robotContainer.climber.setLimiter(true);
-    m_robotContainer.shooter.setLimiter(true);
+    m_robotContainer.setDefaultCommand();
+    SoftLimiter.onWorked = true;
   }
 
   @Override
@@ -91,16 +90,15 @@ public class Robot extends TimedRobot {
   public void testInit() {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
-    m_robotContainer.climber.setLimiter(false);
-    m_robotContainer.intake.setLimiter(false);
-    m_robotContainer.shooter.setLimiter(false);
+    m_robotContainer.cancelDefaultCommand();
+    SoftLimiter.onWorked = false;
   }
 
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {
     m_robotContainer.climber.setLeftSpeed(m_robotContainer.operatorController.getLeftY());
-    m_robotContainer.climber.setRightSpeed(m_robotContainer.operatorController.getRightY());
+    m_robotContainer.climber.setRightSpeed(-m_robotContainer.operatorController.getRightY());
     m_robotContainer.intake.setIntakeAngle(m_robotContainer.operatorController.getYButton() ? 0.2 : m_robotContainer.operatorController.getXButton() ? -0.2 : 0);
     m_robotContainer.shooter.setShooterAngle(m_robotContainer.operatorController.getBButton() ? 0.2 : m_robotContainer.operatorController.getAButton() ? -0.2 : 0);
     if(m_robotContainer.operatorController.getRightStickButton()) {

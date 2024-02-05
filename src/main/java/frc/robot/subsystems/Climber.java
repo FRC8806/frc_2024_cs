@@ -18,8 +18,6 @@ public class Climber extends SubsystemBase {
     rightLimiter = new SoftLimiter(()-> getRightPosition());
     leftLimiter.setRange(ClimberConstants.LEFT_ELEVATOR_HIGH_LIMIT, ClimberConstants.LEFT_ELEVATOR_LOW_LIMIT);
     rightLimiter.setRange(ClimberConstants.RIGHT_ELEVATOR_HIGH_LIMIT, ClimberConstants.RIGHT_ELEVATOR_LOW_LIMIT);
-    leftLimiter.enableLimiter();
-    rightLimiter.enableLimiter();
   }
 
   @Override
@@ -31,6 +29,7 @@ public class Climber extends SubsystemBase {
   public void setRightSpeed(double speed) {
     rightMotor.set(rightLimiter.getOutput(speed));
   }
+
   public void setLeftSpeed(double speed) {
     leftMotor.set(leftLimiter.getOutput(speed));
   }
@@ -41,16 +40,6 @@ public class Climber extends SubsystemBase {
 
   public double getLeftPosition() {
     return leftMotor.getRotorPosition().getValue();
-  }
-
-  public void setLimiter(boolean state) {
-    if(state) {
-      leftLimiter.enableLimiter();
-      rightLimiter.enableLimiter();
-    }else {
-      leftLimiter.disableLimiter();
-      rightLimiter.disableLimiter();
-    }
   }
 
   public void setToZero() {

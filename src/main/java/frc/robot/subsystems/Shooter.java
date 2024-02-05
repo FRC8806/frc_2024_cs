@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.SoftLimiter;
 import frc.robot.constants.ShooterConstants;
@@ -25,13 +26,13 @@ public class Shooter extends SubsystemBase {
   public Shooter() {
     shootingEncoder = leftMotor.getEncoder();
     angleEncoder = angleMotor.getEncoder();
-    shootLimiter = new SoftLimiter(() -> shootingEncoder.getPosition());
+    shootLimiter = new SoftLimiter(() -> angleEncoder.getPosition());
     shootLimiter.setRange(ShooterConstants.angleHighLimit, ShooterConstants.angleLowLimit);
-    shootLimiter.enableLimiter();
   }
 
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("shooter angle", angleEncoder.getPosition());
   }
 
   public void setShootingSpeed(double speed) {
@@ -45,14 +46,6 @@ public class Shooter extends SubsystemBase {
 
   public void setTransportSpeed(double speed) {
     transportMotor.set(speed);
-  }
-
-  public void setLimiter(boolean state) {
-    if(state) {
-      shootLimiter.enableLimiter();
-    } else {
-      shootLimiter.disableLimiter();
-    }
   }
 
   public void setToZero() {
