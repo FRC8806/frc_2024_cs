@@ -1,7 +1,17 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
+//          2024202420242024      2024202420242024      2024202420242024      2024202420242024
+//        20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
+//       2024            2024  2024            2024  2024            2024  2024
+//       2024            2024  2024            2024  2024            2024  2024
+//      2024            2024  2024            2024  2024            2024  2024
+//      2024            2024  2024            2024  2024            2024  2024
+//     20242024202420242024  20242024202420242024  2024            2024  20242024202420242024
+//     20242024202420242024  20242024202420242024  2024            2024  20242024202420242024
+//    2024            2024  2024            2024  2024            2024  2024            2024
+//    2024            2024  2024            2024  2024            2024  2024            2024
+//   2024            2024  2024            2024  2024            2024  2024            2024
+//   2024            2024  2024            2024  2024            2024  2024            2024
+//  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
+//    2024202420242024      2024202420242024      2024202420242024      2024202420242024
 package frc.robot;
 
 
@@ -18,9 +28,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ShooterDefaultCommand;
-import frc.robot.commands.SpeakerTracking;
-import frc.robot.commands.SwerveControl;
-import frc.robot.commands.Teleop.ClimbCommand;
+import frc.robot.commands.Teleop.ClimbUp;
+import frc.robot.commands.Teleop.IntakeDefaultCommand;
+import frc.robot.commands.Teleop.ReadyClimber;
+import frc.robot.commands.Teleop.SpeakerTracking;
+import frc.robot.commands.Teleop.SwerveControl;
 import frc.robot.commands.Teleop.TeleGetNote;
 import frc.robot.constants.OIConstants;
 import frc.robot.subsystems.Chassis;
@@ -48,9 +60,9 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    // new JoystickButton(driveController, Button.kStart.value).whileTrue(new SpeakerTracking(shooter, limelightShooter, chassis));
+    new JoystickButton(driveController, Button.kStart.value).toggleOnTrue(new SpeakerTracking(shooter, intake, limelightShooter, chassis, () -> driveController.getLeftY(), () -> driveController.getLeftX(), ()-> operatorController.getLeftTriggerAxis()));
     new JoystickButton(operatorController, Button.kA.value).toggleOnTrue(new TeleGetNote(intake));
-    new JoystickButton(operatorController, Button.kBack.value).onTrue(new ClimbCommand(climber, ()-> operatorController.getStartButton()));
+    new JoystickButton(operatorController, Button.kBack.value).onTrue(new ReadyClimber(climber, ()-> operatorController.getStartButton()).andThen(new ClimbUp(climber)));
   }
 
   public Command getAutonomousCommand() {
@@ -60,7 +72,8 @@ public class RobotContainer {
 
   public void setDefaultCommand() {
     chassis.setDefaultCommand(new SwerveControl(chassis, ()-> driveController.getLeftY(), ()-> driveController.getLeftX(), ()-> driveController.getRightX()));
-    shooter.setDefaultCommand(new ShooterDefaultCommand(shooter, operatorController));
+    shooter.setDefaultCommand(new ShooterDefaultCommand(shooter, operatorController, intake, limelightShooter));
+    intake.setDefaultCommand(new IntakeDefaultCommand(intake, operatorController));
   }
 
   public void cancelDefaultCommand() {

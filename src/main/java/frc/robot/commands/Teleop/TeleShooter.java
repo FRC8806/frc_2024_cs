@@ -12,46 +12,48 @@
 //   2024            2024  2024            2024  2024            2024  2024            2024
 //  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
-package frc.robot.commands;
+package frc.robot.commands.Teleop;
+
+import java.util.function.Supplier;
 
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
-public class ShooterDefaultCommand extends Command {
+public class TeleShooter extends Command {
   private Shooter shooter;
   private Intake intake;
-  private XboxController operatorController;
+  private Supplier<Boolean> shootButton;
   private NetworkTable shooterLimelight;
-  public ShooterDefaultCommand(Shooter shooter, XboxController operatorController, Intake intake, NetworkTable shooterLimelight) {
+  public TeleShooter(Shooter shooter, Intake intake, Supplier<Boolean> shootButton, NetworkTable shooterLimelight) {
     this.shooter = shooter;
     this.intake = intake;
-    this.operatorController = operatorController;
+    this.shootButton = shootButton;
     this.shooterLimelight = shooterLimelight;
-    addRequirements(shooter);
-    // addRequirements(intake);
   }
 
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setShootingSpeed(operatorController.getRightTriggerAxis());
-    // intake.setMicroPhoneSpeed(operatorController.getLeftTriggerAxis() > 0.2 ? 0.2 : 0);
-    shooter.setShooterAngle(operatorController.getRightBumper() ? 0.15 : operatorController.getLeftBumper() ? -0.15 : 0);
-    shooter.setTransportSpeed(operatorController.getLeftTriggerAxis());
-    SmartDashboard.putNumber("ty", shooterLimelight.getValue("ty").getDouble());
+    double tx = shooterLimelight.getEntry("tx").getDouble(0);
+    double ty = shooterLimelight.getEntry("ty").getDouble(0);
+    if(intake.isNoteSet()) {
+      shooter.setShootingSpeed(0.8);
+    }
   }
 
+  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
 
+  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return shootButton.get();
   }
 }

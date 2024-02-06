@@ -1,7 +1,17 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
+//          2024202420242024      2024202420242024      2024202420242024      2024202420242024
+//        20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
+//       2024            2024  2024            2024  2024            2024  2024
+//       2024            2024  2024            2024  2024            2024  2024
+//      2024            2024  2024            2024  2024            2024  2024
+//      2024            2024  2024            2024  2024            2024  2024
+//     20242024202420242024  20242024202420242024  2024            2024  20242024202420242024
+//     20242024202420242024  20242024202420242024  2024            2024  20242024202420242024
+//    2024            2024  2024            2024  2024            2024  2024            2024
+//    2024            2024  2024            2024  2024            2024  2024            2024
+//   2024            2024  2024            2024  2024            2024  2024            2024
+//   2024            2024  2024            2024  2024            2024  2024            2024
+//  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
+//    2024202420242024      2024202420242024      2024202420242024      2024202420242024
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -26,7 +36,7 @@ public class Intake extends SubsystemBase {
   private TalonFX angleMotor = new TalonFX(IntakeConstants.ANGLE_MOTOR_ID);
   private CANSparkMax microphone = new CANSparkMax(IntakeConstants.MICROPHONE_MOTOR_ID, MotorType.kBrushless);
   private SoftLimiter angleLimiter;
-  private PIDController intakePID = new PIDController(0.08, 0, 0);
+  private PIDController intakePID = new PIDController(0.05, 0, 0);
 
   private boolean isSetToPosition = false;
   private double intakePosition = 10;
@@ -42,6 +52,7 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     SmartDashboard.putNumber("Intake position", angleMotor.getPosition().getValue());
     SmartDashboard.putBoolean("color matched", isNoteSet());
+
     if(isSetToPosition) { angleMotor.set(angleLimiter.getOutput(intakePID.calculate(angleMotor.getPosition().getValue(), intakePosition)));}
   }
 
@@ -65,7 +76,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void setRolling(boolean state) {
-    setRollingSpeed(state? 0.5: 0);
+    setRollingSpeed(state? 0.4: 0);
   }
 
   public void setIntakeAngle(double speed) {
@@ -90,9 +101,9 @@ public class Intake extends SubsystemBase {
   }
 
   public boolean isNoteSet() {
-    if (colorMatch.matchColor(getColor()) != null) {
-      return colorMatch.matchColor(getColor()).color == IntakeConstants.noteColor;
-    }
+    // if (colorMatch.matchColor(getColor()) != null) {
+    //   return colorMatch.matchColor(getColor()).color == IntakeConstants.noteColor;
+    // }
     return false;
   }
 }

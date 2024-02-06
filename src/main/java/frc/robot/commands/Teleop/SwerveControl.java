@@ -12,27 +12,27 @@
 //   2024            2024  2024            2024  2024            2024  2024            2024
 //  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
-package frc.robot.commands;
+package frc.robot.commands.Teleop;
 
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import java.util.function.Supplier;
+
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Shooter;
+import frc.robot.constants.SwerveConstants;
+import frc.robot.subsystems.Chassis;
 
-public class ShooterDefaultCommand extends Command {
-  private Shooter shooter;
-  private Intake intake;
-  private XboxController operatorController;
-  private NetworkTable shooterLimelight;
-  public ShooterDefaultCommand(Shooter shooter, XboxController operatorController, Intake intake, NetworkTable shooterLimelight) {
-    this.shooter = shooter;
-    this.intake = intake;
-    this.operatorController = operatorController;
-    this.shooterLimelight = shooterLimelight;
-    addRequirements(shooter);
-    // addRequirements(intake);
+public class SwerveControl extends Command {
+  private Chassis chassis;
+  private Supplier<Double> xAxis;
+  private Supplier<Double> yAxis;
+  private Supplier<Double> zAxis;
+
+  public SwerveControl(Chassis chassis, Supplier<Double> xAxis, Supplier<Double> yAxis, Supplier<Double> zAxis) {
+    this.chassis = chassis;
+    this.xAxis = xAxis;
+    this.yAxis = yAxis;
+    this.zAxis = zAxis;
+    addRequirements(chassis);
   }
 
   @Override
@@ -40,18 +40,34 @@ public class ShooterDefaultCommand extends Command {
 
   @Override
   public void execute() {
-    shooter.setShootingSpeed(operatorController.getRightTriggerAxis());
-    // intake.setMicroPhoneSpeed(operatorController.getLeftTriggerAxis() > 0.2 ? 0.2 : 0);
-    shooter.setShooterAngle(operatorController.getRightBumper() ? 0.15 : operatorController.getLeftBumper() ? -0.15 : 0);
-    shooter.setTransportSpeed(operatorController.getLeftTriggerAxis());
-    SmartDashboard.putNumber("ty", shooterLimelight.getValue("ty").getDouble());
+    double xSpeed = onDeadband(xAxis.get(), 0.07);
+    double ySpeed = onDeadband(yAxis.get(), 0.07);
+    double rSpeed = onDeadband(zAxis.get(), 0.07);
+    xSpeed *= SwerveConstants.kMaxThrottleSpeed;
+    ySpeed *= SwerveConstants.kMaxThrottleSpeed;
+    rSpeed *= SwerveConstants.kMaxRotationSpeed;
+    chassis.drive(new ChassisSpeeds(xSpeed,ySpeed,rSpeed));
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    chassis.drive(new ChassisSpeeds());
+  }
 
   @Override
   public boolean isFinished() {
     return false;
+  }
+
+  private double onDeadband(double value, double deadband) {
+    if (value > 0) {
+      value -= deadband;
+      value = value < 0 ? 0 : value;
+    }
+    if (value < 0) {
+      value += deadband;
+      value = value > 0 ? 0 : value;
+    }
+    return value;
   }
 }
