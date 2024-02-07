@@ -48,10 +48,10 @@ public final class SwerveConstants {
 	public static final int C_ENCODER_ID = 3;
 	public static final int D_ENCODER_ID = 4;
 
-	public static final double A_OFFSET = 0.63793946 - 1;
-	public static final double B_OFFSET = 0.59399415 - 1;
-	public static final double C_OFFSET = 0.54101563 - 1;
-	public static final double D_OFFSET = 0.69970704 - 1;
+	public static final double A_OFFSET = 0.13793946;
+	public static final double B_OFFSET = 0.09399415;
+	public static final double C_OFFSET = 0.04101563;
+	public static final double D_OFFSET = 0.19970704;
 
 	public static final Translation2d A_TRANSLATION2D = new Translation2d(0.29, 0.29);
 	public static final Translation2d B_TRANSLATION2D = new Translation2d(0.29, -0.29);

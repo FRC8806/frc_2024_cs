@@ -14,14 +14,18 @@
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
 package frc.robot.commands.Teleop;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.ClimberConstants;
 import frc.robot.subsystems.Climber;
 
 public class ClimbUp extends Command {
   private Climber climber;
-  public ClimbUp(Climber climber) {
+  private Supplier<Boolean> resetButton;
+  public ClimbUp(Climber climber, Supplier<Boolean> resetButton) {
     this.climber = climber;
+    this.resetButton = resetButton;
     addRequirements(climber);
   }
 
@@ -38,6 +42,6 @@ public class ClimbUp extends Command {
 
   @Override
   public boolean isFinished() {
-    return false;
+    return resetButton.get();
   }
 }

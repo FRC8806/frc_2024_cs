@@ -40,9 +40,9 @@ public class SwerveControl extends Command {
 
   @Override
   public void execute() {
-    double xSpeed = onDeadband(xAxis.get(), 0.07);
-    double ySpeed = onDeadband(yAxis.get(), 0.07);
-    double rSpeed = onDeadband(zAxis.get(), 0.07);
+    double xSpeed = -onDeadband(xAxis.get(), 0.07);
+    double ySpeed = -onDeadband(yAxis.get(), 0.07);
+    double rSpeed = -onDeadband(zAxis.get(), 0.07);
     xSpeed *= SwerveConstants.kMaxThrottleSpeed;
     ySpeed *= SwerveConstants.kMaxThrottleSpeed;
     rSpeed *= SwerveConstants.kMaxRotationSpeed;

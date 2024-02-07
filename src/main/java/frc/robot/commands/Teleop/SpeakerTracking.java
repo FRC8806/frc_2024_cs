@@ -17,7 +17,6 @@ package frc.robot.commands.Teleop;
 import java.util.function.Supplier;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -30,15 +29,15 @@ import frc.robot.subsystems.Shooter;
 public class SpeakerTracking extends Command {
   private Shooter shooter;
   private Intake intake;
-  private NetworkTable table;
+  private NetworkTable shooterLimelight;
   private Chassis driveTrain;
   private Supplier<Double> xAxis, yAxis;
   private Supplier<Double> shootTrigger;
   private PIDController shooterPID = new PIDController(0.06, 0, 0);
-  private PIDController speedPID = new PIDController(0.01, 0, 0);
-  public SpeakerTracking(Shooter shooter, Intake intake, NetworkTable table, Chassis driveTrain, Supplier<Double> xAxis, Supplier<Double> yAxis, Supplier<Double> shootTrigger) {
+  private PIDController speedPID = new PIDController(0.1, 0, 0);
+  public SpeakerTracking(Shooter shooter, Intake intake, NetworkTable shooterLimelight, Chassis driveTrain, Supplier<Double> xAxis, Supplier<Double> yAxis, Supplier<Double> shootTrigger) {
     this.shooter = shooter;
-    this.table = table;
+    this.shooterLimelight = shooterLimelight;
     this.intake = intake;
     this.driveTrain = driveTrain;
     this.xAxis = xAxis;
@@ -59,17 +58,20 @@ public class SpeakerTracking extends Command {
     double ySpeed = onDeadband(yAxis.get(), SwerveConstants.deadband);
     xSpeed *= SwerveConstants.kMaxThrottleSpeed;
     ySpeed *= SwerveConstants.kMaxThrottleSpeed;
-    double tx = table.getEntry("tx").getDouble(0);
-    double ty = table.getEntry("ty").getDouble(0);
+    double tx = shooterLimelight.getEntry("tx").getDouble(0);
+    double ty = shooterLimelight.getEntry("ty").getDouble(0);
     double targetPosition = 36.1 - 3.03 * ty - 0.0972 * ty * ty;
     SmartDashboard.putNumber("target position", targetPosition);
     // SmartDashboard.putNumber("measure angle", measureAngle.getRotations());
     shooter.setShooterAngle(shooterPID.calculate(shooter.getAnglePosition(), targetPosition));
-    driveTrain.drive(new ChassisSpeeds(xSpeed, ySpeed, tx/10));
-    shooter.setShootingSpeed(0.8 + speedPID.calculate(shooter.getShootingSpeed(), 5600));
+    driveTrain.drive(new ChassisSpeeds(xSpeed, ySpeed, -tx * 0.15));
+    shooter.setShootingSpeed(0.8 + speedPID.calculate(shooter.getShootingSpeed(), 5000));
     if(shootTrigger.get() > 0.8) {
       intake.setMicroPhone(true);
       shooter.setTransportSpeed(0.8);
+    } else {
+      intake.setMicroPhone(false);
+      shooter.setTransportSpeed(0);
     }
   }
 
@@ -79,6 +81,7 @@ public class SpeakerTracking extends Command {
     shooter.setShooterAngle(0);
     shooter.setTransportSpeed(0);
     shooter.setShootingSpeed(0);
+    intake.setMicroPhone(false);
   }
 
   @Override

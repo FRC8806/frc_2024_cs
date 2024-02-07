@@ -32,7 +32,6 @@ public class ShooterDefaultCommand extends Command {
     this.operatorController = operatorController;
     this.shooterLimelight = shooterLimelight;
     addRequirements(shooter);
-    // addRequirements(intake);
   }
 
   @Override
