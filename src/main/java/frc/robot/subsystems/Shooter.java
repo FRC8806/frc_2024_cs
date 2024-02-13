@@ -72,4 +72,8 @@ public class Shooter extends SubsystemBase {
   public double getAnglePosition() {
     return angleEncoder.getPosition();
   }
+
+  public void setAMPAngle(){
+    setShooterAngle(ShooterConstants.angleAMP);
+  } 
 }

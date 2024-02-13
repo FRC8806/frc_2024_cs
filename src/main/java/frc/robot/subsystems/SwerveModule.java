@@ -31,7 +31,7 @@ public class SwerveModule {
 	private TalonFX throttle;
 	private TalonFX rotor;
 	private CANcoder encoder;
-	private PIDController rotorPID = new PIDController(0.013, 0, 0);
+	private PIDController rotorPID = new PIDController(SwerveConstants.rotorKP, SwerveConstants.rotorKI, SwerveConstants.rotorKD);
 	public CANcoderConfiguration config = new CANcoderConfiguration();
 
 	public SwerveModule(int throttleID, int rotorID, int cancoderID, double encoderOffset) {

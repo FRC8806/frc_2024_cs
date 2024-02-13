@@ -12,35 +12,21 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "New Path"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "test marker1"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "test marker1"
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "New New Path"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "New Path"
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
+            "commands": []
           }
         }
       ]

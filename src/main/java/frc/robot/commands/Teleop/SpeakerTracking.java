@@ -21,6 +21,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.ShooterConstants;
 import frc.robot.constants.SwerveConstants;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Intake;
@@ -33,8 +34,8 @@ public class SpeakerTracking extends Command {
   private Chassis driveTrain;
   private Supplier<Double> xAxis, yAxis;
   private Supplier<Double> shootTrigger;
-  private PIDController shooterPID = new PIDController(0.06, 0, 0);
-  private PIDController speedPID = new PIDController(0.1, 0, 0);
+  private PIDController shooterPID = new PIDController(ShooterConstants.shooterKP, ShooterConstants.shooterKI, ShooterConstants.shooterKD);
+  private PIDController speedPID = new PIDController(ShooterConstants.shooterSpeedKP, ShooterConstants.shooterSpeedKI, ShooterConstants.shooterSpeedKD);
   public SpeakerTracking(Shooter shooter, Intake intake, NetworkTable shooterLimelight, Chassis driveTrain, Supplier<Double> xAxis, Supplier<Double> yAxis, Supplier<Double> shootTrigger) {
     this.shooter = shooter;
     this.shooterLimelight = shooterLimelight;
@@ -49,23 +50,24 @@ public class SpeakerTracking extends Command {
 
   @Override
   public void initialize() {
+    shooterLimelight.getEntry("pipeline").setNumber(0);
     shooter.isTracking = true;
   }
 
   @Override
   public void execute() {
-    double xSpeed = onDeadband(xAxis.get(), SwerveConstants.deadband);
-    double ySpeed = onDeadband(yAxis.get(), SwerveConstants.deadband);
+    double xSpeed = -onDeadband(xAxis.get(), SwerveConstants.deadband);
+    double ySpeed = -onDeadband(yAxis.get(), SwerveConstants.deadband);
     xSpeed *= SwerveConstants.kMaxThrottleSpeed;
     ySpeed *= SwerveConstants.kMaxThrottleSpeed;
     double tx = shooterLimelight.getEntry("tx").getDouble(0);
     double ty = shooterLimelight.getEntry("ty").getDouble(0);
-    double targetPosition = 36.1 - 3.03 * ty - 0.0972 * ty * ty;
+    double targetPosition = 49.9 - 3.73 * ty - 0.0362 * ty * ty;
     SmartDashboard.putNumber("target position", targetPosition);
     // SmartDashboard.putNumber("measure angle", measureAngle.getRotations());
     shooter.setShooterAngle(shooterPID.calculate(shooter.getAnglePosition(), targetPosition));
     driveTrain.drive(new ChassisSpeeds(xSpeed, ySpeed, -tx * 0.15));
-    shooter.setShootingSpeed(0.8 + speedPID.calculate(shooter.getShootingSpeed(), 5000));
+    //shooter.setShootingSpeed(0.8 + speedPID.calculate(shooter.getShootingSpeed(), 5000));
     if(shootTrigger.get() > 0.8) {
       intake.setMicroPhone(true);
       shooter.setTransportSpeed(0.8);

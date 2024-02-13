@@ -14,22 +14,26 @@
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
 package frc.robot.commands;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
 public class ShooterDefaultCommand extends Command {
   private Shooter shooter;
-  private Intake intake;
-  private XboxController operatorController;
+  private Supplier<Double> rt;
+  private Supplier<Double> lt;
+  private Supplier<Boolean> rb;
+  private Supplier<Boolean> lb;
   private NetworkTable shooterLimelight;
-  public ShooterDefaultCommand(Shooter shooter, XboxController operatorController, Intake intake, NetworkTable shooterLimelight) {
+  public ShooterDefaultCommand(Shooter shooter, Supplier<Double> rt, Supplier<Double> lt, Supplier<Boolean> rb, Supplier<Boolean> lb, NetworkTable shooterLimelight) {
     this.shooter = shooter;
-    this.intake = intake;
-    this.operatorController = operatorController;
+    this.rt = rt;
+    this.lt = lt;
+    this.rb = rb;
+    this.lb = lb;
     this.shooterLimelight = shooterLimelight;
     addRequirements(shooter);
   }
@@ -39,10 +43,9 @@ public class ShooterDefaultCommand extends Command {
 
   @Override
   public void execute() {
-    shooter.setShootingSpeed(operatorController.getRightTriggerAxis());
-    // intake.setMicroPhoneSpeed(operatorController.getLeftTriggerAxis() > 0.2 ? 0.2 : 0);
-    shooter.setShooterAngle(operatorController.getRightBumper() ? 0.15 : operatorController.getLeftBumper() ? -0.15 : 0);
-    shooter.setTransportSpeed(operatorController.getLeftTriggerAxis());
+    shooter.setShootingSpeed(rt.get());
+    shooter.setShooterAngle(rb.get() ? 0.15 : lb.get() ? -0.15 : 0);
+    shooter.setTransportSpeed(lt.get());
     SmartDashboard.putNumber("ty", shooterLimelight.getValue("ty").getDouble());
   }
 

@@ -36,6 +36,7 @@ import frc.robot.commands.Teleop.ClimbUp;
 import frc.robot.commands.Teleop.ReadyClimber;
 import frc.robot.commands.Teleop.SpeakerTracking;
 import frc.robot.commands.Teleop.SwerveControl;
+import frc.robot.commands.Teleop.TeleAMP;
 import frc.robot.commands.Teleop.TeleGetNote;
 import frc.robot.constants.OIConstants;
 import frc.robot.subsystems.Chassis;
@@ -67,9 +68,10 @@ public class RobotContainer {
 
   private void configureBindings() {
     SmartDashboard.putData("test auto", new PathPlannerAuto("Example Auto"));
-    new JoystickButton(driveController, Button.kStart.value).toggleOnTrue(new SpeakerTracking(shooter, intake, limelightShooter, chassis, () -> driveController.getLeftY(), () -> driveController.getLeftX(), ()-> operatorController.getLeftTriggerAxis()));
+    new JoystickButton(driveController, Button.kA.value).whileTrue(new SpeakerTracking(shooter, intake, limelightShooter, chassis, () -> driveController.getLeftY(), () -> driveController.getLeftX(), ()-> operatorController.getLeftTriggerAxis()));
+    new JoystickButton(driveController, Button.kB.value).whileTrue(new TeleAMP(shooter, chassis, ()->operatorController.getLeftTriggerAxis(), ()->driveController.getRightX(), ()->driveController.getRightY(), limelightShooter));
     new JoystickButton(operatorController, Button.kA.value).toggleOnTrue(new TeleGetNote(intake));
-    new JoystickButton(operatorController, Button.kBack.value).onTrue(new ReadyClimber(climber, ()-> operatorController.getStartButton()).andThen(new ClimbUp(climber, () -> operatorController.getBackButton())));
+    //new JoystickButton(operatorController, Button.kBack.value).onTrue(new ReadyClimber(climber, ()-> operatorController.getStartButton()).andThen(new ClimbUp(climber, () -> operatorController.getBackButton())));
   }
 
   public Command getAutonomousCommand() {
@@ -78,7 +80,7 @@ public class RobotContainer {
 
   public void setDefaultCommand() {
     chassis.setDefaultCommand(new SwerveControl(chassis, ()-> driveController.getLeftY(), ()-> driveController.getLeftX(), ()-> driveController.getRightX()));
-    shooter.setDefaultCommand(new ShooterDefaultCommand(shooter, operatorController, intake, limelightShooter));
+    shooter.setDefaultCommand(new ShooterDefaultCommand(shooter, ()-> operatorController.getRightTriggerAxis(), ()-> operatorController.getLeftTriggerAxis(), ()-> operatorController.getRightBumper(), ()-> operatorController.getLeftBumper(), limelightShooter));
   }
 
   public void cancelDefaultCommand() {

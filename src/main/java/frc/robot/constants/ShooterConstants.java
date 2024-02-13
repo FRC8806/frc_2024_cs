@@ -21,8 +21,18 @@ public final class ShooterConstants {
 	// spark max
 	public static final int TRANSPORT_MOTOR_ID = 2;
 	public static final int ANGLE_MOTOR_ID = 4;
-
+    //position
 	public static final double angleHighLimit = 60;
 	public static final double angleLowLimit = 2;
+	public static final double angleAMP = 9.2143;
+	//PID
+	public static final double shooterSpeedKP = 0.1;
+	public static final double shooterSpeedKI = 0;
+	public static final double shooterSpeedKD = 0;
 
+	public static final double shooterKP = 0.06;
+	public static final double shooterKI = 0;
+	public static final double shooterKD = 0;
+	//speed
+	public static final double AMPSpeed = 0.18;
 }

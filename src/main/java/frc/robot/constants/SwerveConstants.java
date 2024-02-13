@@ -60,4 +60,20 @@ public final class SwerveConstants {
 
 	public static final SwerveDriveKinematics SWERVE_KINEMATIS = new SwerveDriveKinematics(A_TRANSLATION2D,
 			B_TRANSLATION2D, C_TRANSLATION2D, D_TRANSLATION2D);
+
+	//PID
+	public static final double rotorKP = 0.013;
+	public static final double rotorKI = 0;
+	public static final double rotorKD = 0;
+
+	public static final double translationKP = 1.0;
+	public static final double translationKI = 0.0;
+	public static final double translationKD = 0.0;
+
+	public static final double rotationKP = 5.0;
+	public static final double rotationKI = 0.0;
+	public static final double rotationKD = 0.0;
+
+    public static final double maxModuleSpeed = 4.5;
+    public static final double driveBaseRadius = 0.4;
 }

@@ -36,7 +36,7 @@ public class Intake extends SubsystemBase {
   private TalonFX angleMotor = new TalonFX(IntakeConstants.ANGLE_MOTOR_ID);
   private CANSparkMax microphone = new CANSparkMax(IntakeConstants.MICROPHONE_MOTOR_ID, MotorType.kBrushless);
   private SoftLimiter angleLimiter;
-  private PIDController intakePID = new PIDController(0.05, 0, 0);
+  private PIDController intakePID = new PIDController(IntakeConstants.intakrKP, IntakeConstants.intakrKI, IntakeConstants.intakrKD);
 
   private boolean isSetToPosition = false;
   private double intakePosition = 10;
@@ -76,7 +76,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void setRolling(boolean state) {
-    setRollingSpeed(state? 0.4: 0);
+    setRollingSpeed(state? IntakeConstants.rollingSpeed: 0);
   }
 
   public void setIntakeAngle(double speed) {
@@ -89,7 +89,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void setMicroPhone(boolean state) {
-    setMicroPhoneSpeed(state ? 0.2 : 0);
+    setMicroPhoneSpeed(state ? IntakeConstants.microPhoneSpeed: 0);
   }
 
   public void setToZero() {
