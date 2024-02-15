@@ -3,9 +3,12 @@
   "robotLength": 0.76,
   "holonomicMode": true,
   "pathFolders": [
+    "oneNote",
     "test0208"
   ],
-  "autoFolders": [],
+  "autoFolders": [
+    "New Folder"
+  ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,

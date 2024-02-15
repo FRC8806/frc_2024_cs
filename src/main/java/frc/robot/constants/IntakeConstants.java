@@ -26,7 +26,7 @@ public class IntakeConstants {
   public static final double angleHighLimit = 41;//41
   public static final double angleLowLimit = 0;//8
   public static final double downPosition = 41;//41
-  public static final double upPosition = 13;//13
+  public static final double upPosition = 23;//13
   //color
   public static final Color noteColor = new Color(135 , 93, 26);
   public static final Color noneColor = new Color(67, 118, 70);
@@ -37,6 +37,7 @@ public class IntakeConstants {
   public static final double intakrKD = 0;
 
   //speed
-  public static final double rollingSpeed = 0.4;
+  public static final double rollingSpeed = 0.6;
   public static final double microPhoneSpeed = 0.2;
+  public static final double reverseSpeed = -0.6;
 }

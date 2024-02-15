@@ -18,7 +18,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 
 public final class SwerveConstants {
-	public static final double deadband = 0.07;
+	public static final double deadband = 0.12;
 
 	public static final double kThrottleGarRatio = 6.12;
 	public static final double kWheelDiameter = 4 * 0.0254;
@@ -66,11 +66,11 @@ public final class SwerveConstants {
 	public static final double rotorKI = 0;
 	public static final double rotorKD = 0;
 
-	public static final double translationKP = 1.0;
-	public static final double translationKI = 0.0;
-	public static final double translationKD = 0.0;
+	public static final double translationKP = 0.0;
+	public static final double translationKI = 0.15;
+	public static final double translationKD = 0.0011;
 
-	public static final double rotationKP = 5.0;
+	public static final double rotationKP = 0.2;
 	public static final double rotationKI = 0.0;
 	public static final double rotationKD = 0.0;
 

@@ -19,18 +19,18 @@ public class AutoGetNote extends Command {
   @Override
   public void initialize() {
     intake.setIntakeDown();
-    intake.setRolling(true);
-    intake.setMicroPhone(true);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    intake.setRolling(true);
+    intake.setMicroPhone(true);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.setIntakeUp();
     intake.setRolling(false);
     intake.setMicroPhone(false);
   }
