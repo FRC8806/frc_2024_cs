@@ -19,7 +19,7 @@ public final class ShooterConstants {
 	public static final int LEFT_MOTOR_ID = 52;
 	public static final int RIGHT_MOTOR_ID = 51;
 	// spark max
-	public static final int TRANSPORT_MOTOR_ID = 2;
+	public static final int TRANSPORT_MOTOR_ID = 53;
 	public static final int ANGLE_MOTOR_ID = 4;
     //position
 	public static final double angleHighLimit = 60;

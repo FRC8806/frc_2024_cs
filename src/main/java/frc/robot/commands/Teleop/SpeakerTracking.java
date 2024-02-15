@@ -78,7 +78,7 @@ public class SpeakerTracking extends Command {
     //shooter.setShootingSpeed(0.8 + speedPID.calculate(shooter.getShootingSpeed(), 5000));
     if(transportTrigger.get() > 0.2) {
       intake.setMicroPhone(true);
-      shooter.setTransportSpeed(0.8);
+      shooter.setTransportSpeed(0.8/2);
     } else {
       intake.setMicroPhone(false);
       shooter.setTransportSpeed(0);

@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3140196323188638,
-        "y": 5.550936522700434
+        "x": 3.02,
+        "y": 3.14
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.314019632318864,
-        "y": 5.550936522700434
+        "x": 3.9585532743699208,
+        "y": 2.794865604192368
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.754452527449989,
-        "y": 5.550936522700434
+        "x": 4.64,
+        "y": 1.58
       },
       "prevControl": {
-        "x": 1.7544525274499891,
-        "y": 5.550936522700434
+        "x": 3.6464677202305498,
+        "y": 1.6935500288688636
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,11 +39,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "oneNote",
+  "folder": "oneNoteTest",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

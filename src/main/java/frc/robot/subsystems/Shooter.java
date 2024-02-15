@@ -19,6 +19,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.SoftLimiter;
@@ -27,12 +28,15 @@ public class Shooter extends SubsystemBase {
   private CANSparkFlex leftMotor = new CANSparkFlex(ShooterConstants.LEFT_MOTOR_ID, MotorType.kBrushless);
   private CANSparkFlex rightMotor = new CANSparkFlex(ShooterConstants.RIGHT_MOTOR_ID, MotorType.kBrushless);
   private CANSparkMax angleMotor = new CANSparkMax(ShooterConstants.ANGLE_MOTOR_ID, MotorType.kBrushless);
-  private CANSparkMax transportMotor = new CANSparkMax(ShooterConstants.TRANSPORT_MOTOR_ID, MotorType.kBrushless);
+  private CANSparkFlex transportMotor = new CANSparkFlex(ShooterConstants.TRANSPORT_MOTOR_ID, MotorType.kBrushless);
   private RelativeEncoder shootingEncoder;
   private RelativeEncoder angleEncoder;
   private SoftLimiter shootLimiter;
+  private PIDController shooterPID = new PIDController(ShooterConstants.shooterKP, ShooterConstants.shooterKI, ShooterConstants.shooterKD);
+
 
   public boolean isTracking = false;
+
 
   public Shooter() {
     shootingEncoder = leftMotor.getEncoder();
@@ -74,6 +78,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public void setAMPAngle(){
-    setShooterAngle(ShooterConstants.angleAMP);
+    double speed = shootLimiter.getOutput(shooterPID.calculate(getAnglePosition(), ShooterConstants.angleAMP));
+    speed = speed > 0.15 ? 0.15 : speed < -0.15 ? -0.15 : 0;
+    angleMotor.set(speed);
   } 
 }

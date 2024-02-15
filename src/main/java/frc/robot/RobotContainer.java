@@ -42,6 +42,7 @@ import frc.robot.commands.Teleop.SpeakerTracking;
 import frc.robot.commands.Teleop.SwerveControl;
 import frc.robot.commands.Teleop.TeleAMP;
 import frc.robot.commands.Teleop.TeleGetNote;
+import frc.robot.commands.Teleop.TeleMicphone;
 import frc.robot.constants.OIConstants;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Climber;
@@ -73,8 +74,9 @@ public class RobotContainer {
   private void configureBindings() {
     SmartDashboard.putData("test auto", new PathPlannerAuto("Example Auto"));
     new JoystickButton(driveController, Button.kA.value).whileTrue(new SpeakerTracking(shooter, intake, limelightShooter, chassis, () -> driveController.getLeftY(), () -> driveController.getLeftX(), ()-> operatorController.getLeftTriggerAxis(), ()->operatorController.getRightTriggerAxis()));
-    new JoystickButton(driveController, Button.kB.value).whileTrue(new TeleAMP(shooter, chassis, ()->operatorController.getLeftTriggerAxis(), ()->driveController.getRightX(), ()->driveController.getRightY(), limelightShooter));
+    new JoystickButton(operatorController, Button.kB.value).whileTrue(new TeleAMP(shooter, chassis, ()->operatorController.getLeftTriggerAxis(), limelightShooter));
     new JoystickButton(operatorController, Button.kA.value).toggleOnTrue(new TeleGetNote(intake));
+    //new JoystickButton(operatorController, Button.kY.value).whileTrue(new TeleMicphone(intake, operatorController));
     //new JoystickButton(operatorController, Button.kBack.value).onTrue(new ReadyClimber(climber, ()-> operatorController.getStartButton()).andThen(new ClimbUp(climber, () -> operatorController.getBackButton())));
   }
 
@@ -95,7 +97,7 @@ public class RobotContainer {
   public void nameCommands() {
     NamedCommands.registerCommand("test marker1", new TestAuto());
     NamedCommands.registerCommand("shooting", new AutoShooting(shooter));
-    NamedCommands.registerCommand("transport",new AutoShootingTransport(shooter));
+    NamedCommands.registerCommand("shooter",new AutoShootingTransport(shooter, limelightShooter));
     NamedCommands.registerCommand("intake", new AutoGetNote(intake));
     NamedCommands.registerCommand("shooterAngle", new AutoSpeakerTracking(shooter, limelightShooter));
   }

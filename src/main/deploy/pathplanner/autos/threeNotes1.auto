@@ -18,17 +18,17 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "transport"
+                  "name": "shooter"
                 }
               },
               {
-                "type": "deadline",
+                "type": "sequential",
                 "data": {
                   "commands": [
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.0
+                        "waitTime": 2.0
                       }
                     },
                     {
@@ -42,15 +42,9 @@
                             }
                           },
                           {
-                            "type": "named",
-                            "data": {
-                              "name": "shooterAngle"
-                            }
-                          },
-                          {
                             "type": "path",
                             "data": {
-                              "pathName": "test1"
+                              "pathName": "test3-1-1"
                             }
                           }
                         ]
@@ -65,6 +59,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "threeNotes",
   "choreoAuto": false
 }

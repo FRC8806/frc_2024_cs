@@ -3,11 +3,16 @@
   "robotLength": 0.76,
   "holonomicMode": true,
   "pathFolders": [
-    "oneNote",
-    "test0208"
+    "fourNotesTest",
+    "oneNoteTest",
+    "test",
+    "threeNotesTest"
   ],
   "autoFolders": [
-    "New Folder"
+    "test",
+    "fourNotes",
+    "oneNote",
+    "threeNotes"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,

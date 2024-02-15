@@ -16,15 +16,13 @@ import frc.robot.subsystems.Shooter;
 public class TeleAMP extends Command {
   Shooter shooter;
   Chassis chassis;
-  Supplier<Double> lt, xAxis, yAxis;
+  Supplier<Double> lt;
   NetworkTable shooterLimelight;
   /** Creates a new TeleAMP. */
-  public TeleAMP(Shooter shooter, Chassis chassis, Supplier<Double> lt, Supplier<Double> xAxis, Supplier<Double> yAxis, NetworkTable shooterLimelight) {
+  public TeleAMP(Shooter shooter, Chassis chassis, Supplier<Double> lt, NetworkTable shooterLimelight) {
     this.shooter = shooter;
     this.chassis = chassis;
     this.lt = lt;
-    this.xAxis = xAxis;
-    this.yAxis = yAxis;
     this.shooterLimelight = shooterLimelight;
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -39,14 +37,15 @@ public class TeleAMP extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double tx = shooterLimelight.getEntry("tx").getDouble(0);
-    double ySpeed = -onDeadband(yAxis.get(), SwerveConstants.deadband);
-    ySpeed *= SwerveConstants.kMaxThrottleSpeed;
-    double zSpeed = (0-chassis.getPose().getRotation().getRotations())*0.05;
+    // double tx = shooterLimelight.getEntry("tx").getDouble(0);
+    // double ySpeed = -onDeadband(yAxis.get(), SwerveConstants.deadband);
+    // ySpeed *= SwerveConstants.kMaxThrottleSpeed;
+    // double zSpeed = (0-chassis.getPose().getRotation().getRotations())*0.05;
 
     shooter.setShootingSpeed(0.18);
     shooter.setTransportSpeed(lt.get());
-    chassis.drive(new ChassisSpeeds(-tx/10,ySpeed,zSpeed));
+    shooter.setAMPAngle();
+    // chassis.drive(new ChassisSpeeds(-tx/10,ySpeed,zSpeed));
     
   }
 

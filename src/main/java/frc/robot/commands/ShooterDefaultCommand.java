@@ -45,7 +45,7 @@ public class ShooterDefaultCommand extends Command {
   public void execute() {
     shooter.setShootingSpeed(rt.get());
     shooter.setShooterAngle(rb.get() ? 0.15 : lb.get() ? -0.15 : 0);
-    shooter.setTransportSpeed(lt.get());
+    shooter.setTransportSpeed(lt.get()/2);
     SmartDashboard.putNumber("ty", shooterLimelight.getValue("ty").getDouble());
   }
 
