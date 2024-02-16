@@ -21,11 +21,12 @@ public class IntakeConstants {
   public static final int ANGLE_MOTOR_ID = 10;
   //Spark Max
   public static final int MICROPHONE_MOTOR_ID = 3;
-  public static final int ROLLING_MOTOR_ID = 5;
+  //Spark Flex
+  public static final int ROLLING_MOTOR_ID = 54;
   //position
-  public static final double angleHighLimit = 41;//41
+  public static final double angleHighLimit = 40;//41
   public static final double angleLowLimit = 0;//8
-  public static final double downPosition = 41;//41
+  public static final double downPosition = 40;//41
   public static final double upPosition = 15;//13
   //color
   public static final Color noteColor = new Color(135 , 93, 26);

@@ -14,13 +14,18 @@
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
 package frc.robot.commands.Teleop;
 
+import java.util.function.Supplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
 public class TeleGetNote extends Command {
   private Intake intake;
-  public TeleGetNote(Intake intake) {
+  private Supplier<Boolean> inverseTrigger;
+  
+  public TeleGetNote(Intake intake, Supplier<Boolean> inverseTrigger) {
     this.intake = intake;
+    this.inverseTrigger = inverseTrigger;
     addRequirements(intake);
   }
 
@@ -32,7 +37,13 @@ public class TeleGetNote extends Command {
   }
 
   @Override
-  public void execute() {}
+  public void execute() {
+    if(inverseTrigger.get()) {
+      intake.setRollingSpeed(-0.2);
+    } else {
+      intake.setRolling(true);
+    }
+  }
 
   @Override
   public void end(boolean interrupted) {

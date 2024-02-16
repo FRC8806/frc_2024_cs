@@ -15,6 +15,8 @@
 package frc.robot;
 
 
+import java.util.Optional;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
@@ -22,6 +24,8 @@ import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -32,6 +36,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ShooterDefaultCommand;
 import frc.robot.commands.Auto.AutoGetNote;
+import frc.robot.commands.Auto.AutoIntakeDown;
 import frc.robot.commands.Auto.AutoShooting;
 import frc.robot.commands.Auto.AutoShootingTransport;
 import frc.robot.commands.Auto.AutoSpeakerTracking;
@@ -60,6 +65,7 @@ public class RobotContainer {
   private final XboxController driveController = new XboxController(OIConstants.driveControllerID);
   public final XboxController operatorController = new XboxController(OIConstants.operatorControllerID);
   private final SendableChooser<Command> autoChooser;
+  private static Optional<Alliance> alliance;
   
 
   public RobotContainer() {
@@ -68,6 +74,7 @@ public class RobotContainer {
     configureBindings();
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.addOption("aaaa", new PathPlannerAuto("Example Auto"));
+    alliance = DriverStation.getAlliance();
     SmartDashboard.putData("Auto Chooser", autoChooser);
   }
 
@@ -75,9 +82,9 @@ public class RobotContainer {
     SmartDashboard.putData("test auto", new PathPlannerAuto("Example Auto"));
     new JoystickButton(driveController, Button.kA.value).whileTrue(new SpeakerTracking(shooter, intake, limelightShooter, chassis, () -> driveController.getLeftY(), () -> driveController.getLeftX(), ()-> operatorController.getLeftTriggerAxis(), ()->operatorController.getRightTriggerAxis()));
     new JoystickButton(operatorController, Button.kB.value).whileTrue(new TeleAMP(shooter, chassis, ()->operatorController.getLeftTriggerAxis(), limelightShooter));
-    new JoystickButton(operatorController, Button.kA.value).toggleOnTrue(new TeleGetNote(intake));
+    new JoystickButton(operatorController, Button.kA.value).toggleOnTrue(new TeleGetNote(intake, () -> operatorController.getYButton()));
     //new JoystickButton(operatorController, Button.kY.value).whileTrue(new TeleMicphone(intake, operatorController));
-    //new JoystickButton(operatorController, Button.kBack.value).onTrue(new ReadyClimber(climber, ()-> operatorController.getStartButton()).andThen(new ClimbUp(climber, () -> operatorController.getBackButton())));
+    new JoystickButton(operatorController, Button.kBack.value).onTrue(new ReadyClimber(climber, ()-> operatorController.getStartButton()).andThen(new ClimbUp(climber, () -> operatorController.getBackButton())));
   }
 
   public Command getAutonomousCommand() {
@@ -95,10 +102,20 @@ public class RobotContainer {
   }
 
   public void nameCommands() {
+    NamedCommands.registerCommand("amp", new TeleAMP(shooter, chassis, operatorController::getLeftTriggerAxis, limelightShooter));
+    // NamedCommands.registerCommand("greenRoll", );
     NamedCommands.registerCommand("test marker1", new TestAuto());
     NamedCommands.registerCommand("shooting", new AutoShooting(shooter));
     NamedCommands.registerCommand("shooter",new AutoShootingTransport(shooter, limelightShooter));
     NamedCommands.registerCommand("intake", new AutoGetNote(intake));
     NamedCommands.registerCommand("shooterAngle", new AutoSpeakerTracking(shooter, limelightShooter));
+    NamedCommands.registerCommand("intakeDown", new AutoIntakeDown(intake));
+  }
+
+  public static boolean isRedAlliance() {
+    if (alliance.isPresent()) {
+      return alliance.get() == DriverStation.Alliance.Red;
+    }
+    return false;
   }
 }

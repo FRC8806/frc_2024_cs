@@ -38,7 +38,10 @@ public class ClimbUp extends Command {
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    climber.setLeftSpeed(0);
+    climber.setRightSpeed(0);
+  }
 
   @Override
   public boolean isFinished() {

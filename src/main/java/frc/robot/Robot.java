@@ -116,8 +116,8 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
     CommandScheduler.getInstance().cancelAll();
 
-    //m_robotContainer.climber.setLeftSpeed(m_robotContainer.operatorController.getLeftY());
-    //m_robotContainer.climber.setRightSpeed(-m_robotContainer.operatorController.getRightY());
+    m_robotContainer.climber.setLeftSpeed(m_robotContainer.operatorController.getLeftY());
+    m_robotContainer.climber.setRightSpeed(-m_robotContainer.operatorController.getRightY());
     m_robotContainer.intake.setIntakeAngle(m_robotContainer.operatorController.getYButton() ? 0.2
         : m_robotContainer.operatorController.getXButton() ? -0.2 : 0);
     m_robotContainer.shooter.setShooterAngle(m_robotContainer.operatorController.getBButton() ? 0.2

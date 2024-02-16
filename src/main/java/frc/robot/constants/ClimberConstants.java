@@ -24,11 +24,11 @@ public class ClimberConstants {
   public static final double LEFT_ELEVATOR_LOW_LIMIT = -380;
 
   public static final double SETUP_POSE = 360;
-  public static final double DOWN_POSE = 20;
+  public static final double DOWN_POSE = -10;
 
   public static final double climberGearRitio = 1/60;
 
-  public static final double climberKP = 0.03;
+  public static final double climberKP = 0.05;
   public static final double climberKI = 0;
   public static final double climberKD = 0;
 }

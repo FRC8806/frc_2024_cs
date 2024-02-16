@@ -31,7 +31,7 @@ public class TeleAMP extends Command {
   @Override
   public void initialize() {
     shooter.setAMPAngle();
-    shooterLimelight.getEntry("pipeline").setNumber(1);
+    // shooterLimelight.getEntry("pipeline").setNumber(1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

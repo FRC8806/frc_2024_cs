@@ -69,6 +69,10 @@ public class Shooter extends SubsystemBase {
     transportMotor.set(speed);
   }
 
+  public void setGreenRoll() {
+    setTransportSpeed(0.5);
+  }
+
   public void setToZero() {
     angleEncoder.setPosition(0);
   }

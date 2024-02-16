@@ -15,6 +15,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorSensorV3;
@@ -32,7 +33,7 @@ public class Intake extends SubsystemBase {
   private ColorSensorV3 colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
   private ColorMatch colorMatch = new ColorMatch();
 
-  private CANSparkMax rollingMotor = new CANSparkMax(IntakeConstants.ROLLING_MOTOR_ID, MotorType.kBrushless);
+  private CANSparkFlex rollingMotor = new CANSparkFlex(IntakeConstants.ROLLING_MOTOR_ID, MotorType.kBrushless);
   private TalonFX angleMotor = new TalonFX(IntakeConstants.ANGLE_MOTOR_ID);
   private CANSparkMax microphone = new CANSparkMax(IntakeConstants.MICROPHONE_MOTOR_ID, MotorType.kBrushless);
   private SoftLimiter angleLimiter;
