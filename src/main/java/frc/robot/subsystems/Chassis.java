@@ -52,7 +52,7 @@ public class Chassis extends SubsystemBase {
         this::getPose, // Robot pose supplier
         this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
         this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-        this::drive, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
+        this::autoDrive, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
         new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
             new PIDConstants(SwerveConstants.translationKP, SwerveConstants.translationKI, SwerveConstants.translationKD), // Translation PID constants
             new PIDConstants(SwerveConstants.rotationKP, SwerveConstants.rotationKI, SwerveConstants.rotationKD), // Rotation PID constants
@@ -89,6 +89,15 @@ public class Chassis extends SubsystemBase {
   }
 
   public void drive(ChassisSpeeds chassisSpeeds) {
+    double xSpeed = chassisSpeeds.vxMetersPerSecond;
+    double ySpeed = chassisSpeeds.vyMetersPerSecond;
+    double rSpeed = chassisSpeeds.omegaRadiansPerSecond;
+    SwerveModuleState[] states = SwerveConstants.SWERVE_KINEMATIS.toSwerveModuleStates(
+        ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rSpeed, odometry.getPoseMeters().getRotation()));
+    setModuleStates(states);
+  }
+
+  public void autoDrive(ChassisSpeeds chassisSpeeds) {
     double xSpeed = chassisSpeeds.vxMetersPerSecond;
     double ySpeed = chassisSpeeds.vyMetersPerSecond;
     double rSpeed = chassisSpeeds.omegaRadiansPerSecond;
