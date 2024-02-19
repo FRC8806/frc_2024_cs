@@ -1,10 +1,21 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
-package frc.robot.commands.Auto;
+//          2024202420242024      2024202420242024      2024202420242024      2024202420242024
+//        20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
+//       2024            2024  2024            2024  2024            2024  2024
+//       2024            2024  2024            2024  2024            2024  2024
+//      2024            2024  2024            2024  2024            2024  2024
+//      2024            2024  2024            2024  2024            2024  2024
+//     20242024202420242024  20242024202420242024  2024            2024  20242024202420242024
+//     20242024202420242024  20242024202420242024  2024            2024  20242024202420242024
+//    2024            2024  2024            2024  2024            2024  2024            2024
+//    2024            2024  2024            2024  2024            2024  2024            2024
+//   2024            2024  2024            2024  2024            2024  2024            2024
+//   2024            2024  2024            2024  2024            2024  2024            2024
+//  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
+//    2024202420242024      2024202420242024      2024202420242024      2024202420242024
+package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.IntakeConstants;
 import frc.robot.subsystems.Intake;
 
 public class AutoGetNote extends Command {
@@ -24,15 +35,15 @@ public class AutoGetNote extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setRolling(true);
-    intake.setMicroPhone(true);
+    intake.setRollingSpeed(IntakeConstants.rollingSpeed);
+    intake.setMicSpeed(IntakeConstants.microPhoneSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.setRolling(false);
-    intake.setMicroPhone(false);
+    intake.setRollingSpeed(0);
+    intake.setMicSpeed(0);
   }
 
   // Returns true when the command should end.

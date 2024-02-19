@@ -23,10 +23,13 @@ import frc.robot.SoftLimiter;
 import frc.robot.constants.ClimberConstants;
 
 public class Climber extends SubsystemBase {
+  //climb motors
   private TalonFX leftMotor = new TalonFX(ClimberConstants.LEFT_CLIMBER_ID);
   private TalonFX rightMotor = new TalonFX(ClimberConstants.RIGHT_CLIMBER_ID);
+  //The limiter of motors
   private SoftLimiter leftLimiter;
   private SoftLimiter rightLimiter;
+  //The PID controller of motor
   private PIDController climbPID = new PIDController(ClimberConstants.climberKP, ClimberConstants.climberKI, ClimberConstants.climberKD);
 
   public Climber() {

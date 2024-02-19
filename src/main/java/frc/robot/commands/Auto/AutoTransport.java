@@ -1,8 +1,18 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
-package frc.robot.commands.Auto;
+//          2024202420242024      2024202420242024      2024202420242024      2024202420242024
+//        20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
+//       2024            2024  2024            2024  2024            2024  2024
+//       2024            2024  2024            2024  2024            2024  2024
+//      2024            2024  2024            2024  2024            2024  2024
+//      2024            2024  2024            2024  2024            2024  2024
+//     20242024202420242024  20242024202420242024  2024            2024  20242024202420242024
+//     20242024202420242024  20242024202420242024  2024            2024  20242024202420242024
+//    2024            2024  2024            2024  2024            2024  2024            2024
+//    2024            2024  2024            2024  2024            2024  2024            2024
+//   2024            2024  2024            2024  2024            2024  2024            2024
+//   2024            2024  2024            2024  2024            2024  2024            2024
+//  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
+//    2024202420242024      2024202420242024      2024202420242024      2024202420242024
+package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Shooter;
@@ -27,7 +37,9 @@ public class AutoTransport extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    shooter.setTransportSpeed(0);
+  }
 
   // Returns true when the command should end.
   @Override

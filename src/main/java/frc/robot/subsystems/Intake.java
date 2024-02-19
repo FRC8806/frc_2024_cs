@@ -30,13 +30,15 @@ import frc.robot.SoftLimiter;
 import frc.robot.constants.IntakeConstants;
 
 public class Intake extends SubsystemBase {
-  private ColorSensorV3 colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
-  private ColorMatch colorMatch = new ColorMatch();
-
+  //rolling motor
   private CANSparkFlex rollingMotor = new CANSparkFlex(IntakeConstants.ROLLING_MOTOR_ID, MotorType.kBrushless);
+  //angle motor
   private TalonFX angleMotor = new TalonFX(IntakeConstants.ANGLE_MOTOR_ID);
+  //microphone motor 
   private CANSparkMax microphone = new CANSparkMax(IntakeConstants.MICROPHONE_MOTOR_ID, MotorType.kBrushless);
+  //limiter of the angle motor
   private SoftLimiter angleLimiter;
+  //PID controller of th angle motor
   private PIDController intakePID = new PIDController(IntakeConstants.intakrKP, IntakeConstants.intakrKI, IntakeConstants.intakrKD);
 
   private boolean isSetToPosition = false;
@@ -44,71 +46,53 @@ public class Intake extends SubsystemBase {
   public boolean isIntakeDown = false;
 
   public Intake() {
-    angleLimiter = new SoftLimiter(()-> getIntakePosition());
+    angleLimiter = new SoftLimiter(()-> getAnglePosition());
     angleLimiter.setRange(IntakeConstants.angleHighLimit, IntakeConstants.angleLowLimit);
-    colorMatch.addColorMatch(IntakeConstants.noteColor);
   }
 
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Intake position", angleMotor.getPosition().getValue());
-    SmartDashboard.putBoolean("color matched", isNoteSet());
-
     if(isSetToPosition) { angleMotor.set(angleLimiter.getOutput(intakePID.calculate(angleMotor.getPosition().getValue(), intakePosition)));}
   }
 
-  public double getIntakePosition(){
+  public double getAnglePosition(){
     return angleMotor.getPosition().getValue();
   }
 
-  public void setIntakePosition(double position) {
+  public void setAnglePosition(double position) {
     isSetToPosition = true;
     intakePosition = position;
   }
 
   public void setIntakeUp() {
     isIntakeDown = false;
-    setIntakePosition(IntakeConstants.upPosition);
+    setAnglePosition(IntakeConstants.upPosition);
   }
 
   public void setIntakeDown() {
     isIntakeDown = true;
-    setIntakePosition(IntakeConstants.downPosition);
+    setAnglePosition(IntakeConstants.downPosition);
   }
 
   public void setRollingSpeed(double rollingSpeed) {
     rollingMotor.set(rollingSpeed);
   }
 
-  public void setRolling(boolean state) {
-    setRollingSpeed(state? IntakeConstants.rollingSpeed: 0);
-  }
-
-  public void setIntakeAngle(double speed) {
+  public void setAngleSpeed(double speed) {
     isSetToPosition = false;
     angleMotor.set(angleLimiter.getOutput(speed));
   }
 
-  public void setMicroPhoneSpeed(double speed) {
+  public void setMicSpeed(double speed) {
     microphone.set(speed);
   }
 
-  public void setMicroPhone(boolean state) {
-    setMicroPhoneSpeed(state ? IntakeConstants.microPhoneSpeed: 0);
-  }
-
-  public void setToZero() {
+  public void resetAngleEncoder() {
     angleMotor.setPosition(0);
   }
 
-  public Color getColor() {
-    return colorSensor.getColor();
-  }
-
   public boolean isNoteSet() {
-    // if (colorMatch.matchColor(getColor()) != null) {
-    //   return colorMatch.matchColor(getColor()).color == IntakeConstants.noteColor;
-    // }
     return false;
   }
 }

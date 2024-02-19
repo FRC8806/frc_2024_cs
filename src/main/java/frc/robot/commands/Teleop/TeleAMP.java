@@ -1,15 +1,23 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
-package frc.robot.commands.Teleop;
+//          2024202420242024      2024202420242024      2024202420242024      2024202420242024
+//        20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
+//       2024            2024  2024            2024  2024            2024  2024
+//       2024            2024  2024            2024  2024            2024  2024
+//      2024            2024  2024            2024  2024            2024  2024
+//      2024            2024  2024            2024  2024            2024  2024
+//     20242024202420242024  20242024202420242024  2024            2024  20242024202420242024
+//     20242024202420242024  20242024202420242024  2024            2024  20242024202420242024
+//    2024            2024  2024            2024  2024            2024  2024            2024
+//    2024            2024  2024            2024  2024            2024  2024            2024
+//   2024            2024  2024            2024  2024            2024  2024            2024
+//   2024            2024  2024            2024  2024            2024  2024            2024
+//  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
+//    2024202420242024      2024202420242024      2024202420242024      2024202420242024
+package frc.robot.commands.teleop;
 
 import java.util.function.Supplier;
 
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.constants.SwerveConstants;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Shooter;
 
@@ -18,56 +26,36 @@ public class TeleAMP extends Command {
   Chassis chassis;
   Supplier<Double> lt;
   NetworkTable shooterLimelight;
-  /** Creates a new TeleAMP. */
   public TeleAMP(Shooter shooter, Chassis chassis, Supplier<Double> lt, NetworkTable shooterLimelight) {
     this.shooter = shooter;
     this.chassis = chassis;
     this.lt = lt;
     this.shooterLimelight = shooterLimelight;
-    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(shooter);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    shooter.setAMPAngle();
-    // shooterLimelight.getEntry("pipeline").setNumber(1);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // double tx = shooterLimelight.getEntry("tx").getDouble(0);
-    // double ySpeed = -onDeadband(yAxis.get(), SwerveConstants.deadband);
-    // ySpeed *= SwerveConstants.kMaxThrottleSpeed;
-    // double zSpeed = (0-chassis.getPose().getRotation().getRotations())*0.05;
-
-    shooter.setShootingSpeed(0.23);
+    //移入
+    shooter.setFlyWheelSpeed(0.23);
     shooter.setTransportSpeed(lt.get());
+    //移出
     shooter.setAMPAngle();
-    // chassis.drive(new ChassisSpeeds(-tx/10,ySpeed,zSpeed));
-    
   }
 
-  // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    // shooter.setFlyWheelSpeed(0);
+    shooter.setAngleSpeed(0);
+    shooter.setTransportSpeed(0);
+  }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;
-  }
-
-  private double onDeadband(double value, double deadband) {
-    if (value > 0) {
-      value -= deadband;
-      value = value < 0 ? 0 : value;
-    }
-    if (value < 0) {
-      value += deadband;
-      value = value > 0 ? 0 : value;
-    }
-    return value;
   }
 }

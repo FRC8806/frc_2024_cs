@@ -12,7 +12,7 @@
 //   2024            2024  2024            2024  2024            2024  2024            2024
 //  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
-package frc.robot.commands.Teleop;
+package frc.robot.commands.climb;
 
 import java.util.function.Supplier;
 
@@ -20,12 +20,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.ClimberConstants;
 import frc.robot.subsystems.Climber;
 
-public class ReadyClimber extends Command {
+public class ClimbUp extends Command {
   private Climber climber;
-  private Supplier<Boolean> climbButton;
-  public ReadyClimber(Climber climber, Supplier<Boolean> climbButton) {
+  private Supplier<Boolean> resetButton;
+  public ClimbUp(Climber climber, Supplier<Boolean> resetButton) {
     this.climber = climber;
-    this.climbButton = climbButton;
+    this.resetButton = resetButton;
     addRequirements(climber);
   }
 
@@ -34,7 +34,7 @@ public class ReadyClimber extends Command {
 
   @Override
   public void execute() {
-    climber.setToPosition(ClimberConstants.SETUP_POSE);
+    climber.setToPosition(ClimberConstants.DOWN_POSE);
   }
 
   @Override
@@ -45,6 +45,6 @@ public class ReadyClimber extends Command {
 
   @Override
   public boolean isFinished() {
-    return climbButton.get();
+    return resetButton.get();
   }
 }

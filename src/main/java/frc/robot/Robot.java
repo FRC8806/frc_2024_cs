@@ -119,14 +119,14 @@ public class Robot extends TimedRobot {
 
     m_robotContainer.climber.setLeftSpeed(m_robotContainer.testController.getLeftY());
     m_robotContainer.climber.setRightSpeed(-m_robotContainer.testController.getRightY());
-    m_robotContainer.intake.setIntakeAngle(m_robotContainer.testController.getYButton() ? 0.2
+    m_robotContainer.intake.setAngleSpeed(m_robotContainer.testController.getYButton() ? 0.2
         : m_robotContainer.testController.getXButton() ? -0.2 : 0);
-    m_robotContainer.shooter.setShooterAngle(m_robotContainer.testController.getBButton() ? 0.2
+    m_robotContainer.shooter.setAngleSpeed(m_robotContainer.testController.getBButton() ? 0.2
         : m_robotContainer.testController.getAButton() ? -0.2 : 0);
-    if (m_robotContainer.testController.getRightStickButton()) {
+    if (m_robotContainer.testController.getStartButton()) {
       m_robotContainer.climber.setToZero();
-      m_robotContainer.intake.setToZero();
-      m_robotContainer.shooter.setToZero();
+      m_robotContainer.intake.resetAngleEncoder();
+      m_robotContainer.shooter.resetAngleEncoder();
     }
   }
 

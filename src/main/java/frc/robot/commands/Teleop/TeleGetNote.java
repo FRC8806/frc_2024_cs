@@ -12,11 +12,12 @@
 //   2024            2024  2024            2024  2024            2024  2024            2024
 //  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
-package frc.robot.commands.Teleop;
+package frc.robot.commands.teleop;
 
 import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.IntakeConstants;
 import frc.robot.subsystems.Intake;
 
 public class TeleGetNote extends Command {
@@ -26,32 +27,32 @@ public class TeleGetNote extends Command {
   public TeleGetNote(Intake intake, Supplier<Boolean> inverseTrigger) {
     this.intake = intake;
     this.inverseTrigger = inverseTrigger;
-    //addRequirements(intake);
+    addRequirements(intake);
   }
 
   @Override
   public void initialize() {
     intake.setIntakeDown();
-    intake.setRolling(true);
-    intake.setMicroPhone(true);
+    intake.setRollingSpeed(IntakeConstants.rollingSpeed);
+    intake.setMicSpeed(IntakeConstants.microPhoneSpeed);
   }
 
   @Override
   public void execute() {
     if(inverseTrigger.get()) {
       intake.setRollingSpeed(-0.2);
-      intake.setMicroPhoneSpeed(-0.2);
+      intake.setMicSpeed(-0.2);
     } else {
-      intake.setRolling(true);
-      intake.setMicroPhone(true);
+      intake.setRollingSpeed(IntakeConstants.rollingSpeed);
+      intake.setMicSpeed(IntakeConstants.microPhoneSpeed);
     }
   }
 
   @Override
   public void end(boolean interrupted) {
     intake.setIntakeUp();
-    intake.setRolling(false);
-    intake.setMicroPhone(false);
+    intake.setRollingSpeed(0);
+    intake.setMicSpeed(0);
   }
 
   @Override

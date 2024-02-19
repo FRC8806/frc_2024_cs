@@ -12,30 +12,21 @@
 //   2024            2024  2024            2024  2024            2024  2024            2024
 //  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
-package frc.robot.commands;
+package frc.robot.commands.climb;
 
 import java.util.function.Supplier;
 
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Shooter;
+import frc.robot.constants.ClimberConstants;
+import frc.robot.subsystems.Climber;
 
-public class ShooterDefaultCommand extends Command {
-  private Shooter shooter;
-  private Supplier<Double> rt;
-  private Supplier<Double> lt;
-  private Supplier<Boolean> rb;
-  private Supplier<Boolean> lb;
-  private NetworkTable shooterLimelight;
-  public ShooterDefaultCommand(Shooter shooter, Supplier<Double> rt, Supplier<Double> lt, Supplier<Boolean> rb, Supplier<Boolean> lb, NetworkTable shooterLimelight) {
-    this.shooter = shooter;
-    this.rt = rt;
-    this.lt = lt;
-    this.rb = rb;
-    this.lb = lb;
-    this.shooterLimelight = shooterLimelight;
-    addRequirements(shooter);
+public class ClimberSetup extends Command {
+  private Climber climber;
+  private Supplier<Boolean> climbButton;
+  public ClimberSetup(Climber climber, Supplier<Boolean> climbButton) {
+    this.climber = climber;
+    this.climbButton = climbButton;
+    addRequirements(climber);
   }
 
   @Override
@@ -43,17 +34,17 @@ public class ShooterDefaultCommand extends Command {
 
   @Override
   public void execute() {
-    shooter.setShootingSpeed(rt.get());
-    shooter.setShooterAngle(rb.get() ? 0.15 : lb.get() ? -0.15 : 0);
-    shooter.setTransportSpeed(lt.get()/2);
-    SmartDashboard.putNumber("ty", shooterLimelight.getValue("ty").getDouble());
+    climber.setToPosition(ClimberConstants.SETUP_POSE);
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    climber.setLeftSpeed(0);
+    climber.setRightSpeed(0);
+  }
 
   @Override
   public boolean isFinished() {
-    return false;
+    return climbButton.get();
   }
 }

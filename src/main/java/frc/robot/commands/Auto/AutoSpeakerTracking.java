@@ -1,8 +1,18 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
-package frc.robot.commands.Auto;
+//          2024202420242024      2024202420242024      2024202420242024      2024202420242024
+//        20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
+//       2024            2024  2024            2024  2024            2024  2024
+//       2024            2024  2024            2024  2024            2024  2024
+//      2024            2024  2024            2024  2024            2024  2024
+//      2024            2024  2024            2024  2024            2024  2024
+//     20242024202420242024  20242024202420242024  2024            2024  20242024202420242024
+//     20242024202420242024  20242024202420242024  2024            2024  20242024202420242024
+//    2024            2024  2024            2024  2024            2024  2024            2024
+//    2024            2024  2024            2024  2024            2024  2024            2024
+//   2024            2024  2024            2024  2024            2024  2024            2024
+//   2024            2024  2024            2024  2024            2024  2024            2024
+//  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
+//    2024202420242024      2024202420242024      2024202420242024      2024202420242024
+package frc.robot.commands.auto;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;
@@ -30,13 +40,13 @@ public class AutoSpeakerTracking extends Command {
   public void execute() {
     double ty = shooterLimelight.getEntry("ty").getDouble(0);
     double targetPosition = 49.9 - 3.73 * ty - 0.0362 * ty * ty;
-    shooter.setShooterAngle(shooterPID.calculate(shooter.getAnglePosition(), targetPosition));
+    shooter.setAngleSpeed(shooterPID.calculate(shooter.getAnglePosition(), targetPosition));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    shooter.setShooterAngle(0);
+    shooter.setAngleSpeed(0);
   }
 
   // Returns true when the command should end.
