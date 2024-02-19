@@ -15,7 +15,7 @@ public class TeleMicphone extends Command {
   public TeleMicphone(Intake intake, XboxController operatorcontroller) {
     this.intake = intake;
     this.operatorcontroller = operatorcontroller;
-    addRequirements(intake);
+    //addRequirements(intake);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -26,13 +26,13 @@ public class TeleMicphone extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.setMicroPhoneSpeed(0.2);
+    intake.setRollingSpeed(0.2);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.setMicroPhoneSpeed(0);
+    intake.setRollingSpeed(0);
   }
 
   // Returns true when the command should end.

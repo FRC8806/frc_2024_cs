@@ -12,7 +12,7 @@ public class AutoShooting extends Command {
   /** Creates a new AutoShooting. */
   public AutoShooting(Shooter shooter) {
     this.shooter = shooter;
-    addRequirements(shooter);
+    // addRequirements(shooter);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 

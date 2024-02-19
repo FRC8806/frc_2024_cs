@@ -50,6 +50,7 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putBoolean("is tracking", isTracking);
     SmartDashboard.putNumber("measure anglr", angleEncoder.getPosition());
     SmartDashboard.putNumber("shooting speed", shootingEncoder.getVelocity());
+    SmartDashboard.putBoolean("speed", toSpeed());
   }
 
   public void setShootingSpeed(double speed) {
@@ -86,4 +87,12 @@ public class Shooter extends SubsystemBase {
     speed = speed > 0.15 ? 0.15 : speed < -0.15 ? -0.15 : 0;
     angleMotor.set(speed);
   } 
+
+  public boolean toSpeed(){
+    if (getShootingSpeed() >= 5400){
+      return true;
+    }else{
+      return false;
+    }
+  }
 }

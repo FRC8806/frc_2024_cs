@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.35,
-      "y": 7.27
+      "x": 1.42,
+      "y": 7.3
     },
-    "rotation": 0
+    "rotation": 0.0
   },
   "command": {
     "type": "sequential",
@@ -14,18 +14,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "testAmp1-2"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": []
+            "pathName": "s1"
           }
         }
       ]
     }
   },
-  "folder": "threeNotes",
+  "folder": null,
   "choreoAuto": false
 }

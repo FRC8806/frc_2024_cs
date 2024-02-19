@@ -78,6 +78,15 @@ public class Chassis extends SubsystemBase {
 
   @Override
   public void periodic() {
+    odometry.update(getRotation2d(), getModulePositions());
+    SmartDashboard.putNumber("ahrs", -ahrs.getAngle());
+    SmartDashboard.putNumber("pose-z", getPose().getRotation().getDegrees());
+    SmartDashboard.putNumber("pose-x", getPose().getX());
+    SmartDashboard.putNumber("pose-y", getPose().getY());
+    SmartDashboard.putNumber("a", moduleA.getState().angle.getRotations());
+    SmartDashboard.putNumber("b", moduleB.getState().angle.getRotations());
+    SmartDashboard.putNumber("c", moduleC.getState().angle.getRotations());
+    SmartDashboard.putNumber("d", moduleD.getState().angle.getRotations());
   }
 
   public void drive(ChassisSpeeds chassisSpeeds) {

@@ -26,7 +26,7 @@ public class TeleGetNote extends Command {
   public TeleGetNote(Intake intake, Supplier<Boolean> inverseTrigger) {
     this.intake = intake;
     this.inverseTrigger = inverseTrigger;
-    addRequirements(intake);
+    //addRequirements(intake);
   }
 
   @Override
@@ -40,8 +40,10 @@ public class TeleGetNote extends Command {
   public void execute() {
     if(inverseTrigger.get()) {
       intake.setRollingSpeed(-0.2);
+      intake.setMicroPhoneSpeed(-0.2);
     } else {
       intake.setRolling(true);
+      intake.setMicroPhone(true);
     }
   }
 

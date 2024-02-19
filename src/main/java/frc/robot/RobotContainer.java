@@ -38,9 +38,9 @@ import frc.robot.commands.ShooterDefaultCommand;
 import frc.robot.commands.Auto.AutoGetNote;
 import frc.robot.commands.Auto.AutoIntakeDown;
 import frc.robot.commands.Auto.AutoShooting;
-import frc.robot.commands.Auto.AutoShootingTransport;
 import frc.robot.commands.Auto.AutoSpeakerTracking;
-import frc.robot.commands.Auto.TestAuto;
+import frc.robot.commands.Auto.AutoTransport;
+import frc.robot.commands.Auto.AutoWaitToSpeed;
 import frc.robot.commands.Teleop.ClimbUp;
 import frc.robot.commands.Teleop.ReadyClimber;
 import frc.robot.commands.Teleop.SpeakerTracking;
@@ -64,6 +64,7 @@ public class RobotContainer {
   public final Climber climber = new Climber();
   private final XboxController driveController = new XboxController(OIConstants.driveControllerID);
   public final XboxController operatorController = new XboxController(OIConstants.operatorControllerID);
+  public final XboxController testController = new XboxController(OIConstants.testControllerID);
   private final SendableChooser<Command> autoChooser;
   private static Optional<Alliance> alliance;
   
@@ -83,7 +84,7 @@ public class RobotContainer {
     new JoystickButton(driveController, Button.kA.value).whileTrue(new SpeakerTracking(shooter, intake, limelightShooter, chassis, () -> driveController.getLeftY(), () -> driveController.getLeftX(), ()-> operatorController.getLeftTriggerAxis(), ()->operatorController.getRightTriggerAxis()));
     new JoystickButton(operatorController, Button.kB.value).whileTrue(new TeleAMP(shooter, chassis, ()->operatorController.getLeftTriggerAxis(), limelightShooter));
     new JoystickButton(operatorController, Button.kA.value).toggleOnTrue(new TeleGetNote(intake, () -> operatorController.getYButton()));
-    //new JoystickButton(operatorController, Button.kY.value).whileTrue(new TeleMicphone(intake, operatorController));
+    new JoystickButton(operatorController, Button.kX.value).whileTrue(new TeleMicphone(intake, operatorController));
     new JoystickButton(operatorController, Button.kBack.value).onTrue(new ReadyClimber(climber, ()-> operatorController.getStartButton()).andThen(new ClimbUp(climber, () -> operatorController.getBackButton())));
   }
 
@@ -102,14 +103,14 @@ public class RobotContainer {
   }
 
   public void nameCommands() {
-    NamedCommands.registerCommand("amp", new TeleAMP(shooter, chassis, operatorController::getLeftTriggerAxis, limelightShooter));
+    //NamedCommands.registerCommand("amp", new TeleAMP(shooter, chassis, operatorController::getLeftTriggerAxis, limelightShooter));
     // NamedCommands.registerCommand("greenRoll", );
-    NamedCommands.registerCommand("test marker1", new TestAuto());
     NamedCommands.registerCommand("shooting", new AutoShooting(shooter));
-    NamedCommands.registerCommand("shooter",new AutoShootingTransport(shooter, limelightShooter));
-    NamedCommands.registerCommand("intake", new AutoGetNote(intake));
+    NamedCommands.registerCommand("intakeRolling", new AutoGetNote(intake));
     NamedCommands.registerCommand("shooterAngle", new AutoSpeakerTracking(shooter, limelightShooter));
     NamedCommands.registerCommand("intakeDown", new AutoIntakeDown(intake));
+    NamedCommands.registerCommand("greenRolling", new AutoTransport(shooter));
+    NamedCommands.registerCommand("speed", new AutoWaitToSpeed(shooter));
   }
 
   public static boolean isRedAlliance() {

@@ -74,6 +74,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    m_robotContainer.cancelDefaultCommand();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
@@ -116,13 +117,13 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
     CommandScheduler.getInstance().cancelAll();
 
-    m_robotContainer.climber.setLeftSpeed(m_robotContainer.operatorController.getLeftY());
-    m_robotContainer.climber.setRightSpeed(-m_robotContainer.operatorController.getRightY());
-    m_robotContainer.intake.setIntakeAngle(m_robotContainer.operatorController.getYButton() ? 0.2
-        : m_robotContainer.operatorController.getXButton() ? -0.2 : 0);
-    m_robotContainer.shooter.setShooterAngle(m_robotContainer.operatorController.getBButton() ? 0.2
-        : m_robotContainer.operatorController.getAButton() ? -0.2 : 0);
-    if (m_robotContainer.operatorController.getRightStickButton()) {
+    m_robotContainer.climber.setLeftSpeed(m_robotContainer.testController.getLeftY());
+    m_robotContainer.climber.setRightSpeed(-m_robotContainer.testController.getRightY());
+    m_robotContainer.intake.setIntakeAngle(m_robotContainer.testController.getYButton() ? 0.2
+        : m_robotContainer.testController.getXButton() ? -0.2 : 0);
+    m_robotContainer.shooter.setShooterAngle(m_robotContainer.testController.getBButton() ? 0.2
+        : m_robotContainer.testController.getAButton() ? -0.2 : 0);
+    if (m_robotContainer.testController.getRightStickButton()) {
       m_robotContainer.climber.setToZero();
       m_robotContainer.intake.setToZero();
       m_robotContainer.shooter.setToZero();

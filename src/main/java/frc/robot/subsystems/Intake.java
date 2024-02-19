@@ -44,7 +44,7 @@ public class Intake extends SubsystemBase {
   public boolean isIntakeDown = false;
 
   public Intake() {
-    angleLimiter = new SoftLimiter(()-> angleMotor.getPosition().getValue());
+    angleLimiter = new SoftLimiter(()-> getIntakePosition());
     angleLimiter.setRange(IntakeConstants.angleHighLimit, IntakeConstants.angleLowLimit);
     colorMatch.addColorMatch(IntakeConstants.noteColor);
   }
@@ -55,6 +55,10 @@ public class Intake extends SubsystemBase {
     SmartDashboard.putBoolean("color matched", isNoteSet());
 
     if(isSetToPosition) { angleMotor.set(angleLimiter.getOutput(intakePID.calculate(angleMotor.getPosition().getValue(), intakePosition)));}
+  }
+
+  public double getIntakePosition(){
+    return angleMotor.getPosition().getValue();
   }
 
   public void setIntakePosition(double position) {

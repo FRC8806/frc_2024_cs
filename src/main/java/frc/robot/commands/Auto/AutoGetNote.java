@@ -18,7 +18,7 @@ public class AutoGetNote extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intake.setIntakeDown();
+    //intake.setIntakeDown();
   }
 
   // Called every time the scheduler runs while the command is scheduled.

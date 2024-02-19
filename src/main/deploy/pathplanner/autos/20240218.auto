@@ -2,7 +2,7 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.31,
+      "x": 1.35,
       "y": 5.55
     },
     "rotation": 0
@@ -18,7 +18,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "shooter"
+                  "name": "shooting"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "shooterAngle"
                 }
               },
               {
@@ -26,25 +32,38 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "wait",
+                      "type": "named",
                       "data": {
-                        "waitTime": 2.0
+                        "name": "intakeDown"
                       }
                     },
                     {
-                      "type": "deadline",
+                      "type": "parallel",
                       "data": {
                         "commands": [
                           {
-                            "type": "named",
+                            "type": "path",
                             "data": {
-                              "name": "intake"
+                              "pathName": "s2"
                             }
                           },
                           {
-                            "type": "path",
+                            "type": "sequential",
                             "data": {
-                              "pathName": "test3-1-1"
+                              "commands": [
+                                {
+                                  "type": "named",
+                                  "data": {
+                                    "name": "speed"
+                                  }
+                                },
+                                {
+                                  "type": "named",
+                                  "data": {
+                                    "name": "greenRolling"
+                                  }
+                                }
+                              ]
                             }
                           }
                         ]
@@ -59,6 +78,6 @@
       ]
     }
   },
-  "folder": "threeNotes",
+  "folder": null,
   "choreoAuto": false
 }

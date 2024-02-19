@@ -4,31 +4,30 @@
 
 package frc.robot.commands.Auto;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Shooter;
 
-public class TestAuto extends Command {
-  /** Creates a new TestAuto. */
-  public TestAuto() {
+public class AutoTransport extends Command {
+  Shooter shooter;
+  /** Creates a new AutoTransport. */
+  public AutoTransport(Shooter shooter) {
+    this.shooter = shooter;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    SmartDashboard.putBoolean("test auto on", true);
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    shooter.setTransportSpeed(0.8);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    SmartDashboard.putBoolean("test auto on", false);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

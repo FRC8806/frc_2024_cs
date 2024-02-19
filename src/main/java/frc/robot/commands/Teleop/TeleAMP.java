@@ -42,7 +42,7 @@ public class TeleAMP extends Command {
     // ySpeed *= SwerveConstants.kMaxThrottleSpeed;
     // double zSpeed = (0-chassis.getPose().getRotation().getRotations())*0.05;
 
-    shooter.setShootingSpeed(0.18);
+    shooter.setShootingSpeed(0.23);
     shooter.setTransportSpeed(lt.get());
     shooter.setAMPAngle();
     // chassis.drive(new ChassisSpeeds(-tx/10,ySpeed,zSpeed));

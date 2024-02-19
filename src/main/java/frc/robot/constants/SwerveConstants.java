@@ -48,10 +48,10 @@ public final class SwerveConstants {
 	public static final int C_ENCODER_ID = 3;
 	public static final int D_ENCODER_ID = 4;
 
-	public static final double A_OFFSET = 0.13793946;
-	public static final double B_OFFSET = 0.09399415;
-	public static final double C_OFFSET = 0.04101563;
-	public static final double D_OFFSET = 0.19970704;
+	public static final double A_OFFSET = 0.143798828125;//0.13793946
+	public static final double B_OFFSET = 0.09619140625;//0.09399415
+	public static final double C_OFFSET = 0.043701171875;//0.04101563
+	public static final double D_OFFSET = 0.19970704;// 0.19970704 //0.194091796875
 
 	public static final Translation2d A_TRANSLATION2D = new Translation2d(0.29, 0.29);
 	public static final Translation2d B_TRANSLATION2D = new Translation2d(0.29, -0.29);
@@ -62,18 +62,18 @@ public final class SwerveConstants {
 			B_TRANSLATION2D, C_TRANSLATION2D, D_TRANSLATION2D);
 
 	//PID
-	public static final double rotorKP = 0.013;
+	public static final double rotorKP = 0.018;
 	public static final double rotorKI = 0;
 	public static final double rotorKD = 0;
 
-	public static final double translationKP = 0.0;
-	public static final double translationKI = 0.15;
-	public static final double translationKD = 0.0011;
+	public static final double translationKP = 0.08;//0.08;
+	public static final double translationKI = 0.015;//0.018;
+	public static final double translationKD = 0.02;//0.02;
 
-	public static final double rotationKP = 0.2;
+	public static final double rotationKP = 2;//0.86
 	public static final double rotationKI = 0.0;
 	public static final double rotationKD = 0.0;
 
     public static final double maxModuleSpeed = 4.5;
-    public static final double driveBaseRadius = 0.4;
+    public static final double driveBaseRadius = 0.41012;
 }

@@ -5,23 +5,19 @@
 package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.constants.IntakeConstants;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
-public class AutoIntakeDown extends Command {
-  Intake intake;
-  /** Creates a new AutoIntakeDown. */
-  public AutoIntakeDown(Intake intake) {
-    this.intake = intake;
-    //addRequirements(intake);
+public class AutoWaitToSpeed extends Command {
+  Shooter shooter;
+  /** Creates a new AutoWaitToSpeed. */
+  public AutoWaitToSpeed(Shooter shooter) {
+    this.shooter = shooter;
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    intake.setIntakeDown();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -34,6 +30,6 @@ public class AutoIntakeDown extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return intake.getIntakePosition() > IntakeConstants.downPosition - 0.1;
+    return shooter.toSpeed();
   }
 }

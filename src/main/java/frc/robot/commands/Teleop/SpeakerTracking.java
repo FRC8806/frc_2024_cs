@@ -52,8 +52,8 @@ public class SpeakerTracking extends Command {
     this.yAxis = yAxis;
     this.transportTrigger = transportTrigger;
     this.shootingTrigger = shootingTrigger;
-    addRequirements(driveTrain);
-    addRequirements(shooter);
+    //addRequirements(driveTrain);
+    //addRequirements(shooter);
   }
 
   @Override
