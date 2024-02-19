@@ -26,7 +26,7 @@ public final class ShooterConstants {
 	public static final double angleLowLimit = 2;
 	public static final double angleAMP = 7.928;
 	//PID
-	public static final double shooterSpeedKP = 0.1;
+	public static final double shooterSpeedKP = 0.005;
 	public static final double shooterSpeedKI = 0;
 	public static final double shooterSpeedKD = 0;
 

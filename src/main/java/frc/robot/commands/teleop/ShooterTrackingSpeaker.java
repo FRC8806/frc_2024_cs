@@ -12,21 +12,17 @@
 //   2024            2024  2024            2024  2024            2024  2024            2024
 //  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
-package frc.robot.commands.teleop;
+package frc.robot.commands.Teleop;
 
 import java.util.function.Supplier;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.RobotContainer;
 import frc.robot.constants.IntakeConstants;
 import frc.robot.constants.ShooterConstants;
-import frc.robot.constants.SwerveConstants;
-import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
@@ -34,7 +30,7 @@ public class ShooterTrackingSpeaker extends Command {
   private Shooter shooter;
   private Intake intake;
   private NetworkTable shooterLimelight;
-  private Supplier<Double> trigger;
+  private Supplier<Double> trigger, shootingTrigger;
   private PIDController shooterPID = new PIDController(ShooterConstants.shooterKP, ShooterConstants.shooterKI,
       ShooterConstants.shooterKD);
   private PIDController speedPID = new PIDController(ShooterConstants.shooterSpeedKP, ShooterConstants.shooterSpeedKI,
@@ -43,11 +39,12 @@ public class ShooterTrackingSpeaker extends Command {
   private double targetPosition, angleSpeed;
 
   public ShooterTrackingSpeaker(Shooter shooter, Intake intake, NetworkTable shooterLimelight, 
-        Supplier<Double> transportTrigger) {
+        Supplier<Double> transportTrigger, Supplier<Double> shootingTrigger) {
     this.shooter = shooter;
     this.shooterLimelight = shooterLimelight;
     this.intake = intake;
     this.trigger = transportTrigger;
+    this.shootingTrigger = shootingTrigger;
     addRequirements(shooter);
   }
 
@@ -75,8 +72,16 @@ public class ShooterTrackingSpeaker extends Command {
       angleSpeed = shooterPID.calculate(shooter.getAnglePosition(), targetPosition);
     }
     shooter.setAngleSpeed(angleSpeed);
-    shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getFlyWheelSpeed(),
-    5400));
+    // shooter.setFlyWheelSpeed(0.8 + speedPID.calculate(shooter.getFlyWheelSpeed(),
+    // 5400));
+
+    if (shootingTrigger.get() > 0.2){
+      shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getFlyWheelSpeed(),
+      5400));
+    }else{
+      shooter.setFlyWheelSpeed(0);
+    }
+    
     if (trigger.get() > 0.2) {
       intake.setMicSpeed(IntakeConstants.microPhoneSpeed);
       //移入

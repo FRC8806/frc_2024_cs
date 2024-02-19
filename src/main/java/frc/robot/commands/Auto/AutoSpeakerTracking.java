@@ -12,7 +12,7 @@
 //   2024            2024  2024            2024  2024            2024  2024            2024
 //  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
-package frc.robot.commands.auto;
+package frc.robot.commands.Auto;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;

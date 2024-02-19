@@ -31,9 +31,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
-import frc.robot.commands.auto.*;
-import frc.robot.commands.teleop.*;
+import frc.robot.commands.Auto.*;
+import frc.robot.commands.Teleop.*;
 import frc.robot.commands.climb.*;
 import frc.robot.constants.OIConstants;
 import frc.robot.subsystems.*;
@@ -59,6 +58,7 @@ public class RobotContainer {
   public RobotContainer() {
     nameCommands();
     setDefaultCommand();
+
     configureBindings();
     autoChooser = AutoBuilder.buildAutoChooser();
     autoChooser.addOption("aaaa", new PathPlannerAuto("Example Auto"));
@@ -69,9 +69,9 @@ public class RobotContainer {
   private void configureBindings() {
     SmartDashboard.putData("test auto", new PathPlannerAuto("Example Auto"));
     new JoystickButton(driveController, Button.kA.value).whileTrue(new ChassisTrackingSpeaker(limelightShooter, chassis, () -> driveController.getLeftY(), () -> driveController.getLeftX()));
-    new JoystickButton(operatorController, Button.kY.value).toggleOnTrue(new ShooterTrackingSpeaker(shooter, intake, limelightShooter, ()-> operatorController.getRightTriggerAxis()));
+    new JoystickButton(operatorController, Button.kY.value).toggleOnTrue(new ShooterTrackingSpeaker(shooter, intake, limelightShooter, ()-> operatorController.getLeftTriggerAxis(), ()-> operatorController.getRightTriggerAxis()));
     new JoystickButton(operatorController, Button.kB.value).whileTrue(new TeleAMP(shooter, chassis, ()-> operatorController.getLeftTriggerAxis(), limelightShooter));
-    new JoystickButton(operatorController, Button.kA.value).toggleOnTrue(new TeleGetNote(intake, () -> operatorController.getYButton()));
+    new JoystickButton(operatorController, Button.kA.value).toggleOnTrue(new TeleGetNote(intake, () -> operatorController.getXButton()));
     new JoystickButton(operatorController, Button.kBack.value).onTrue(new ClimberSetup(climber, ()-> operatorController.getStartButton()).andThen(new ClimbUp(climber, () -> operatorController.getBackButton())));
   }
 
