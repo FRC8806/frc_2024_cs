@@ -12,48 +12,51 @@
 //   2024            2024  2024            2024  2024            2024  2024            2024
 //  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
-package frc.robot.commands.Teleop;
+package frc.robot.commands.teleops;
 
 import java.util.function.Supplier;
 
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Shooter;
+import frc.robot.constants.IntakeConstants;
+import frc.robot.subsystems.Intake;
 
-public class ShooterDefaultCommand extends Command {
-  private Shooter shooter;
-  private Supplier<Double> rt;
-  private Supplier<Double> lt;
-  private Supplier<Boolean> rb;
-  private Supplier<Boolean> lb;
-  private NetworkTable shooterLimelight;
-  public ShooterDefaultCommand(Shooter shooter, Supplier<Double> rt, Supplier<Double> lt, Supplier<Boolean> rb, Supplier<Boolean> lb, NetworkTable shooterLimelight) {
-    this.shooter = shooter;
-    this.rt = rt;
-    this.lt = lt;
-    this.rb = rb;
-    this.lb = lb;
-    this.shooterLimelight = shooterLimelight;
-    addRequirements(shooter);
+public class TeleGetNote extends Command {
+  private Intake intake;
+  private Supplier<Boolean> inverseTrigger;
+  
+  public TeleGetNote(Intake intake, Supplier<Boolean> inverseTrigger) {
+    this.intake = intake;
+    this.inverseTrigger = inverseTrigger;
+    addRequirements(intake);
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    intake.setIntakeDown();
+    intake.setRollingSpeed(IntakeConstants.rollingSpeed);
+    intake.setMicSpeed(IntakeConstants.microPhoneSpeed);
+  }
 
   @Override
   public void execute() {
-    shooter.setFlyWheelSpeed(rt.get());
-    shooter.setAngleSpeed(rb.get() ? 0.15 : lb.get() ? -0.15 : 0);
-    shooter.setTransportSpeed(lt.get()/2);
-    SmartDashboard.putNumber("ty", shooterLimelight.getValue("ty").getDouble());
+    if(inverseTrigger.get()) {
+      intake.setRollingSpeed(-0.2);
+      intake.setMicSpeed(-0.2);
+    } else {
+      intake.setRollingSpeed(IntakeConstants.rollingSpeed);
+      intake.setMicSpeed(IntakeConstants.microPhoneSpeed);
+    }
   }
 
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    intake.setIntakeUp();
+    intake.setRollingSpeed(0);
+    intake.setMicSpeed(0);
+  }
 
   @Override
   public boolean isFinished() {
-    return false;
+    return intake.isNoteSet();
   }
 }

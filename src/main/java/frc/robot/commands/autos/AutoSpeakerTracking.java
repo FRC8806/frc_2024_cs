@@ -12,51 +12,46 @@
 //   2024            2024  2024            2024  2024            2024  2024            2024
 //  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
-package frc.robot.commands.Teleop;
+package frc.robot.commands.autos;
 
-import java.util.function.Supplier;
-
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.constants.IntakeConstants;
-import frc.robot.subsystems.Intake;
+import frc.robot.constants.ShooterConstants;
+import frc.robot.subsystems.Shooter;
 
-public class TeleGetNote extends Command {
-  private Intake intake;
-  private Supplier<Boolean> inverseTrigger;
-  
-  public TeleGetNote(Intake intake, Supplier<Boolean> inverseTrigger) {
-    this.intake = intake;
-    this.inverseTrigger = inverseTrigger;
-    addRequirements(intake);
+public class AutoSpeakerTracking extends Command {
+  Shooter shooter;
+  NetworkTable shooterLimelight;
+  PIDController shooterPID = new PIDController(ShooterConstants.shooterKP, ShooterConstants.shooterKI, ShooterConstants.shooterKD);
+  /** Creates a new AutoSpeakerTracking. */
+  public AutoSpeakerTracking(Shooter shooter, NetworkTable shooterLimelight) {
+    this.shooter = shooter;
+    this.shooterLimelight = shooterLimelight;
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
+  // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    intake.setIntakeDown();
-    intake.setRollingSpeed(IntakeConstants.rollingSpeed);
-    intake.setMicSpeed(IntakeConstants.microPhoneSpeed);
-  }
+  public void initialize() {}
 
+  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(inverseTrigger.get()) {
-      intake.setRollingSpeed(-0.2);
-      intake.setMicSpeed(-0.2);
-    } else {
-      intake.setRollingSpeed(IntakeConstants.rollingSpeed);
-      intake.setMicSpeed(IntakeConstants.microPhoneSpeed);
-    }
+    double ty = shooterLimelight.getEntry("ty").getDouble(0);
+    double targetPosition = 49.9 - 3.73 * ty - 0.0362 * ty * ty;
+    shooter.setAngleSpeed(shooterPID.calculate(shooter.getAnglePosition(), targetPosition));
   }
 
+  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.setIntakeUp();
-    intake.setRollingSpeed(0);
-    intake.setMicSpeed(0);
+    shooter.setAngleSpeed(0);
   }
 
+  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return intake.isNoteSet();
+    return false;
   }
 }

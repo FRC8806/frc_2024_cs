@@ -12,38 +12,50 @@
 //   2024            2024  2024            2024  2024            2024  2024            2024
 //  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
-package frc.robot.commands.Auto;
+package frc.robot.commands.teleops;
 
+import java.util.function.Supplier;
+
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.constants.IntakeConstants;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Shooter;
 
-public class AutoIntakeDown extends Command {
-  Intake intake;
-  /** Creates a new AutoIntakeDown. */
-  public AutoIntakeDown(Intake intake) {
-    this.intake = intake;
-    //addRequirements(intake);
-    // Use addRequirements() here to declare subsystem dependencies.
+public class TeleAMP extends Command {
+  Shooter shooter;
+  Chassis chassis;
+  Supplier<Double> lt;
+  NetworkTable shooterLimelight;
+  public TeleAMP(Shooter shooter, Chassis chassis, Supplier<Double> lt, NetworkTable shooterLimelight) {
+    this.shooter = shooter;
+    this.chassis = chassis;
+    this.lt = lt;
+    this.shooterLimelight = shooterLimelight;
+    addRequirements(shooter);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    intake.setIntakeDown();
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    //移入
+    shooter.setFlyWheelSpeed(0.23);
+    shooter.setTransportSpeed(lt.get());
+    //移出
+    shooter.setAMPAngle();
+  }
 
-  // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    // shooter.setFlyWheelSpeed(0);
+    shooter.setAngleSpeed(0);
+    shooter.setTransportSpeed(0);
+  }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return intake.getAnglePosition() > IntakeConstants.downPosition - 0.1;
+    return false;
   }
 }

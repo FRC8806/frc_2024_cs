@@ -12,46 +12,38 @@
 //   2024            2024  2024            2024  2024            2024  2024            2024
 //  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
-package frc.robot.commands.Auto;
+package frc.robot.commands.autos;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.constants.ShooterConstants;
-import frc.robot.subsystems.Shooter;
+import frc.robot.constants.IntakeConstants;
+import frc.robot.subsystems.Intake;
 
-public class AutoSpeakerTracking extends Command {
-  Shooter shooter;
-  NetworkTable shooterLimelight;
-  PIDController shooterPID = new PIDController(ShooterConstants.shooterKP, ShooterConstants.shooterKI, ShooterConstants.shooterKD);
-  /** Creates a new AutoSpeakerTracking. */
-  public AutoSpeakerTracking(Shooter shooter, NetworkTable shooterLimelight) {
-    this.shooter = shooter;
-    this.shooterLimelight = shooterLimelight;
+public class AutoIntakeDown extends Command {
+  Intake intake;
+  /** Creates a new AutoIntakeDown. */
+  public AutoIntakeDown(Intake intake) {
+    this.intake = intake;
+    //addRequirements(intake);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    intake.setIntakeDown();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    double ty = shooterLimelight.getEntry("ty").getDouble(0);
-    double targetPosition = 49.9 - 3.73 * ty - 0.0362 * ty * ty;
-    shooter.setAngleSpeed(shooterPID.calculate(shooter.getAnglePosition(), targetPosition));
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    shooter.setAngleSpeed(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return intake.getAnglePosition() > IntakeConstants.downPosition - 0.1;
   }
 }

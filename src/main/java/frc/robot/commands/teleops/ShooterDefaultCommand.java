@@ -12,37 +12,46 @@
 //   2024            2024  2024            2024  2024            2024  2024            2024
 //  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
-package frc.robot.commands.Auto;
+package frc.robot.commands.teleops;
 
+import java.util.function.Supplier;
+
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Shooter;
 
-public class AutoShooting extends Command {
-  Shooter shooter;
-  /** Creates a new AutoShooting. */
-  public AutoShooting(Shooter shooter) {
+public class ShooterDefaultCommand extends Command {
+  private Shooter shooter;
+  private Supplier<Double> rt;
+  private Supplier<Double> lt;
+  private Supplier<Boolean> rb;
+  private Supplier<Boolean> lb;
+  private NetworkTable shooterLimelight;
+  public ShooterDefaultCommand(Shooter shooter, Supplier<Double> rt, Supplier<Double> lt, Supplier<Boolean> rb, Supplier<Boolean> lb, NetworkTable shooterLimelight) {
     this.shooter = shooter;
-    // addRequirements(shooter);
-    // Use addRequirements() here to declare subsystem dependencies.
+    this.rt = rt;
+    this.lt = lt;
+    this.rb = rb;
+    this.lb = lb;
+    this.shooterLimelight = shooterLimelight;
+    addRequirements(shooter);
   }
 
-  // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-  }
+  public void initialize() {}
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setFlyWheelSpeed(1);
+    shooter.setFlyWheelSpeed(rt.get());
+    shooter.setAngleSpeed(rb.get() ? 0.15 : lb.get() ? -0.15 : 0);
+    shooter.setTransportSpeed(lt.get()/2);
+    SmartDashboard.putNumber("ty", shooterLimelight.getValue("ty").getDouble());
   }
 
-  // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-  }
+  public void end(boolean interrupted) {}
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;

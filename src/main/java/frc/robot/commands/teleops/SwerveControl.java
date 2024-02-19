@@ -12,53 +12,46 @@
 //   2024            2024  2024            2024  2024            2024  2024            2024
 //  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
-package frc.robot.commands.Teleop;
+package frc.robot.commands.teleops;
 
 import java.util.function.Supplier;
 
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.RobotContainer;
 import frc.robot.constants.SwerveConstants;
 import frc.robot.subsystems.Chassis;
 
-public class ChassisTrackingSpeaker extends Command {
-  private NetworkTable shooterLimelight;
+public class SwerveControl extends Command {
   private Chassis chassis;
-  private Supplier<Double> xAxis, yAxis;
+  private Supplier<Double> xAxis;
+  private Supplier<Double> yAxis;
+  private Supplier<Double> zAxis;
 
-  public ChassisTrackingSpeaker(NetworkTable shooterLimelight, Chassis driveTrain,
-      Supplier<Double> xAxis, Supplier<Double> yAxis) {
-    this.shooterLimelight = shooterLimelight;
-    this.chassis = driveTrain;
+  public SwerveControl(Chassis chassis, Supplier<Double> xAxis, Supplier<Double> yAxis, Supplier<Double> zAxis) {
+    this.chassis = chassis;
     this.xAxis = xAxis;
     this.yAxis = yAxis;
-    addRequirements(driveTrain);
+    this.zAxis = zAxis;
+    addRequirements(chassis);
   }
 
   @Override
-  public void initialize() {
-    //移到外面
-    if (RobotContainer.isRedAlliance()) {
-      shooterLimelight.getEntry("pipeline").setNumber(0);
-    } else {
-      shooterLimelight.getEntry("pipeline").setNumber(1);
-    }
-  }
+  public void initialize() {}
 
   @Override
   public void execute() {
     double xSpeed = -onDeadband(xAxis.get(), SwerveConstants.deadband);
     double ySpeed = -onDeadband(yAxis.get(), SwerveConstants.deadband);
+    double rSpeed = -onDeadband(zAxis.get(), SwerveConstants.deadband);
     xSpeed *= SwerveConstants.kMaxThrottleSpeed;
     ySpeed *= SwerveConstants.kMaxThrottleSpeed;
-    double tx = shooterLimelight.getEntry("tx").getDouble(0);
-    chassis.drive(new ChassisSpeeds(xSpeed, ySpeed, -tx * 0.15));
+    rSpeed *= SwerveConstants.kMaxRotationSpeed;
+    chassis.drive(new ChassisSpeeds(xSpeed,ySpeed,rSpeed));
   }
 
   @Override
   public void end(boolean interrupted) {
+    chassis.drive(new ChassisSpeeds());
   }
 
   @Override
