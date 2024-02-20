@@ -38,32 +38,19 @@
                       }
                     },
                     {
+                      "type": "path",
+                      "data": {
+                        "pathName": "s2- a2"
+                      }
+                    },
+                    {
                       "type": "parallel",
                       "data": {
                         "commands": [
                           {
-                            "type": "path",
+                            "type": "named",
                             "data": {
-                              "pathName": "s2"
-                            }
-                          },
-                          {
-                            "type": "sequential",
-                            "data": {
-                              "commands": [
-                                {
-                                  "type": "named",
-                                  "data": {
-                                    "name": "speed"
-                                  }
-                                },
-                                {
-                                  "type": "named",
-                                  "data": {
-                                    "name": "greenRolling"
-                                  }
-                                }
-                              ]
+                              "name": "greenRolling"
                             }
                           }
                         ]

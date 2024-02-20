@@ -14,7 +14,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "s1"
+            "pathName": "s1-a1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "a1-b1_m"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "m_b2_m"
           }
         }
       ]

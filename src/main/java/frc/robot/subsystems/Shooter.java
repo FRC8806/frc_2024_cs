@@ -98,6 +98,6 @@ public class Shooter extends SubsystemBase {
   } 
 
   public boolean isSpeedReached(){
-    return getFlyWheelSpeed() >= 5400;
+    return getFlyWheelSpeed() >= 5300;
   }
 }

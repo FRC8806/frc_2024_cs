@@ -18,7 +18,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.RobotContainer;
 import frc.robot.constants.SwerveConstants;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -35,6 +34,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 public class Chassis extends SubsystemBase {
+  public boolean updatePose = false;
   private AHRS ahrs = new AHRS(SPI.Port.kMXP);
   private SwerveModule moduleA = new SwerveModule(SwerveConstants.A_THROTTLE_ID, SwerveConstants.A_ROTOR_ID, SwerveConstants.A_ENCODER_ID,
       SwerveConstants.A_OFFSET);
@@ -77,7 +77,7 @@ public class Chassis extends SubsystemBase {
 
   @Override
   public void periodic() {
-    odometry.update(getRotation2d(), getModulePositions());
+    if(updatePose){odometry.update(getRotation2d(), getModulePositions());}
     SmartDashboard.putNumber("ahrs", -ahrs.getAngle());
     SmartDashboard.putNumber("pose-z", getPose().getRotation().getDegrees());
     SmartDashboard.putNumber("pose-x", getPose().getX());

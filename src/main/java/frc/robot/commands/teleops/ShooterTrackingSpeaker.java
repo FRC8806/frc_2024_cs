@@ -20,7 +20,6 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.RobotContainer;
 import frc.robot.constants.IntakeConstants;
 import frc.robot.constants.ShooterConstants;
 import frc.robot.subsystems.Intake;
@@ -50,12 +49,6 @@ public class ShooterTrackingSpeaker extends Command {
 
   @Override
   public void initialize() {
-    //移到外面
-    if (RobotContainer.isRedAlliance()) {
-      shooterLimelight.getEntry("pipeline").setNumber(0);
-    } else {
-      shooterLimelight.getEntry("pipeline").setNumber(1);
-    }
     shooter.isTracking = true;
     //待測
     targetPosition = 30;

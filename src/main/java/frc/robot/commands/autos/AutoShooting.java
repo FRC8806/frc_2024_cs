@@ -14,35 +14,34 @@
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
 package frc.robot.commands.autos;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.ShooterConstants;
 import frc.robot.subsystems.Shooter;
 
 public class AutoShooting extends Command {
-  Shooter shooter;
-  /** Creates a new AutoShooting. */
+  private Shooter shooter;
+  private PIDController speedPID = new PIDController(ShooterConstants.shooterSpeedKP, ShooterConstants.shooterSpeedKI,
+      ShooterConstants.shooterSpeedKD);
   public AutoShooting(Shooter shooter) {
     this.shooter = shooter;
     // addRequirements(shooter);
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooter.setFlyWheelSpeed(1);
+    shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getFlyWheelSpeed(),
+    5400));
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;

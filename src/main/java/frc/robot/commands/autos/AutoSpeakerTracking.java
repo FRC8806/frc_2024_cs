@@ -21,35 +21,38 @@ import frc.robot.constants.ShooterConstants;
 import frc.robot.subsystems.Shooter;
 
 public class AutoSpeakerTracking extends Command {
-  Shooter shooter;
-  NetworkTable shooterLimelight;
-  PIDController shooterPID = new PIDController(ShooterConstants.shooterKP, ShooterConstants.shooterKI, ShooterConstants.shooterKD);
-  /** Creates a new AutoSpeakerTracking. */
+  private Shooter shooter;
+  private NetworkTable shooterLimelight;
+  private PIDController shooterPID = new PIDController(ShooterConstants.shooterKP, ShooterConstants.shooterKI, ShooterConstants.shooterKD);
+
+  private double targetPosition, angleSpeed;
+
   public AutoSpeakerTracking(Shooter shooter, NetworkTable shooterLimelight) {
     this.shooter = shooter;
     this.shooterLimelight = shooterLimelight;
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
-  // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    targetPosition = 10;
+  }
 
-  // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     double ty = shooterLimelight.getEntry("ty").getDouble(0);
-    double targetPosition = 49.9 - 3.73 * ty - 0.0362 * ty * ty;
-    shooter.setAngleSpeed(shooterPID.calculate(shooter.getAnglePosition(), targetPosition));
+
+    if (ty != 0.0) {
+      targetPosition = 49.9 - 3.73 * ty - 0.0362 * ty * ty;
+      angleSpeed = shooterPID.calculate(shooter.getAnglePosition(), targetPosition);
+    }
+    shooter.setAngleSpeed(angleSpeed);
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     shooter.setAngleSpeed(0);
   }
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;

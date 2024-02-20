@@ -18,62 +18,62 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 
 public final class SwerveConstants {
-	public static final double deadband = 0.12;
+  public static final double deadband = 0.12;
 
-	public static final double kThrottleGarRatio = 6.12;
-	public static final double kWheelDiameter = 4 * 0.0254;
-	public static final double kMaxThrottleSpeed = 6380 / 60 / kThrottleGarRatio * kWheelDiameter * Math.PI;
-	public static final double kMaxRotationSpeed = kMaxThrottleSpeed / Math.sqrt(2 * Math.pow(0.5, 2)) * 2;
+  public static final double kThrottleGarRatio = 6.12;
+  public static final double kWheelDiameter = 4 * 0.0254;
+  public static final double kMaxThrottleSpeed = 6380 / 60 / kThrottleGarRatio * kWheelDiameter * Math.PI;
+  public static final double kMaxRotationSpeed = kMaxThrottleSpeed / Math.sqrt(2 * Math.pow(0.5, 2)) * 2;
 
-	public static final double kThrottleVelocityConversionFactor = kWheelDiameter * Math.PI / kThrottleGarRatio * 10
-			/ 2048;
-	public static final double kWheelDiameterMeters = 4 * 0.0254;
-	public static final double kThrottleGearRatio = 6.12;
-	public static final double kThrottlePositionConversionFactor = (kWheelDiameterMeters * Math.PI)
-			/ (kThrottleGearRatio * 2048);
+  public static final double kThrottleVelocityConversionFactor = kWheelDiameter * Math.PI / kThrottleGarRatio * 10
+      / 2048;
+  public static final double kWheelDiameterMeters = 4 * 0.0254;
+  public static final double kThrottleGearRatio = 6.12;
+  public static final double kThrottlePositionConversionFactor = (kWheelDiameterMeters * Math.PI)
+      / (kThrottleGearRatio * 2048);
 
-	// CAN_ID
-	public static final int A_THROTTLE_ID = 2;
-	public static final int B_THROTTLE_ID = 4;
-	public static final int C_THROTTLE_ID = 6;
-	public static final int D_THROTTLE_ID = 8;
+  // CAN_ID
+  public static final int A_THROTTLE_ID = 2;
+  public static final int B_THROTTLE_ID = 4;
+  public static final int C_THROTTLE_ID = 6;
+  public static final int D_THROTTLE_ID = 8;
 
-	public static final int A_ROTOR_ID = 1;
-	public static final int B_ROTOR_ID = 3;
-	public static final int C_ROTOR_ID = 5;
-	public static final int D_ROTOR_ID = 7;
+  public static final int A_ROTOR_ID = 1;
+  public static final int B_ROTOR_ID = 3;
+  public static final int C_ROTOR_ID = 5;
+  public static final int D_ROTOR_ID = 7;
 
-	public static final int A_ENCODER_ID = 2;
-	public static final int B_ENCODER_ID = 1;
-	public static final int C_ENCODER_ID = 3;
-	public static final int D_ENCODER_ID = 4;
+  public static final int A_ENCODER_ID = 2;
+  public static final int B_ENCODER_ID = 1;
+  public static final int C_ENCODER_ID = 3;
+  public static final int D_ENCODER_ID = 4;
 
-	public static final double A_OFFSET = 0.143798828125;//0.13793946
-	public static final double B_OFFSET = 0.09619140625;//0.09399415
-	public static final double C_OFFSET = 0.043701171875;//0.04101563
-	public static final double D_OFFSET = 0.19970704;// 0.19970704 //0.194091796875
+  public static final double A_OFFSET = 0.143798828125;// 0.13793946
+  public static final double B_OFFSET = 0.09619140625;// 0.09399415
+  public static final double C_OFFSET = 0.043701171875;// 0.04101563
+  public static final double D_OFFSET = 0.19970704;// 0.19970704 //0.194091796875
 
-	public static final Translation2d A_TRANSLATION2D = new Translation2d(0.29, 0.29);
-	public static final Translation2d B_TRANSLATION2D = new Translation2d(0.29, -0.29);
-	public static final Translation2d C_TRANSLATION2D = new Translation2d(-0.29, -0.29);
-	public static final Translation2d D_TRANSLATION2D = new Translation2d(-0.29, 0.29);
+  public static final Translation2d A_TRANSLATION2D = new Translation2d(0.29, 0.29);
+  public static final Translation2d B_TRANSLATION2D = new Translation2d(0.29, -0.29);
+  public static final Translation2d C_TRANSLATION2D = new Translation2d(-0.29, -0.29);
+  public static final Translation2d D_TRANSLATION2D = new Translation2d(-0.29, 0.29);
 
-	public static final SwerveDriveKinematics SWERVE_KINEMATIS = new SwerveDriveKinematics(A_TRANSLATION2D,
-			B_TRANSLATION2D, C_TRANSLATION2D, D_TRANSLATION2D);
+  public static final SwerveDriveKinematics SWERVE_KINEMATIS = new SwerveDriveKinematics(A_TRANSLATION2D,
+      B_TRANSLATION2D, C_TRANSLATION2D, D_TRANSLATION2D);
 
-	//PID
-	public static final double rotorKP = 0.013;
-	public static final double rotorKI = 0;
-	public static final double rotorKD = 0;
+  // PID
+  public static final double rotorKP = 0.013;
+  public static final double rotorKI = 0;
+  public static final double rotorKD = 0;
 
-	public static final double translationKP = 0.08;//0.08;
-	public static final double translationKI = 0.015;//0.018;
-	public static final double translationKD = 0.02;//0.02;
+  public static final double translationKP = 0.08;//0.08
+  public static final double translationKI = 0.015;//0.015
+  public static final double translationKD = 0.02;//0.02
 
-	public static final double rotationKP = 2;//0.86
-	public static final double rotationKI = 0.0;
-	public static final double rotationKD = 0.0;
+  public static final double rotationKP = 0.26;//0.26
+  public static final double rotationKI = 0;
+  public static final double rotationKD = 0;
 
-    public static final double maxModuleSpeed = 4.5;
-    public static final double driveBaseRadius = 0.41012;
+  public static final double maxModuleSpeed = 4.5;
+  public static final double driveBaseRadius = 0.41012;
 }
