@@ -24,13 +24,10 @@ public class IntakeConstants {
   //Spark Flex
   public static final int ROLLING_MOTOR_ID = 54;
   //position
-  public static final double angleHighLimit = 40;//41
-  public static final double angleLowLimit = 0;//8
-  public static final double downPosition = 40;//41
-  public static final double upPosition = 16;//13
-  //color
-  public static final Color noteColor = new Color(135 , 93, 26);
-  public static final Color noneColor = new Color(67, 118, 70);
+  public static final double angleHighLimit = 39;
+  public static final double angleLowLimit = 0;
+  public static final double downPosition = 37;
+  public static final double upPosition = 9.5;//16
 
   //PID
   public static final double intakrKP = 0.05;

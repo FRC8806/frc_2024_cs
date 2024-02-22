@@ -33,25 +33,25 @@ public final class SwerveConstants {
       / (kThrottleGearRatio * 2048);
 
   // CAN_ID
-  public static final int A_THROTTLE_ID = 2;
-  public static final int B_THROTTLE_ID = 4;
-  public static final int C_THROTTLE_ID = 6;
-  public static final int D_THROTTLE_ID = 8;
+  public static final int A_THROTTLE_ID = 1;//2
+  public static final int B_THROTTLE_ID = 7;//4
+  public static final int C_THROTTLE_ID = 2;//6
+  public static final int D_THROTTLE_ID = 5;//8
 
-  public static final int A_ROTOR_ID = 1;
-  public static final int B_ROTOR_ID = 3;
-  public static final int C_ROTOR_ID = 5;
-  public static final int D_ROTOR_ID = 7;
+  public static final int A_ROTOR_ID = 4;//1
+  public static final int B_ROTOR_ID = 3;//3
+  public static final int C_ROTOR_ID = 8;//5
+  public static final int D_ROTOR_ID = 6;//7
 
-  public static final int A_ENCODER_ID = 2;
-  public static final int B_ENCODER_ID = 1;
-  public static final int C_ENCODER_ID = 3;
-  public static final int D_ENCODER_ID = 4;
+  public static final int A_ENCODER_ID = 3;//2
+  public static final int B_ENCODER_ID = 2;//1
+  public static final int C_ENCODER_ID = 1;//3
+  public static final int D_ENCODER_ID = 4;//4
 
-  public static final double A_OFFSET = 0.143798828125;// 0.13793946
-  public static final double B_OFFSET = 0.09619140625;// 0.09399415
-  public static final double C_OFFSET = 0.043701171875;// 0.04101563
-  public static final double D_OFFSET = 0.19970704;// 0.19970704 //0.194091796875
+  public static final double A_OFFSET = -0.471923828125;// 0.143798828125
+  public static final double B_OFFSET = -0.2099609375;// 0.09619140625
+  public static final double C_OFFSET = 0.34912109375;// 0.043701171875
+  public static final double D_OFFSET = -0.15869140625;// 0.19970704
 
   public static final Translation2d A_TRANSLATION2D = new Translation2d(0.29, 0.29);
   public static final Translation2d B_TRANSLATION2D = new Translation2d(0.29, -0.29);
@@ -66,11 +66,11 @@ public final class SwerveConstants {
   public static final double rotorKI = 0;
   public static final double rotorKD = 0;
 
-  public static final double translationKP = 0.08;//0.08
-  public static final double translationKI = 0.015;//0.015
-  public static final double translationKD = 0.02;//0.02
+  public static final double translationKP = 0.08;
+  public static final double translationKI = 0.015;
+  public static final double translationKD = 0.02;
 
-  public static final double rotationKP = 0.26;//0.26
+  public static final double rotationKP = 0.26;
   public static final double rotationKI = 0;
   public static final double rotationKD = 0;
 

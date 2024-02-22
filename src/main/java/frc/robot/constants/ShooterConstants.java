@@ -15,12 +15,14 @@
 package frc.robot.constants;
 
 public final class ShooterConstants {
+	// PWM
+	public static final int LED_PORT = 9;
 	// spark flex
 	public static final int LEFT_MOTOR_ID = 52;
 	public static final int RIGHT_MOTOR_ID = 51;
 	// spark max
 	public static final int TRANSPORT_MOTOR_ID = 53;
-	public static final int ANGLE_MOTOR_ID = 4;
+	public static final int ANGLE_MOTOR_ID = 10;//4
     //position
 	public static final double angleHighLimit = 60;
 	public static final double angleLowLimit = 2;
@@ -35,4 +37,10 @@ public final class ShooterConstants {
 	public static final double shooterKD = 0;
 	//speed
 	public static final double AMPSpeed = 0.18;
+	//led
+	public static final int LED_LENTH = 62;
+	public static final int LEDMODE_NOTE_ON = 1;
+	public static final int LEDMODE_SPEED_UP = 2;
+	public static final int LEDMODE_SHOOTER_READY = 3;
+	public static final int LEDMODE_DEFAULT = 0;
 }

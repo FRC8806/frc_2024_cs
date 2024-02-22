@@ -23,6 +23,7 @@ public class AutoShooting extends Command {
   private Shooter shooter;
   private PIDController speedPID = new PIDController(ShooterConstants.shooterSpeedKP, ShooterConstants.shooterSpeedKI,
       ShooterConstants.shooterSpeedKD);
+  
   public AutoShooting(Shooter shooter) {
     this.shooter = shooter;
     // addRequirements(shooter);
