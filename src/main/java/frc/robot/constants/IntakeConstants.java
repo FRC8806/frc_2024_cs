@@ -39,5 +39,6 @@ public class IntakeConstants {
   public static final double microPhoneSpeed = 0.2;
   public static final double reverseSpeed = -0.6;
 
-  public static final Color noteTarget = new Color(0, 0, 0);
+  public static final Color noteTarget = new Color(145, 90, 20);
+  public static final Color noneTarget = new Color(66, 118, 70);
 }

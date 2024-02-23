@@ -50,11 +50,11 @@ public class ShooterDefaultCommand extends Command {
 
   @Override
   public void execute() {
-    if (shooter.getFlyWheelSpeed() > 4900) {
-      shooter.setLED(ShooterConstants.LEDMODE_SHOOTER_READY);
-    } else {
-      shooter.setLED(ShooterConstants.LEDMODE_SPEED_UP);
-    }
+    // if (shooter.getFlyWheelSpeed() > 4900) {
+    //   shooter.setLED(ShooterConstants.LEDMODE_SHOOTER_READY);
+    // } else {
+    //   shooter.setLED(ShooterConstants.LEDMODE_SPEED_UP);
+    // }
     intake.setMicSpeed(lt.get() > 0.2 ? 0.2 : 0);
     shooter.setAngleSpeed(rb.get() ? 0.08 : lb.get() ? -0.08 : 0);
     shooter.setTransportSpeed(lt.get()>0.2?0.4:0);

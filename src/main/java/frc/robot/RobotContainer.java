@@ -18,7 +18,6 @@ import java.util.Optional;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -80,7 +79,7 @@ public class RobotContainer {
     new JoystickButton(operatorController, Button.kB.value)
         .whileTrue(new TeleAMP(shooter, chassis, () -> operatorController.getLeftTriggerAxis(), limelightShooter));
     new JoystickButton(operatorController, Button.kA.value)
-        .toggleOnTrue(new TeleGetNote(intake, () -> operatorController.getXButton()));
+        .toggleOnTrue(new TeleGetNote(intake, shooter, () -> operatorController.getXButton()));
     new JoystickButton(operatorController, Button.kBack.value)
         .onTrue(new ClimberSetup(climber, () -> operatorController.getStartButton())
             .andThen(new ClimbUp(climber, () -> operatorController.getBackButton())));

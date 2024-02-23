@@ -93,7 +93,7 @@ public class Chassis extends SubsystemBase {
     double ySpeed = chassisSpeeds.vyMetersPerSecond;
     double rSpeed = chassisSpeeds.omegaRadiansPerSecond;
     SwerveModuleState[] states = SwerveConstants.SWERVE_KINEMATIS.toSwerveModuleStates(
-        ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rSpeed, odometry.getPoseMeters().getRotation()));
+        ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rSpeed, Rotation2d.fromDegrees(odometry.getPoseMeters().getRotation().getDegrees() + 180)));
     setModuleStates(states);
   }
 

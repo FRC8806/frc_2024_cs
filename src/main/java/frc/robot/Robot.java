@@ -118,8 +118,6 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     CommandScheduler.getInstance().cancelAll();
-
-    m_robotContainer.climber.setLeftSpeed(m_robotContainer.testController.getLeftY());
     m_robotContainer.climber.setSpeed(-m_robotContainer.testController.getRightY());
     m_robotContainer.intake.setAngleSpeed(m_robotContainer.testController.getYButton() ? 0.2
         : m_robotContainer.testController.getXButton() ? -0.2 : 0);

@@ -65,6 +65,7 @@ public class Shooter extends SubsystemBase {
 
   public Shooter() {
     colorMatch.addColorMatch(IntakeConstants.noteTarget);
+    colorMatch.addColorMatch(IntakeConstants.noneTarget);
     led.setLength(ledBuffer.getLength());
     led.start();
     flyWheelEncoder = leftMotor.getEncoder();
@@ -75,9 +76,9 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("r", colorSensor.getRed());
-    SmartDashboard.putNumber("g", colorSensor.getGreen());
-    SmartDashboard.putNumber("b", colorSensor.getBlue());
+    SmartDashboard.putNumber("cr", colorSensor.getColor().red * 255);
+    SmartDashboard.putNumber("cg", colorSensor.getColor().green * 255);
+    SmartDashboard.putNumber("cb", colorSensor.getColor().blue * 255);
     for (var i = 0; i < ShooterConstants.LED_LENTH / 2; i++) {
       ledBuffer.setHSV(i, ledState[i], 255, 128);
       ledBuffer.setHSV(i + ledBuffer.getLength() / 2, ledState[ledState.length - 1 - i], 255, 128);
@@ -88,6 +89,8 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("measure angle", angleEncoder.getPosition());
     SmartDashboard.putNumber("fly wheel speed", flyWheelEncoder.getVelocity());
     SmartDashboard.putBoolean("speed", isSpeedReached());
+    SmartDashboard.putBoolean("isNoteSet", isNoteSet());
+
   }
 
   public void setFlyWheelSpeed(double speed) {
@@ -134,7 +137,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean isSpeedReached() {
-    return getFlyWheelSpeed() >= 5300;
+    return getFlyWheelSpeed() >= 4900;
   }
 
   public void setLED(int ledMode) {
@@ -184,7 +187,7 @@ public class Shooter extends SubsystemBase {
         for (var i = 0; i < ledState.length; i++) {
           // Calculate the hue - hue is easier for rainbows because the color
           // shape is a circle so only one value needs to precess
-          final var hue = 30;
+          final var hue = 8;
           // Set the value
           ledState[i] = hue;
         }

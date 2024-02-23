@@ -23,16 +23,17 @@ import frc.robot.SoftLimiter;
 import frc.robot.constants.ClimberConstants;
 
 public class Climber extends SubsystemBase {
-  //climb motors
+  // climb motors
   private TalonFX leftMotor = new TalonFX(ClimberConstants.LEFT_CLIMBER_ID);
   private TalonFX rightMotor = new TalonFX(ClimberConstants.RIGHT_CLIMBER_ID);
-  //The limiter of motors
+  // The limiter of motors
   private SoftLimiter limiter;
-  //The PID controller of motor
-  private PIDController climbPID = new PIDController(ClimberConstants.climberKP, ClimberConstants.climberKI, ClimberConstants.climberKD);
+  // The PID controller of motor
+  private PIDController climbPID = new PIDController(ClimberConstants.climberKP, ClimberConstants.climberKI,
+      ClimberConstants.climberKD);
 
   public Climber() {
-    limiter = new SoftLimiter(()-> getLeftPosition());
+    limiter = new SoftLimiter(() -> getRightPosition());
     limiter.setRange(ClimberConstants.ELEVATOR_HIGH_LIMIT, ClimberConstants.ELEVATOR_LOW_LIMIT);
   }
 
@@ -43,16 +44,12 @@ public class Climber extends SubsystemBase {
   }
 
   public void setToPosition(double position) {
-    setLeftSpeed(climbPID.calculate(getLeftPosition(), -position));
-    setSpeed(climbPID.calculate(getRightPosition(),position));
+    setSpeed(climbPID.calculate(getRightPosition(), position));
   }
 
   public void setSpeed(double speed) {
     rightMotor.set(limiter.getOutput(speed));
-  }
-
-  public void setLeftSpeed(double speed) {
-    leftMotor.set(limiter.getOutput(speed));
+    leftMotor.set(limiter.getOutput(-speed));
   }
 
   public double getRightPosition() {

@@ -18,14 +18,18 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.IntakeConstants;
+import frc.robot.constants.ShooterConstants;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
 public class TeleGetNote extends Command {
   private Intake intake;
+  private Shooter shooter;
   private Supplier<Boolean> inverseTrigger;
   
-  public TeleGetNote(Intake intake, Supplier<Boolean> inverseTrigger) {
+  public TeleGetNote(Intake intake, Shooter shooter, Supplier<Boolean> inverseTrigger) {
     this.intake = intake;
+    this.shooter = shooter;
     this.inverseTrigger = inverseTrigger;
     addRequirements(intake);
   }
@@ -46,6 +50,9 @@ public class TeleGetNote extends Command {
       intake.setRollingSpeed(IntakeConstants.rollingSpeed);
       intake.setMicSpeed(IntakeConstants.microPhoneSpeed);
     }
+    if(shooter.isNoteSet()) {
+      shooter.setLED(ShooterConstants.LEDMODE_NOTE_ON);
+    }
   }
 
   @Override
@@ -57,6 +64,6 @@ public class TeleGetNote extends Command {
 
   @Override
   public boolean isFinished() {
-    return intake.isNoteSet();
+    return false;
   }
 }
