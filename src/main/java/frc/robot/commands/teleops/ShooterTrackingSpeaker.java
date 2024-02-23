@@ -29,7 +29,7 @@ public class ShooterTrackingSpeaker extends Command {
   private Shooter shooter;
   private Intake intake;
   private NetworkTable shooterLimelight;
-  private Supplier<Double> trigger, shootingTrigger;
+  private Supplier<Double> trigger;
   private PIDController shooterPID = new PIDController(ShooterConstants.shooterKP, ShooterConstants.shooterKI,
       ShooterConstants.shooterKD);
   private PIDController speedPID = new PIDController(ShooterConstants.shooterSpeedKP, ShooterConstants.shooterSpeedKI,
@@ -37,52 +37,52 @@ public class ShooterTrackingSpeaker extends Command {
 
   private double targetPosition, angleSpeed;
 
-  public ShooterTrackingSpeaker(Shooter shooter, Intake intake, NetworkTable shooterLimelight, 
-        Supplier<Double> transportTrigger, Supplier<Double> shootingTrigger) {
+  public ShooterTrackingSpeaker(Shooter shooter, Intake intake, NetworkTable shooterLimelight,
+      Supplier<Double> transportTrigger) {
     this.shooter = shooter;
     this.shooterLimelight = shooterLimelight;
     this.intake = intake;
     this.trigger = transportTrigger;
-    this.shootingTrigger = shootingTrigger;
     addRequirements(shooter);
   }
 
   @Override
   public void initialize() {
     shooter.isTracking = true;
-    //待測
+    // 待測
     targetPosition = 10;
   }
 
   @Override
   public void execute() {
-    if (shooter.getFlyWheelSpeed() > 5400 && Math.abs(shooter.getAnglePosition() - targetPosition) < 1) {
+    double ty = shooterLimelight.getEntry("ty").getDouble(0.0);
+
+    SmartDashboard.putNumber("target position", targetPosition);
+    // SmartDashboard.putNumber("measure angle", measureAngle.getRotations());
+    if (ty != 0.0) {
+      targetPosition = 40.1 - 4.44 * ty - 0.0749 * Math.pow(ty, 2) + 0.0251 * Math.pow(ty, 3) - 0.0011 * Math.pow(ty, 4);
+    }
+    angleSpeed = shooterPID.calculate(shooter.getAnglePosition(), targetPosition);
+    shooter.setAngleSpeed(angleSpeed);
+    shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getFlyWheelSpeed(),
+        5100));
+
+    if (shooter.getFlyWheelSpeed() > 4900 && Math.abs(shooter.getAnglePosition() - targetPosition) < 1) {
       shooter.setLED(ShooterConstants.LEDMODE_SHOOTER_READY);
     } else {
       shooter.setLED(ShooterConstants.LEDMODE_SPEED_UP);
     }
-    double ty = shooterLimelight.getEntry("ty").getDouble(0.0);
-    
-    SmartDashboard.putNumber("target position", targetPosition);
-    // SmartDashboard.putNumber("measure angle", measureAngle.getRotations());
-    if (ty != 0.0) {
-      targetPosition = 49.9 - 3.73 * ty - 0.0362 * ty * ty;
-    }
-    angleSpeed = shooterPID.calculate(shooter.getAnglePosition(), targetPosition);
-    // shooter.setAngleSpeed(angleSpeed);
-    shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getFlyWheelSpeed(),
-    5400));
 
     // if (shootingTrigger.get() > 0.2){
-    //   shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getFlyWheelSpeed(),
-    //   5400));
+    // shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getFlyWheelSpeed(),
+    // 5400));
     // }else{
-    //   shooter.setFlyWheelSpeed(0);
+    // shooter.setFlyWheelSpeed(0);
     // }
-    
+
     if (trigger.get() > 0.2) {
       intake.setMicSpeed(IntakeConstants.microPhoneSpeed);
-      //移入
+      // 移入
       shooter.setTransportSpeed(0.8 / 2);
     } else {
       intake.setMicSpeed(0);

@@ -27,13 +27,13 @@ public class ChassisTrackingSpeaker extends Command {
   private Chassis chassis;
   private Supplier<Double> xAxis, yAxis;
 
-  public ChassisTrackingSpeaker(NetworkTable shooterLimelight, Chassis driveTrain,
+  public ChassisTrackingSpeaker(NetworkTable shooterLimelight, Chassis chassis,
       Supplier<Double> xAxis, Supplier<Double> yAxis) {
     this.shooterLimelight = shooterLimelight;
-    this.chassis = driveTrain;
+    this.chassis = chassis;
     this.xAxis = xAxis;
     this.yAxis = yAxis;
-    addRequirements(driveTrain);
+    addRequirements(chassis);
   }
 
   @Override
@@ -46,8 +46,8 @@ public class ChassisTrackingSpeaker extends Command {
     double ySpeed = onDeadband(yAxis.get(), SwerveConstants.deadband);
     xSpeed *= SwerveConstants.kMaxThrottleSpeed;
     ySpeed *= SwerveConstants.kMaxThrottleSpeed;
-    double tx = shooterLimelight.getEntry("tx").getDouble(0);
-    chassis.drive(new ChassisSpeeds(xSpeed, ySpeed, -tx * 0.15));
+    double tx = shooterLimelight.getEntry("tx").getDouble(-1);
+    chassis.drive(new ChassisSpeeds(xSpeed, ySpeed, (-1-tx) * 0.15));
   }
 
   @Override

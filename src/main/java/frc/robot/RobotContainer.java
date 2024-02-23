@@ -76,7 +76,7 @@ public class RobotContainer {
         () -> driveController.getLeftY(), () -> driveController.getLeftX()));
     new JoystickButton(operatorController, Button.kY.value)
         .toggleOnTrue(new ShooterTrackingSpeaker(shooter, intake, limelightShooter,
-            () -> operatorController.getLeftTriggerAxis(), () -> operatorController.getRightTriggerAxis()));
+            () -> operatorController.getLeftTriggerAxis()));
     new JoystickButton(operatorController, Button.kB.value)
         .whileTrue(new TeleAMP(shooter, chassis, () -> operatorController.getLeftTriggerAxis(), limelightShooter));
     new JoystickButton(operatorController, Button.kA.value)
@@ -93,7 +93,7 @@ public class RobotContainer {
   public void setDefaultCommand() {
     chassis.setDefaultCommand(new SwerveControl(chassis, () -> driveController.getLeftY(),
         () -> driveController.getLeftX(), () -> driveController.getRightX()));
-    shooter.setDefaultCommand(new ShooterDefaultCommand(shooter, () -> operatorController.getRightTriggerAxis(),
+    shooter.setDefaultCommand(new ShooterDefaultCommand(shooter, intake, () -> operatorController.getRightTriggerAxis(),
         () -> operatorController.getLeftTriggerAxis(), () -> operatorController.getRightBumper(),
         () -> operatorController.getLeftBumper(), limelightShooter));
   }

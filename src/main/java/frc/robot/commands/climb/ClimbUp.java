@@ -40,7 +40,7 @@ public class ClimbUp extends Command {
   @Override
   public void end(boolean interrupted) {
     climber.setLeftSpeed(0);
-    climber.setRightSpeed(0);
+    climber.setSpeed(0);
   }
 
   @Override

@@ -24,9 +24,9 @@ public class IntakeConstants {
   //Spark Flex
   public static final int ROLLING_MOTOR_ID = 54;
   //position
-  public static final double angleHighLimit = 39;
+  public static final double angleHighLimit = 41.5;
   public static final double angleLowLimit = 0;
-  public static final double downPosition = 37;
+  public static final double downPosition = 41.5;
   public static final double upPosition = 9.5;//16
 
   //PID
@@ -38,4 +38,6 @@ public class IntakeConstants {
   public static final double rollingSpeed = 0.6;
   public static final double microPhoneSpeed = 0.2;
   public static final double reverseSpeed = -0.6;
+
+  public static final Color noteTarget = new Color(0, 0, 0);
 }
