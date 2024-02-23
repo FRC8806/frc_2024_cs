@@ -38,6 +38,6 @@ public class AutoIntakeDown extends Command {
 
   @Override
   public boolean isFinished() {
-    return intake.getAnglePosition() > IntakeConstants.downPosition - 0.1;
+    return intake.getAnglePosition() > IntakeConstants.downPosition - 0.5;
   }
 }

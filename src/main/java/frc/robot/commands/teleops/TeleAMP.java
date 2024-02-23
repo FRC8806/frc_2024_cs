@@ -41,10 +41,10 @@ public class TeleAMP extends Command {
   @Override
   public void execute() {
     //移入
-    shooter.setFlyWheelSpeed(0.23);
-    shooter.setTransportSpeed(lt.get());
+    shooter.setFlyWheelSpeed(0.15);
+    shooter.setTransportSpeed(lt.get()/5);
     //移出
-    shooter.setAMPAngle();
+    //shooter.setAMPAngle();
   }
 
   @Override

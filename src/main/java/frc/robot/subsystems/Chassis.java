@@ -20,6 +20,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.SwerveConstants;
 
+import java.util.function.Supplier;
+
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
@@ -47,7 +49,10 @@ public class Chassis extends SubsystemBase {
   private SwerveDriveOdometry odometry = new SwerveDriveOdometry(SwerveConstants.SWERVE_KINEMATIS, getRotation2d(),
       getModulePositions());
 
-  public Chassis() {
+  private Supplier<Boolean> isRedAlliance;
+
+  public Chassis(Supplier<Boolean> isRedAlliance) {
+    this.isRedAlliance = isRedAlliance;
     AutoBuilder.configureHolonomic(
         this::getPose, // Robot pose supplier
         this::resetPose, // Method to reset odometry (will be called if your auto has a starting pose)
@@ -92,8 +97,9 @@ public class Chassis extends SubsystemBase {
     double xSpeed = chassisSpeeds.vxMetersPerSecond;
     double ySpeed = chassisSpeeds.vyMetersPerSecond;
     double rSpeed = chassisSpeeds.omegaRadiansPerSecond;
+    
     SwerveModuleState[] states = SwerveConstants.SWERVE_KINEMATIS.toSwerveModuleStates(
-        ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rSpeed, Rotation2d.fromDegrees(odometry.getPoseMeters().getRotation().getDegrees() + 180)));
+        ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rSpeed, isRedAlliance.get()?Rotation2d.fromDegrees(odometry.getPoseMeters().getRotation().getDegrees() + 180):odometry.getPoseMeters().getRotation()));
     setModuleStates(states);
   }
 

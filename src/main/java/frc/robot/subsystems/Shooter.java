@@ -137,7 +137,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean isSpeedReached() {
-    return getFlyWheelSpeed() >= 4900;
+    return getFlyWheelSpeed() >= 4900;//4900
   }
 
   public void setLED(int ledMode) {

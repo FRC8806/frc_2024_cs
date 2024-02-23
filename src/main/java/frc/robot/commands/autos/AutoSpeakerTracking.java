@@ -42,9 +42,10 @@ public class AutoSpeakerTracking extends Command {
     double ty = shooterLimelight.getEntry("ty").getDouble(0);
 
     if (ty != 0.0) {
-      targetPosition = 49.9 - 3.73 * ty - 0.0362 * ty * ty;
-      angleSpeed = shooterPID.calculate(shooter.getAnglePosition(), targetPosition);
+      ty = ty + 2;
+      targetPosition = 40.1 - 4.44 * ty - 0.0749 * Math.pow(ty, 2) + 0.0251 * Math.pow(ty, 3) - 0.0011 * Math.pow(ty, 4);
     }
+    angleSpeed = shooterPID.calculate(shooter.getAnglePosition(), targetPosition);
     shooter.setAngleSpeed(angleSpeed);
   }
 

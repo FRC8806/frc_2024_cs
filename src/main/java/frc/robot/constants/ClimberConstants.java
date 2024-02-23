@@ -18,7 +18,7 @@ public class ClimberConstants {
   public static final int LEFT_CLIMBER_ID = 11;
   public static final int RIGHT_CLIMBER_ID = 12;   
   
-  public static final double ELEVATOR_HIGH_LIMIT = 90;
+  public static final double ELEVATOR_HIGH_LIMIT = 120;
   public static final double ELEVATOR_LOW_LIMIT = -240;
 
   public static final double SETUP_POSE = 80;

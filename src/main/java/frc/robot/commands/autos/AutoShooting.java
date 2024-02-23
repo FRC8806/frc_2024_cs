@@ -36,7 +36,7 @@ public class AutoShooting extends Command {
   @Override
   public void execute() {
     shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getFlyWheelSpeed(),
-    5400));
+    5000));
   }
 
   @Override

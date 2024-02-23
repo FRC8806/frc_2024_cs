@@ -15,6 +15,7 @@
 package frc.robot;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -41,7 +42,7 @@ public class RobotContainer {
   // limelight tables
   private final NetworkTable limelightShooter = NetworkTableInstance.getDefault().getTable("limelight-shooter");
   // subsystems
-  public final Chassis chassis = new Chassis();
+  public Chassis chassis;
   public final Intake intake = new Intake();
   public final Shooter shooter = new Shooter();
   public final Climber climber = new Climber();
@@ -51,15 +52,16 @@ public class RobotContainer {
   public final XboxController testController = new XboxController(ControllerConstants.testControllerID);
 
   private final SendableChooser<Command> autoChooser;
-  private static Optional<Alliance> alliance;
+  public Supplier<Boolean> isRedAliance;
 
-  public RobotContainer() {
+
+  public RobotContainer(Supplier<Boolean> isRedAliance) {
+    chassis = new Chassis(isRedAliance);
     nameCommands();
     setDefaultCommand();
     configureBindings();
-    alliance = DriverStation.getAlliance();
-
-    if (isRedAlliance()) {
+    this.isRedAliance = isRedAliance;
+    if (isRedAliance.get()) {
       limelightShooter.getEntry("pipeline").setNumber(LimelightConatants.PIPELINE_RED_SPEAKER);
     } else {
       limelightShooter.getEntry("pipeline").setNumber(LimelightConatants.PIPELINE_BLUE_SPEAKER);
@@ -111,12 +113,6 @@ public class RobotContainer {
     NamedCommands.registerCommand("shooterAngle", new AutoSpeakerTracking(shooter, limelightShooter));
     NamedCommands.registerCommand("intakeDown", new AutoIntakeDown(intake));
     NamedCommands.registerCommand("greenRolling", new AutoTransport(shooter));
-  }
-
-  public static boolean isRedAlliance() {
-    if (alliance.isPresent()) {
-      return alliance.get() == DriverStation.Alliance.Red;
-    }
-    return false;
+    NamedCommands.registerCommand("stop", new AutoAllStop(shooter, intake));
   }
 }
