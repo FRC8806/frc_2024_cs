@@ -94,9 +94,9 @@ public class RobotContainer {
   public void setDefaultCommand() {
     chassis.setDefaultCommand(new SwerveControl(chassis, () -> driveController.getLeftY(),
         () -> driveController.getLeftX(), () -> driveController.getRightX()));
-    shooter.setDefaultCommand(new ShooterDefaultCommand(shooter, intake, () -> operatorController.getRightTriggerAxis(),
-        () -> operatorController.getLeftTriggerAxis(), () -> operatorController.getRightBumper(),
-        () -> operatorController.getLeftBumper(), limelightShooter));
+    // shooter.setDefaultCommand(new ShooterDefaultCommand(shooter, intake, () -> operatorController.getRightTriggerAxis(),
+    //     () -> operatorController.getLeftTriggerAxis(), () -> operatorController.getRightBumper(),
+    //     () -> operatorController.getLeftBumper(), limelightShooter));
   }
 
   public void cancelDefaultCommand() {

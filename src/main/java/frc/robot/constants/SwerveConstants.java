@@ -62,7 +62,7 @@ public final class SwerveConstants {
       B_TRANSLATION2D, C_TRANSLATION2D, D_TRANSLATION2D);
 
   // PID
-  public static final double rotorKP = 0.011;//0.013
+  public static final double rotorKP = 0.013;//0.013
   public static final double rotorKI = 0;
   public static final double rotorKD = 0;
 

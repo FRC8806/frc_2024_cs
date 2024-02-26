@@ -34,7 +34,7 @@ public class AutoSpeakerTracking extends Command {
 
   @Override
   public void initialize() {
-    targetPosition = 10;
+    targetPosition = 0;
   }
 
   @Override
