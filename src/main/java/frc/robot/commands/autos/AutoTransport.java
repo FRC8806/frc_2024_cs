@@ -20,29 +20,25 @@ import frc.robot.subsystems.Shooter;
 
 public class AutoTransport extends Command {
   private Shooter shooter;
-  public AutoTransport(Shooter shooter) {
+  private boolean rolling;
+  public AutoTransport(Shooter shooter, boolean rolling) {
     this.shooter = shooter;
+    this.rolling = rolling;
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {shooter.setTransportSpeed(rolling?ShooterConstants.TRANSPORT_MOTOR_SPEED:0);}
 
   @Override
   public void execute() {
-    if (shooter.isSpeedReached()){
-      shooter.setTransportSpeed(ShooterConstants.TRANSPORT_MOTOR_SPEED);
-    }else{
-      shooter.setTransportSpeed(0);
-    }
   }
 
   @Override
   public void end(boolean interrupted) {
-    shooter.setTransportSpeed(0);
   }
 
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

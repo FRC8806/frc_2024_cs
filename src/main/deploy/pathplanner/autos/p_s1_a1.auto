@@ -34,7 +34,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.5
+                        "waitTime": 1.0
                       }
                     }
                   ]
@@ -56,7 +56,7 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "deadline",
           "data": {
             "commands": [
               {
@@ -70,9 +70,33 @@
                       }
                     },
                     {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.2
+                      }
+                    },
+                    {
                       "type": "path",
                       "data": {
                         "pathName": "b1-m"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "green rolling"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "green stop"
                       }
                     }
                   ]
@@ -82,6 +106,100 @@
                 "type": "named",
                 "data": {
                   "name": "intake rolling"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "second note"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "m_b2_m"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "green rolling"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "green stop"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake rolling"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "second note"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "m_b3_m2"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "green rolling"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake rolling"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "second note"
                 }
               }
             ]

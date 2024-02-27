@@ -47,10 +47,8 @@ public final class ShooterConstants {
   public static final int LEDMODE_NOTE_ON = 4;
 
   //Auto
-  public static final double AUTO_FIRST_NOTE_POSITION = 25;
+  public static final double AUTO_FIRST_NOTE_POSITION = 31;//30
   public static final double FLYWHEEL_SPEED = 4500;
-  public static final double AUTO_SECOND_NOTE_POSITION = 50;
-
-
-
+  public static final double AUTO_SECOND_NOTE_POSITION = 54;
+  public static final double AUTO_A2_NOTE_POSITION = 28;
 }

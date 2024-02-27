@@ -20,14 +20,17 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.ClimberConstants;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
 public class ClimberSetup extends Command {
   private Climber climber;
   private Intake intake;
+  private Shooter shooter;
   private Supplier<Boolean> climbButton;
-  public ClimberSetup(Climber climber, Intake intake, Supplier<Boolean> climbButton) {
+  public ClimberSetup(Climber climber, Intake intake, Shooter shooter, Supplier<Boolean> climbButton) {
     this.climber = climber;
     this.intake = intake;
+    this.shooter = shooter;
     this.climbButton = climbButton;
     addRequirements(climber);
   }
@@ -35,6 +38,7 @@ public class ClimberSetup extends Command {
   @Override
   public void initialize() {
     intake.setIntakeDown();
+    shooter.setAnglePosition(30);
   }
 
   @Override

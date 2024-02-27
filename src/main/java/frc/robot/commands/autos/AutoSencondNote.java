@@ -12,21 +12,42 @@
 //   2024            2024  2024            2024  2024            2024  2024            2024
 //  20242024202420242024  20242024202420242024  20242024202420242024  20242024202420242024
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
-package frc.robot.constants;
+package frc.robot.commands.autos;
 
-public class ClimberConstants {
-  public static final int LEFT_CLIMBER_ID = 11;
-  public static final int RIGHT_CLIMBER_ID = 12;   
-  
-  public static final double ELEVATOR_HIGH_LIMIT = 0;
-  public static final double ELEVATOR_LOW_LIMIT = -250;
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.ShooterConstants;
+import frc.robot.subsystems.Shooter;
 
-  public static final double SETUP_POSE = -66;
-  public static final double DOWN_POSE = -250;
+public class AutoSencondNote extends Command {
+  private Shooter shooter;
+  private Double position;
+  private PIDController speedPID = new PIDController(ShooterConstants.shooterSpeedKP, ShooterConstants.shooterSpeedKI,
+      ShooterConstants.shooterSpeedKD);
 
-  public static final double climberGearRitio = 1/60;
+  public AutoSencondNote(Shooter shooter, double position) {
+    this.shooter = shooter;
+    this.position = position;
+    addRequirements(shooter);
+  }
 
-  public static final double climberKP = 0.03;
-  public static final double climberKI = 0;
-  public static final double climberKD = 0;
+  @Override
+  public void initialize() {
+  }
+
+  @Override
+  public void execute() {
+    shooter.setAnglePosition(position);
+    shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getFlyWheelSpeed(),
+        4800));
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+  }
+
+  @Override
+  public boolean isFinished() {
+    return false;
+  }
 }

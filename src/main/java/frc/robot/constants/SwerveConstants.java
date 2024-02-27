@@ -61,7 +61,7 @@ public final class SwerveConstants {
   public static final double rotorKI = 0;
   public static final double rotorKD = 0;
 
-  public static final double translationKP = 3.0;//0.08
+  public static final double translationKP = 4.0;//3.0
   public static final double translationKI = 0.0;//0.015
   public static final double translationKD = 0.0;//0.02
 
