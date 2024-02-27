@@ -25,12 +25,10 @@ public final class SwerveConstants {
   public static final double kMaxThrottleSpeed = 6380 / 60 / kThrottleGarRatio * kWheelDiameter * Math.PI;
   public static final double kMaxRotationSpeed = kMaxThrottleSpeed / Math.sqrt(2 * Math.pow(0.5, 2)) * 2;
 
-  public static final double kThrottleVelocityConversionFactor = kWheelDiameter * Math.PI / kThrottleGarRatio * 10
-      / 2048;
+  public static final double kThrottleVelocityConversionFactor = kWheelDiameter * Math.PI / kThrottleGarRatio;
   public static final double kWheelDiameterMeters = 4 * 0.0254;
   public static final double kThrottleGearRatio = 6.12;
-  public static final double kThrottlePositionConversionFactor = (kWheelDiameterMeters * Math.PI)
-      / (kThrottleGearRatio * 2048);
+  public static final double kThrottlePositionConversionFactor = (kWheelDiameterMeters * Math.PI) / (kThrottleGearRatio);
 
   // CAN_ID
   public static final int A_THROTTLE_ID = 1;//2
@@ -58,21 +56,18 @@ public final class SwerveConstants {
   public static final Translation2d C_TRANSLATION2D = new Translation2d(-0.29, -0.29);
   public static final Translation2d D_TRANSLATION2D = new Translation2d(-0.29, 0.29);
 
-  public static final SwerveDriveKinematics SWERVE_KINEMATIS = new SwerveDriveKinematics(A_TRANSLATION2D,
-      B_TRANSLATION2D, C_TRANSLATION2D, D_TRANSLATION2D);
-
   // PID
   public static final double rotorKP = 0.013;//0.013
   public static final double rotorKI = 0;
   public static final double rotorKD = 0;
 
-  public static final double translationKP = 0.08;
-  public static final double translationKI = 0.015;
-  public static final double translationKD = 0.02;
+  public static final double translationKP = 3.0;//0.08
+  public static final double translationKI = 0.0;//0.015
+  public static final double translationKD = 0.0;//0.02
 
-  public static final double rotationKP = 0.26;
-  public static final double rotationKI = 0;
-  public static final double rotationKD = 0;
+  public static final double rotationKP = 1.8;//0.26
+  public static final double rotationKI = 0.0;
+  public static final double rotationKD = 0.0;
 
   public static final double maxModuleSpeed = 5.4;
   public static final double driveBaseRadius = 0.41012;

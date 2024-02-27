@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.75,
-      "y": 6.66
+      "x": 0.7518994781213513,
+      "y": 6.660186397295872
     },
     "rotation": 60.0
   },
@@ -12,63 +12,25 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "setup"
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "shooting"
+                  "pathName": "s1-a1"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "shooterAngle"
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "intakeDown"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "s1-a1"
-                      }
-                    },
-                    {
-                      "type": "parallel",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "greenRolling"
-                            }
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "a1_a2"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "a2-a3"
-                      }
-                    }
-                  ]
+                  "name": "first note"
                 }
               }
             ]

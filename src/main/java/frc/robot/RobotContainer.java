@@ -78,7 +78,7 @@ public class RobotContainer {
     new JoystickButton(operatorController, Button.kA.value)
         .toggleOnTrue(new TeleGetNote(intake, shooter, () -> operatorController.getXButton()));
     new JoystickButton(operatorController, Button.kBack.value)
-        .onTrue(new ClimberSetup(climber, () -> operatorController.getStartButton())
+        .onTrue(new ClimberSetup(climber, intake, () -> operatorController.getStartButton())
             .andThen(new ClimbUp(climber, () -> operatorController.getBackButton())));
   }
 
@@ -101,8 +101,9 @@ public class RobotContainer {
 
   public void nameCommands() {
     NamedCommands.registerCommand("setup", new AutoSetup(intake, shooter));
+    NamedCommands.registerCommand("first note", new AutoShoot(shooter));
 
-    NamedCommands.registerCommand("shooting", new AutoShooti(shooter));
+
     NamedCommands.registerCommand("intakeRolling", new AutoGetNote(intake));
     NamedCommands.registerCommand("shooterAngle", new AutoSpeakerTracking(shooter, limelightShooter));
     NamedCommands.registerCommand("intakeDown", new AutoIntakeDown(intake));

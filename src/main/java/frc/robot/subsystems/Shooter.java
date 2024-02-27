@@ -32,6 +32,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.SoftLimiter;
 import frc.robot.constants.IntakeConstants;
 import frc.robot.constants.ShooterConstants;
+import frc.robot.constants.SwerveConstants;
 
 public class Shooter extends SubsystemBase {
   private ColorSensorV3 colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
@@ -76,13 +77,12 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-
     for (var i = 0; i < ShooterConstants.LED_LENTH / 2; i++) {
       ledBuffer.setHSV(i, ledState[i], 255, 128);
       ledBuffer.setHSV(i + ledBuffer.getLength() / 2, ledState[ledState.length - 1 - i], 255, 128);
     }
     led.setData(ledBuffer);
-    setLED(ShooterConstants.LEDMODE_DEFAULT);
+    // setLED(ShooterConstants.LEDMODE_DEFAULT);
     if(isSetToPosition) { angleMotor.set(angleLimiter.getOutput(shooterPID.calculate(getAnglePosition(), shooterPosition)));}
     // SmartDashboard.putNumber("cr", colorSensor.getColor().red * 255);
     // SmartDashboard.putNumber("cg", colorSensor.getColor().green * 255);
@@ -91,6 +91,7 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("shooter position", angleEncoder.getPosition());
     SmartDashboard.putNumber("fly wheel speed", flyWheelEncoder.getVelocity());
     SmartDashboard.putBoolean("isNoteSet", isNoteSet());
+    SmartDashboard.putBoolean("is speed reach", isSpeedReached());
   }
 
   public void setAnglePosition(double position) {
@@ -136,7 +137,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean isSpeedReached() {
-    return getFlyWheelSpeed() >= 4500;//4900
+    return getFlyWheelSpeed() >= ShooterConstants.FLYWHEEL_SOEED - 50;//4900
   }
 
   public void setLED(int ledMode) {
@@ -165,8 +166,8 @@ public class Shooter extends SubsystemBase {
         }
         break;
       case ShooterConstants.LEDMODE_SPEED_UP:
-        int lightLenth = (int) (getFlyWheelSpeed() / 5000 * 31) + 1;
-        lightLenth = lightLenth > 31 ? 31 : lightLenth;
+        int lightLenth = (int) (getFlyWheelSpeed() / 4500 * 30) + 1;
+        lightLenth = lightLenth > 30 ? 30 : lightLenth;
         for (var i = 0; i < lightLenth; i++) {
           // Calculate the hue - hue is easier for rainbows because the color
           // shape is a circle so only one value needs to precess

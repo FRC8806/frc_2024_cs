@@ -12,54 +12,21 @@
     "data": {
       "commands": [
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "shooting"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "shooterAngle"
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "intakeDown"
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "s1-a1"
-                      }
-                    },
-                    {
-                      "type": "parallel",
-                      "data": {
-                        "commands": [
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "greenRolling"
-                            }
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
+            "pathName": "s1-a1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "a1-b1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "b1-m"
           }
         }
       ]

@@ -60,7 +60,7 @@ public class ShooterDefaultCommand extends Command {
     shooter.setTransportSpeed(lt.get()>0.2?0.4:0);
     if(rt.get() > 0.2) {
       shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getFlyWheelSpeed(),
-      5000));
+      4500));
     } else {
       shooter.setFlyWheelSpeed(0);
     }

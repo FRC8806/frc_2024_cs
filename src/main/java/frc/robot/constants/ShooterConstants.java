@@ -39,7 +39,7 @@ public final class ShooterConstants {
   public static final double TRANSPORT_MOTOR_SPEED = 0.4;
   public static final double AMPSpeed = 0.18;
   // led
-  public static final int LED_LENTH = 62;
+  public static final int LED_LENTH = 60;
   public static final int LEDMODE_DEFAULT = 0;
   public static final int LEDMODE_SPEED_UP = 1;
   public static final int LEDMODE_SHOOTER_READY = 2;
@@ -48,5 +48,6 @@ public final class ShooterConstants {
 
   //Auto
   public static final double AUTO_FIRST_NOTE_POSITION = 10;
+  public static final double FLYWHEEL_SOEED = 4500;
 
 }

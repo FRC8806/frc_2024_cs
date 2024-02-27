@@ -19,12 +19,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.ShooterConstants;
 import frc.robot.subsystems.Shooter;
 
-public class AutoShooti extends Command {
+public class AutoShoot extends Command {
   private Shooter shooter;
   private PIDController speedPID = new PIDController(ShooterConstants.shooterSpeedKP, ShooterConstants.shooterSpeedKI,
       ShooterConstants.shooterSpeedKD);
   
-  public AutoShooti(Shooter shooter) {
+  public AutoShoot(Shooter shooter) {
     this.shooter = shooter;
     addRequirements(shooter);
   }
@@ -35,8 +35,9 @@ public class AutoShooti extends Command {
 
   @Override
   public void execute() {
+    shooter.setAnglePosition(ShooterConstants.AUTO_FIRST_NOTE_POSITION);
     shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getFlyWheelSpeed(),
-    5000));//5000
+    ShooterConstants.FLYWHEEL_SOEED));
     if(shooter.isSpeedReached()) {
       shooter.setTransportSpeed(ShooterConstants.TRANSPORT_MOTOR_SPEED);
     }

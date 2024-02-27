@@ -60,15 +60,16 @@ public class ShooterTrackingSpeaker extends Command {
     SmartDashboard.putNumber("target position", targetPosition);
     // SmartDashboard.putNumber("measure angle", measureAngle.getRotations());
     if (ty != 0.0) {
-      ty = ty + 2;
-      targetPosition = 40.1 - 4.44 * ty - 0.0749 * Math.pow(ty, 2) + 0.0251 * Math.pow(ty, 3) - 0.0011 * Math.pow(ty, 4);
+      // ty = ty + 2;
+      // targetPosition = 40.1 - 4.44 * ty - 0.0749 * Math.pow(ty, 2) + 0.0251 * Math.pow(ty, 3) - 0.0011 * Math.pow(ty, 4);
+      targetPosition = 34.2 - 4.55 * ty + 0.0539 * ty * ty;
     }
-    // angleSpeed = shooterPID.calculate(shooter.getAnglePosition(), targetPosition);
-    // shooter.setAngleSpeed(angleSpeed);
-    shooter.setAnglePosition(targetPosition);
+    angleSpeed = shooterPID.calculate(shooter.getAnglePosition(), targetPosition);
+    shooter.setAngleSpeed(angleSpeed);
+    // shooter.setAnglePosition(targetPosition);
     shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getFlyWheelSpeed(),
-        5000));
-    if (shooter.getFlyWheelSpeed() > 4900 && Math.abs(shooter.getAnglePosition() - targetPosition) < 1) {
+        4500));
+    if (shooter.getFlyWheelSpeed() > 4500 && Math.abs(shooter.getAnglePosition() - targetPosition) < 1) {
       shooter.setLED(ShooterConstants.LEDMODE_SHOOTER_READY);
     } else {
       shooter.setLED(ShooterConstants.LEDMODE_SPEED_UP);
