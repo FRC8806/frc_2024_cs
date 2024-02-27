@@ -92,6 +92,56 @@
               }
             ]
           }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "a2-b3"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.3
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "b3-m2"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "green rolling"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "second note"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake rolling"
+                }
+              }
+            ]
+          }
         }
       ]
     }

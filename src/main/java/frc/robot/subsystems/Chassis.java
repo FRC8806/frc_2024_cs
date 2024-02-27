@@ -112,18 +112,22 @@ public class Chassis extends SubsystemBase {
   }
 
   // public void drive(ChassisSpeeds chassisSpeeds) {
-  //   double xSpeed = chassisSpeeds.vxMetersPerSecond;
-  //   double ySpeed = chassisSpeeds.vyMetersPerSecond;
-  //   double rSpeed = chassisSpeeds.omegaRadiansPerSecond;
+  // double xSpeed = chassisSpeeds.vxMetersPerSecond;
+  // double ySpeed = chassisSpeeds.vyMetersPerSecond;
+  // double rSpeed = chassisSpeeds.omegaRadiansPerSecond;
 
-  //   SwerveModuleState[] states = kinematics.toSwerveModuleStates(
-  //       ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rSpeed,
-  //           isRedAlliance.get() ? Rotation2d.fromDegrees(odometry.getPoseMeters().getRotation().getDegrees() + 180)
-  //               : odometry.getPoseMeters().getRotation()));
-  //   setModuleStates(states);
+  // SwerveModuleState[] states = kinematics.toSwerveModuleStates(
+  // ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rSpeed,
+  // isRedAlliance.get() ?
+  // Rotation2d.fromDegrees(odometry.getPoseMeters().getRotation().getDegrees() +
+  // 180)
+  // : odometry.getPoseMeters().getRotation()));
+  // setModuleStates(states);
   // }
   public void drive(ChassisSpeeds chassisSpeeds) {
-    autoDrive(ChassisSpeeds.fromFieldRelativeSpeeds(chassisSpeeds, getPose().getRotation()));
+    autoDrive(ChassisSpeeds.fromFieldRelativeSpeeds(chassisSpeeds,
+        isRedAlliance.get() ? Rotation2d.fromDegrees(getPose().getRotation().getDegrees() + 180)
+            : getPose().getRotation()));
   }
 
   public void autoDrive(ChassisSpeeds chassisSpeeds) {
