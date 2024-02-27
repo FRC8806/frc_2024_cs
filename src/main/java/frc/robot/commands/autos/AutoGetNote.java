@@ -22,17 +22,17 @@ public class AutoGetNote extends Command {
   private Intake intake;
   public AutoGetNote(Intake intake) {
     this.intake = intake;
+    addRequirements(intake);
   }
 
   @Override
   public void initialize() {
-    //intake.setIntakeDown();
+    intake.setRollingSpeed(IntakeConstants.rollingSpeed);
+    intake.setMicSpeed(IntakeConstants.microPhoneSpeed);
   }
 
   @Override
   public void execute() {
-    intake.setRollingSpeed(IntakeConstants.rollingSpeed);
-    intake.setMicSpeed(IntakeConstants.microPhoneSpeed);
   }
 
   @Override

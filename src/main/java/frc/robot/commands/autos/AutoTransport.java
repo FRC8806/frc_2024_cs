@@ -15,6 +15,7 @@
 package frc.robot.commands.autos;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.ShooterConstants;
 import frc.robot.subsystems.Shooter;
 
 public class AutoTransport extends Command {
@@ -29,7 +30,7 @@ public class AutoTransport extends Command {
   @Override
   public void execute() {
     if (shooter.isSpeedReached()){
-      shooter.setTransportSpeed(0.8);
+      shooter.setTransportSpeed(ShooterConstants.TRANSPORT_MOTOR_SPEED);
     }else{
       shooter.setTransportSpeed(0);
     }

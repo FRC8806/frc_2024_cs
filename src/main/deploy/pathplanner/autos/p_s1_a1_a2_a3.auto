@@ -22,15 +22,46 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "s1-a1"
+                  "name": "first note"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "first note"
+                  "name": "intake rolling"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "s1-a1"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "a1_a2"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.5
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "a2-a3"
+                      }
+                    }
+                  ]
                 }
               }
             ]

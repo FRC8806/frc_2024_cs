@@ -33,6 +33,7 @@ import frc.robot.commands.teleops.*;
 import frc.robot.commands.climb.*;
 import frc.robot.constants.ControllerConstants;
 import frc.robot.constants.LimelightConatants;
+import frc.robot.constants.ShooterConstants;
 import frc.robot.subsystems.*;
 
 public class RobotContainer {
@@ -101,12 +102,14 @@ public class RobotContainer {
 
   public void nameCommands() {
     NamedCommands.registerCommand("setup", new AutoSetup(intake, shooter));
-    NamedCommands.registerCommand("first note", new AutoShoot(shooter));
+    NamedCommands.registerCommand("first note", new AutoShoot(shooter, ShooterConstants.AUTO_FIRST_NOTE_POSITION));
+    NamedCommands.registerCommand("second note", new AutoShoot(shooter, ShooterConstants.AUTO_SECOND_NOTE_POSITION));
+    NamedCommands.registerCommand("intake rolling", new AutoGetNote(intake));
 
 
-    NamedCommands.registerCommand("intakeRolling", new AutoGetNote(intake));
     NamedCommands.registerCommand("shooterAngle", new AutoSpeakerTracking(shooter, limelightShooter));
     NamedCommands.registerCommand("intakeDown", new AutoIntakeDown(intake));
+
     NamedCommands.registerCommand("greenRolling", new AutoTransport(shooter));
     NamedCommands.registerCommand("stop", new AutoAllStop(shooter, intake));
   }

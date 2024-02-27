@@ -22,12 +22,13 @@ public class AutoIntakeDown extends Command {
   private Intake intake;
   public AutoIntakeDown(Intake intake) {
     this.intake = intake;
-    //addRequirements(intake);
+    addRequirements(intake);
   }
 
   @Override
   public void initialize() {
     intake.setIntakeDown();
+    intake.setRollingSpeed(IntakeConstants.rollingSpeed);
   }
 
   @Override
@@ -38,6 +39,6 @@ public class AutoIntakeDown extends Command {
 
   @Override
   public boolean isFinished() {
-    return intake.getAnglePosition() > IntakeConstants.downPosition - 0.5;
+    return true;
   }
 }

@@ -12,21 +12,79 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "s1-a1"
+            "name": "setup"
           }
         },
         {
-          "type": "path",
+          "type": "deadline",
           "data": {
-            "pathName": "a1-b1"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "s1-a1"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.5
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "first note"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake rolling"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "b1-m"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "a1-b1"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "b1-m"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake rolling"
+                }
+              }
+            ]
           }
         }
       ]

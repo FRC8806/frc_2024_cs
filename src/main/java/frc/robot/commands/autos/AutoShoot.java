@@ -21,11 +21,13 @@ import frc.robot.subsystems.Shooter;
 
 public class AutoShoot extends Command {
   private Shooter shooter;
+  private Double position;
   private PIDController speedPID = new PIDController(ShooterConstants.shooterSpeedKP, ShooterConstants.shooterSpeedKI,
       ShooterConstants.shooterSpeedKD);
   
-  public AutoShoot(Shooter shooter) {
+  public AutoShoot(Shooter shooter, double position) {
     this.shooter = shooter;
+    this.position = position;
     addRequirements(shooter);
   }
 
@@ -35,9 +37,9 @@ public class AutoShoot extends Command {
 
   @Override
   public void execute() {
-    shooter.setAnglePosition(ShooterConstants.AUTO_FIRST_NOTE_POSITION);
+    shooter.setAnglePosition(position);
     shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getFlyWheelSpeed(),
-    ShooterConstants.FLYWHEEL_SOEED));
+    ShooterConstants.FLYWHEEL_SPEED));
     if(shooter.isSpeedReached()) {
       shooter.setTransportSpeed(ShooterConstants.TRANSPORT_MOTOR_SPEED);
     }
