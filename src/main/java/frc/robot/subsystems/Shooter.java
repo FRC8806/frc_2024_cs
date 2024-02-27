@@ -14,8 +14,6 @@
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
 package frc.robot.subsystems;
 
-import java.util.function.Supplier;
-
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.ColorMatch;
@@ -52,7 +50,7 @@ public class Shooter extends SubsystemBase {
   private RelativeEncoder flyWheelEncoder;
   private RelativeEncoder angleEncoder;
   // angle limiter
-  private SoftLimiter shootLimiter;
+  private SoftLimiter angleLimiter;
   // angle PID controller
   private PIDController shooterPID = new PIDController(ShooterConstants.shooterKP, ShooterConstants.shooterKI,
       ShooterConstants.shooterKD);
@@ -62,6 +60,8 @@ public class Shooter extends SubsystemBase {
 
   private int firstPixelHue = 0;
   private int[] ledState = new int[ShooterConstants.LED_LENTH / 2];
+  private boolean isSetToPosition = false;
+  private double shooterPosition = 10;
 
   public Shooter() {
     colorMatch.addColorMatch(IntakeConstants.noteTarget);
@@ -70,27 +70,32 @@ public class Shooter extends SubsystemBase {
     led.start();
     flyWheelEncoder = leftMotor.getEncoder();
     angleEncoder = angleMotor.getEncoder();
-    shootLimiter = new SoftLimiter(() -> angleEncoder.getPosition());
-    shootLimiter.setRange(ShooterConstants.angleHighLimit, ShooterConstants.angleLowLimit);
+    angleLimiter = new SoftLimiter(() -> angleEncoder.getPosition());
+    angleLimiter.setRange(ShooterConstants.angleHighLimit, ShooterConstants.angleLowLimit);
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("cr", colorSensor.getColor().red * 255);
-    SmartDashboard.putNumber("cg", colorSensor.getColor().green * 255);
-    SmartDashboard.putNumber("cb", colorSensor.getColor().blue * 255);
+
     for (var i = 0; i < ShooterConstants.LED_LENTH / 2; i++) {
       ledBuffer.setHSV(i, ledState[i], 255, 128);
       ledBuffer.setHSV(i + ledBuffer.getLength() / 2, ledState[ledState.length - 1 - i], 255, 128);
     }
     led.setData(ledBuffer);
     setLED(ShooterConstants.LEDMODE_DEFAULT);
+    if(isSetToPosition) { angleMotor.set(angleLimiter.getOutput(shooterPID.calculate(getAnglePosition(), shooterPosition)));}
+    // SmartDashboard.putNumber("cr", colorSensor.getColor().red * 255);
+    // SmartDashboard.putNumber("cg", colorSensor.getColor().green * 255);
+    // SmartDashboard.putNumber("cb", colorSensor.getColor().blue * 255);
     SmartDashboard.putBoolean("is tracking", isTracking);
-    SmartDashboard.putNumber("measure angle", angleEncoder.getPosition());
+    SmartDashboard.putNumber("shooter position", angleEncoder.getPosition());
     SmartDashboard.putNumber("fly wheel speed", flyWheelEncoder.getVelocity());
-    SmartDashboard.putBoolean("speed", isSpeedReached());
     SmartDashboard.putBoolean("isNoteSet", isNoteSet());
+  }
 
+  public void setAnglePosition(double position) {
+    isSetToPosition = true;
+    shooterPosition = position;
   }
 
   public void setFlyWheelSpeed(double speed) {
@@ -103,7 +108,8 @@ public class Shooter extends SubsystemBase {
   }
 
   public void setAngleSpeed(double speed) {
-    angleMotor.set(shootLimiter.getOutput(speed));
+    isSetToPosition = false;
+    angleMotor.set(angleLimiter.getOutput(speed));
   }
 
   /**
@@ -127,13 +133,6 @@ public class Shooter extends SubsystemBase {
    */
   public double getAnglePosition() {
     return angleEncoder.getPosition();
-  }
-
-  // 放到command
-  public void setAMPAngle() {
-    double speed = shootLimiter.getOutput(shooterPID.calculate(getAnglePosition(), ShooterConstants.angleAMP));
-    speed = speed > 0.15 ? 0.15 : speed < -0.15 ? -0.15 : speed;
-    angleMotor.set(speed);
   }
 
   public boolean isSpeedReached() {

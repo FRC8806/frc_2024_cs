@@ -31,6 +31,7 @@ import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -87,10 +88,10 @@ public class Chassis extends SubsystemBase {
     SmartDashboard.putNumber("pose-z", getPose().getRotation().getDegrees());
     SmartDashboard.putNumber("pose-x", getPose().getX());
     SmartDashboard.putNumber("pose-y", getPose().getY());
-    SmartDashboard.putNumber("a", moduleA.getState().angle.getRotations());
-    SmartDashboard.putNumber("b", moduleB.getState().angle.getRotations());
-    SmartDashboard.putNumber("c", moduleC.getState().angle.getRotations());
-    SmartDashboard.putNumber("d", moduleD.getState().angle.getRotations());
+    SmartDashboard.putNumber("module a angle", moduleA.getState().angle.getRotations());
+    SmartDashboard.putNumber("module b angle", moduleB.getState().angle.getRotations());
+    SmartDashboard.putNumber("module c angle", moduleC.getState().angle.getRotations());
+    SmartDashboard.putNumber("module d angle", moduleD.getState().angle.getRotations());
   }
 
   public void drive(ChassisSpeeds chassisSpeeds) {
@@ -113,6 +114,7 @@ public class Chassis extends SubsystemBase {
   }
 
   public void setModuleStates(SwerveModuleState[] states) {
+    SwerveDriveKinematics.desaturateWheelSpeeds(states, SwerveConstants.kMaxThrottleSpeed);
     moduleA.setState(states[0]);
     moduleB.setState(states[1]);
     moduleC.setState(states[2]);

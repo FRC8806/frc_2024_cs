@@ -27,7 +27,7 @@ public class IntakeConstants {
   public static final double angleHighLimit = 41.5;
   public static final double angleLowLimit = 0;
   public static final double downPosition = 41;
-  public static final double upPosition = 11.5;//16
+  public static final double upPosition = 11.6;//16
 
   //PID
   public static final double intakrKP = 0.05;

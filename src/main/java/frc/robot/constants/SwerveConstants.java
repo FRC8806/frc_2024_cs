@@ -74,6 +74,6 @@ public final class SwerveConstants {
   public static final double rotationKI = 0;
   public static final double rotationKD = 0;
 
-  public static final double maxModuleSpeed = 4.5;
+  public static final double maxModuleSpeed = 5.4;
   public static final double driveBaseRadius = 0.41012;
 }

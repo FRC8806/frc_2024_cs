@@ -14,7 +14,6 @@
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
 package frc.robot;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -22,8 +21,6 @@ import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -67,19 +64,17 @@ public class RobotContainer {
       limelightShooter.getEntry("pipeline").setNumber(LimelightConatants.PIPELINE_BLUE_SPEAKER);
     }
     autoChooser = AutoBuilder.buildAutoChooser();
-    // autoChooser.addOption("aaaa", new PathPlannerAuto("Example Auto"));
     SmartDashboard.putData("Auto Chooser", autoChooser);
   }
 
   private void configureBindings() {
-    // SmartDashboard.putData("test auto", new PathPlannerAuto("Example Auto"));
     new JoystickButton(driveController, Button.kA.value).whileTrue(new ChassisTrackingSpeaker(limelightShooter, chassis,
         () -> driveController.getLeftY(), () -> driveController.getLeftX()));
     new JoystickButton(operatorController, Button.kY.value)
         .toggleOnTrue(new ShooterTrackingSpeaker(shooter, intake, limelightShooter,
             () -> operatorController.getLeftTriggerAxis()));
-    new JoystickButton(operatorController, Button.kB.value)
-        .whileTrue(new TeleAMP(shooter, chassis, () -> operatorController.getLeftTriggerAxis(), limelightShooter));
+    // new JoystickButton(operatorController, Button.kB.value)
+    //     .whileTrue(new TeleAMP(shooter, chassis, () -> operatorController.getLeftTriggerAxis(), limelightShooter));
     new JoystickButton(operatorController, Button.kA.value)
         .toggleOnTrue(new TeleGetNote(intake, shooter, () -> operatorController.getXButton()));
     new JoystickButton(operatorController, Button.kBack.value)
@@ -105,10 +100,9 @@ public class RobotContainer {
   }
 
   public void nameCommands() {
-    // NamedCommands.registerCommand("amp", new TeleAMP(shooter, chassis,
-    // operatorController::getLeftTriggerAxis, limelightShooter));
-    // NamedCommands.registerCommand("greenRoll", );
-    NamedCommands.registerCommand("shooting", new AutoShooting(shooter));
+    NamedCommands.registerCommand("setup", new AutoSetup(intake, shooter));
+
+    NamedCommands.registerCommand("shooting", new AutoShooti(shooter));
     NamedCommands.registerCommand("intakeRolling", new AutoGetNote(intake));
     NamedCommands.registerCommand("shooterAngle", new AutoSpeakerTracking(shooter, limelightShooter));
     NamedCommands.registerCommand("intakeDown", new AutoIntakeDown(intake));
