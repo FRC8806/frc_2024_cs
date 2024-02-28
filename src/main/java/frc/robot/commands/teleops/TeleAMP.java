@@ -16,46 +16,45 @@ package frc.robot.commands.teleops;
 
 import java.util.function.Supplier;
 
-import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Intake;
 
 public class TeleAMP extends Command {
-  Shooter shooter;
-  Chassis chassis;
-  Supplier<Double> lt;
-  NetworkTable shooterLimelight;
-  public TeleAMP(Shooter shooter, Chassis chassis, Supplier<Double> lt, NetworkTable shooterLimelight) {
-    this.shooter = shooter;
-    this.chassis = chassis;
-    this.lt = lt;
-    this.shooterLimelight = shooterLimelight;
-    addRequirements(shooter);
+  private Intake intake;
+  private Timer timer;
+  private Supplier<Boolean> intakeUpTrigger;
+
+  public TeleAMP(Intake intake, Supplier<Boolean> intakeUpTrigger) {
+    this.intake = intake;
+    this.intakeUpTrigger = intakeUpTrigger;
+    addRequirements(intake);
   }
 
   @Override
   public void initialize() {
+    timer.reset();
+    timer.start();
+    intake.setIntakeDown();
   }
 
   @Override
   public void execute() {
-    //移入
-    shooter.setFlyWheelSpeed(0.15);
-    shooter.setTransportSpeed(lt.get()/5);
-    //移出
-    //shooter.setAMPAngle();
+    if (timer.get() > 0.2) {
+      intake.setRollingSpeed(-0.2);
+      intake.setMicSpeed(-0.2);
+    }
   }
 
   @Override
   public void end(boolean interrupted) {
-    // shooter.setFlyWheelSpeed(0);
-    shooter.setAngleSpeed(0);
-    shooter.setTransportSpeed(0);
+    intake.setIntakeUp();
+    intake.setRollingSpeed(0);
+    intake.setMicSpeed(0);
   }
 
   @Override
   public boolean isFinished() {
-    return false;
+    return intakeUpTrigger.get();
   }
 }

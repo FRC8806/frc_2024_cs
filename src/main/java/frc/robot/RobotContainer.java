@@ -81,6 +81,8 @@ public class RobotContainer {
     new JoystickButton(operatorController, Button.kBack.value)
         .onTrue(new ClimberSetup(climber, intake, shooter, () -> operatorController.getStartButton())
             .andThen(new ClimbUp(climber, () -> operatorController.getBackButton())));
+    new JoystickButton(operatorController, Button.kRightBumper.value).onTrue(new TeleAMP(intake, () -> operatorController.getLeftBumper()));
+    // new JoystickButton(operatorController, Button.kLeftBumper.value).whileTrue(new TeleAMP2(intake));
   }
 
   public Command getAutonomousCommand() {
@@ -108,12 +110,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("intake rolling", new AutoGetNote(intake));
     NamedCommands.registerCommand("green rolling", new AutoTransport(shooter, true));
     NamedCommands.registerCommand("green stop", new AutoTransport(shooter, false));
-
+    NamedCommands.registerCommand("stop", new AutoAllStop(shooter, intake, chassis));
 
 
     NamedCommands.registerCommand("shooterAngle", new AutoSpeakerTracking(shooter, limelightShooter));
     NamedCommands.registerCommand("intakeDown", new AutoIntakeDown(intake));
 
-    NamedCommands.registerCommand("stop", new AutoAllStop(shooter, intake));
   }
 }

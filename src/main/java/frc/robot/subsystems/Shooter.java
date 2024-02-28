@@ -48,8 +48,8 @@ public class Shooter extends SubsystemBase {
   // transport motor
   private CANSparkFlex transportMotor = new CANSparkFlex(ShooterConstants.TRANSPORT_MOTOR_ID, MotorType.kBrushless);
   // encoders
-  private RelativeEncoder flyWheelEncoder;
-  private RelativeEncoder angleEncoder;
+  // private RelativeEncoder flyWheelEncoder;
+  // private RelativeEncoder angleEncoder;
   // angle limiter
   private SoftLimiter angleLimiter;
   // angle PID controller
@@ -69,9 +69,9 @@ public class Shooter extends SubsystemBase {
     colorMatch.addColorMatch(IntakeConstants.noneTarget);
     led.setLength(ledBuffer.getLength());
     led.start();
-    flyWheelEncoder = leftMotor.getEncoder();
-    angleEncoder = angleMotor.getEncoder();
-    angleLimiter = new SoftLimiter(() -> angleEncoder.getPosition());
+    // flyWheelEncoder = leftMotor.getEncoder();
+    // angleEncoder = angleMotor.getEncoder();
+    angleLimiter = new SoftLimiter(() -> angleMotor.getEncoder().getPosition());
     angleLimiter.setRange(ShooterConstants.angleHighLimit, ShooterConstants.angleLowLimit);
   }
 
@@ -88,8 +88,8 @@ public class Shooter extends SubsystemBase {
     // SmartDashboard.putNumber("cg", colorSensor.getColor().green * 255);
     // SmartDashboard.putNumber("cb", colorSensor.getColor().blue * 255);
     SmartDashboard.putBoolean("is tracking", isTracking);
-    SmartDashboard.putNumber("shooter position", angleEncoder.getPosition());
-    SmartDashboard.putNumber("fly wheel speed", flyWheelEncoder.getVelocity());
+    SmartDashboard.putNumber("shooter position", angleMotor.getEncoder().getPosition());
+    SmartDashboard.putNumber("fly wheel speed", leftMotor.getEncoder().getVelocity());
     SmartDashboard.putBoolean("isNoteSet", isNoteSet());
     SmartDashboard.putBoolean("is speed reach", isSpeedReached());
   }
@@ -105,7 +105,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public double getFlyWheelSpeed() {
-    return flyWheelEncoder.getVelocity();
+    return leftMotor.getEncoder().getVelocity();
   }
 
   public void setAngleSpeed(double speed) {
@@ -125,7 +125,7 @@ public class Shooter extends SubsystemBase {
    * Reset the encoder of the angle motor to zero
    */
   public void resetAngleEncoder() {
-    angleEncoder.setPosition(0);
+    angleMotor.getEncoder().setPosition(0);
   }
 
   /**
@@ -133,7 +133,7 @@ public class Shooter extends SubsystemBase {
    * @return Position of the angle motor
    */
   public double getAnglePosition() {
-    return angleEncoder.getPosition();
+    return angleMotor.getEncoder().getPosition();
   }
 
   public boolean isSpeedReached() {
