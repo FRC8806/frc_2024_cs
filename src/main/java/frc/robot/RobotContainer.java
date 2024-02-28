@@ -81,7 +81,7 @@ public class RobotContainer {
     new JoystickButton(operatorController, Button.kBack.value)
         .onTrue(new ClimberSetup(climber, intake, shooter, () -> operatorController.getStartButton())
             .andThen(new ClimbUp(climber, () -> operatorController.getBackButton())));
-    new JoystickButton(operatorController, Button.kRightBumper.value).onTrue(new TeleAMP(intake, () -> operatorController.getLeftBumper()));
+    new JoystickButton(operatorController, Button.kRightBumper.value).toggleOnTrue(new TeleAMP(shooter, () -> operatorController.getLeftBumper()));
     // new JoystickButton(operatorController, Button.kLeftBumper.value).whileTrue(new TeleAMP2(intake));
   }
 

@@ -40,8 +40,8 @@ public class AutoFirstNote extends Command {
   public void execute() {
     shooter.setAnglePosition(position);
     shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getFlyWheelSpeed(),
-        ShooterConstants.FLYWHEEL_SPEED));
-    if (shooter.isSpeedReached() && Math.abs(shooter.getAnglePosition() - position) < 0.5) {
+        4000));
+    if (shooter.getFlyWheelSpeed() > 3950 && Math.abs(shooter.getAnglePosition() - position) < 0.5) {
       shooter.setTransportSpeed(ShooterConstants.TRANSPORT_MOTOR_SPEED);
     }
   }

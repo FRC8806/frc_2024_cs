@@ -18,43 +18,44 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.ShooterConstants;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
 public class TeleAMP extends Command {
-  private Intake intake;
-  private Timer timer;
-  private Supplier<Boolean> intakeUpTrigger;
+  private Shooter shooter;
+  private Supplier<Boolean> trigger;
 
-  public TeleAMP(Intake intake, Supplier<Boolean> intakeUpTrigger) {
-    this.intake = intake;
-    this.intakeUpTrigger = intakeUpTrigger;
-    addRequirements(intake);
+  public TeleAMP(Shooter shooter, Supplier<Boolean> trigger) {
+    this.shooter = shooter;
+    this.trigger = trigger;
+    addRequirements(shooter);
   }
 
   @Override
   public void initialize() {
-    timer.reset();
-    timer.start();
-    intake.setIntakeDown();
+    shooter.setAnglePosition(0);
+    shooter.setFlyWheelSpeed(0.12);//0.165
   }
 
   @Override
   public void execute() {
-    if (timer.get() > 0.2) {
-      intake.setRollingSpeed(-0.2);
-      intake.setMicSpeed(-0.2);
+    if (trigger.get()) {
+      shooter.setTransportSpeed(0.4);
+    } else {
+      shooter.setTransportSpeed(0);
     }
   }
 
   @Override
   public void end(boolean interrupted) {
-    intake.setIntakeUp();
-    intake.setRollingSpeed(0);
-    intake.setMicSpeed(0);
+    shooter.setFlyWheelSpeed(0);
+    shooter.setTransportSpeed(0);
+    shooter.setAngleSpeed(0);
   }
 
   @Override
   public boolean isFinished() {
-    return intakeUpTrigger.get();
+    return false;
   }
 }

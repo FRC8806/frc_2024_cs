@@ -43,14 +43,14 @@
               {
                 "type": "named",
                 "data": {
+                  "name": "intake rolling"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
                   "name": "first note"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "intake rolling"
-                }
               }
             ]
           }
@@ -66,57 +66,25 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "a3-a2"
+                        "pathName": "a3-b5"
                       }
                     },
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.0
+                        "waitTime": 0.2
                       }
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "a2 note"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "intake rolling"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
+                    },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "a2-b3"
+                        "pathName": "b5-m2"
                       }
                     },
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.3
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "b3-m2"
+                        "waitTime": 0.2
                       }
                     },
                     {
@@ -124,6 +92,18 @@
                       "data": {
                         "name": "green rolling"
                       }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "green stop"
+                      }
                     }
                   ]
                 }
@@ -131,13 +111,69 @@
               {
                 "type": "named",
                 "data": {
+                  "name": "intake rolling"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
                   "name": "second note"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "m2-b4"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.2
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "green rolling"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "green stop"
+                      }
+                    }
+                  ]
                 }
               },
               {
                 "type": "named",
                 "data": {
                   "name": "intake rolling"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "second note"
                 }
               }
             ]

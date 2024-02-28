@@ -82,7 +82,7 @@ public class Shooter extends SubsystemBase {
       ledBuffer.setHSV(i + ledBuffer.getLength() / 2, ledState[ledState.length - 1 - i], 255, 128);
     }
     led.setData(ledBuffer);
-    // setLED(ShooterConstants.LEDMODE_DEFAULT);
+    setLED(ShooterConstants.LEDMODE_DEFAULT);
     if(isSetToPosition) { angleMotor.set(angleLimiter.getOutput(shooterPID.calculate(getAnglePosition(), shooterPosition)));}
     // SmartDashboard.putNumber("cr", colorSensor.getColor().red * 255);
     // SmartDashboard.putNumber("cg", colorSensor.getColor().green * 255);

@@ -40,7 +40,7 @@ public class AutoAllStop extends Command {
     intake.setAngleSpeed(0);
     intake.setMicSpeed(0);
     intake.setRollingSpeed(0);
-    chassis.drive(new ChassisSpeeds());
+    chassis.drive(new ChassisSpeeds(0,0,0));
   }
 
   // Returns true when the command should end.
