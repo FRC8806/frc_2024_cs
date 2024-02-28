@@ -35,11 +35,12 @@ public class TeleAMP extends Command {
   @Override
   public void initialize() {
     shooter.setAnglePosition(0);
-    shooter.setFlyWheelSpeed(0.12);//0.165
+    shooter.setFlyWheelSpeed(0.174);//0.165
   }
 
   @Override
   public void execute() {
+    shooter.setLED(ShooterConstants.LEDMODE_AMP);
     if (trigger.get()) {
       shooter.setTransportSpeed(0.4);
     } else {

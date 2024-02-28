@@ -83,7 +83,9 @@ public class Shooter extends SubsystemBase {
     }
     led.setData(ledBuffer);
     setLED(ShooterConstants.LEDMODE_DEFAULT);
-    if(isSetToPosition) { angleMotor.set(angleLimiter.getOutput(shooterPID.calculate(getAnglePosition(), shooterPosition)));}
+    if (isSetToPosition) {
+      angleMotor.set(angleLimiter.getOutput(shooterPID.calculate(getAnglePosition(), shooterPosition)));
+    }
     // SmartDashboard.putNumber("cr", colorSensor.getColor().red * 255);
     // SmartDashboard.putNumber("cg", colorSensor.getColor().green * 255);
     // SmartDashboard.putNumber("cb", colorSensor.getColor().blue * 255);
@@ -137,7 +139,7 @@ public class Shooter extends SubsystemBase {
   }
 
   public boolean isSpeedReached() {
-    return getFlyWheelSpeed() >= ShooterConstants.FLYWHEEL_SPEED - 50;//4900
+    return getFlyWheelSpeed() >= ShooterConstants.FLYWHEEL_SPEED - 50;// 4900
   }
 
   public void setLED(int ledMode) {
@@ -192,15 +194,15 @@ public class Shooter extends SubsystemBase {
           ledState[i] = hue;
         }
         break;
-      // case ShooterConstants.LEDMODE_INTAKE_DOWN:
-      // for (var i = 0; i < ledState.length; i++) {
-      // // Calculate the hue - hue is easier for rainbows because the color
-      // // shape is a circle so only one value needs to precess
-      // final var hue = 30;
-      // // Set the value
-      // ledState[i] = hue;
-      // }
-      // break;
+      case ShooterConstants.LEDMODE_AMP:
+        for (var i = 0; i < ledState.length; i++) {
+          // Calculate the hue - hue is easier for rainbows because the color
+          // shape is a circle so only one value needs to precess
+          final var hue = 160;
+          // Set the value
+          ledState[i] = hue;
+        }
+        break;
       default:
         // For every pixel
         for (var i = 0; i < ledState.length; i++) {

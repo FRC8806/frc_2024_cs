@@ -43,7 +43,7 @@ public final class ShooterConstants {
   public static final int LEDMODE_DEFAULT = 0;
   public static final int LEDMODE_SPEED_UP = 1;
   public static final int LEDMODE_SHOOTER_READY = 2;
-  public static final int LEDMODE_INTAKE_DOWN = 3;
+  public static final int LEDMODE_AMP = 3;
   public static final int LEDMODE_NOTE_ON = 4;
   public static final double FLYWHEEL_SPEED = 4500;
 
