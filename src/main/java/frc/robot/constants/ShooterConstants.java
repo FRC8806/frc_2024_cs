@@ -51,5 +51,5 @@ public final class ShooterConstants {
   public static final double AUTO_FIRST_NOTE_POSITION = 28;//30
 
   public static final double AUTO_SECOND_NOTE_POSITION = 54;
-  public static final double AUTO_A2_NOTE_POSITION = 28;
+  public static final double AUTO_A2_NOTE_POSITION = 27;
 }

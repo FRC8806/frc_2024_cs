@@ -33,7 +33,6 @@ public class AutoFirstNote extends Command {
 
   @Override
   public void initialize() {
-    shooter.setTransportSpeed(0);
   }
 
   @Override
@@ -41,14 +40,13 @@ public class AutoFirstNote extends Command {
     shooter.setAnglePosition(position);
     shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getFlyWheelSpeed(),
         4000));
-    if (shooter.getFlyWheelSpeed() > 3950 && Math.abs(shooter.getAnglePosition() - position) < 0.5) {
-      shooter.setTransportSpeed(ShooterConstants.TRANSPORT_MOTOR_SPEED);
-    }
+    // if (shooter.getFlyWheelSpeed() > 3950 && Math.abs(shooter.getAnglePosition() - position) < 0.5) {
+    //   shooter.setTransportSpeed(ShooterConstants.TRANSPORT_MOTOR_SPEED);
+    // }
   }
 
   @Override
   public void end(boolean interrupted) {
-    shooter.setTransportSpeed(0);
   }
 
   @Override
