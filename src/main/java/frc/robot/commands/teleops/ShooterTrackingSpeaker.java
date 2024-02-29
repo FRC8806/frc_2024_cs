@@ -30,8 +30,8 @@ public class ShooterTrackingSpeaker extends Command {
   private Intake intake;
   private NetworkTable shooterLimelight;
   private Supplier<Double> trigger;
-  private PIDController shooterPID = new PIDController(ShooterConstants.shooterKP, ShooterConstants.shooterKI,
-      ShooterConstants.shooterKD);
+  // private PIDController shooterPID = new PIDController(ShooterConstants.shooterKP, ShooterConstants.shooterKI,
+  //     ShooterConstants.shooterKD);
   private PIDController speedPID = new PIDController(ShooterConstants.shooterSpeedKP, ShooterConstants.shooterSpeedKI,
       ShooterConstants.shooterSpeedKD);
 
@@ -49,7 +49,6 @@ public class ShooterTrackingSpeaker extends Command {
   @Override
   public void initialize() {
     shooter.isTracking = true;
-    // 待測
     targetPosition = 10;
   }
 
@@ -64,9 +63,10 @@ public class ShooterTrackingSpeaker extends Command {
       // targetPosition = 40.1 - 4.44 * ty - 0.0749 * Math.pow(ty, 2) + 0.0251 * Math.pow(ty, 3) - 0.0011 * Math.pow(ty, 4);
       targetPosition = 34.2 - 4.55 * ty + 0.0539 * ty * ty;
     }
-    angleSpeed = shooterPID.calculate(shooter.getAnglePosition(), targetPosition);
-    shooter.setAngleSpeed(angleSpeed);
-    // shooter.setAnglePosition(targetPosition);
+    // angleSpeed = shooterPID.calculate(shooter.getAnglePosition(), targetPosition);
+    // shooter.setAngleSpeed(angleSpeed);
+    shooter.setAnglePosition(targetPosition);
+    // shooter.setFlyWheelSpeed(0.9);
     shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getFlyWheelSpeed(),
         4500));
     if (shooter.getFlyWheelSpeed() > 4500 && Math.abs(shooter.getAnglePosition() - targetPosition) < 1) {

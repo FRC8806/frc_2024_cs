@@ -99,7 +99,7 @@ public class RobotContainer {
 
   public void cancelDefaultCommand() {
     CommandScheduler.getInstance().removeDefaultCommand(chassis);
-    CommandScheduler.getInstance().removeDefaultCommand(shooter);
+    // CommandScheduler.getInstance().removeDefaultCommand(shooter);
   }
 
   public void nameCommands() {

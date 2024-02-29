@@ -49,7 +49,7 @@ public class Climber extends SubsystemBase {
 
   public void setSpeed(double speed) {
     rightMotor.set(limiter.getOutput(speed));
-    leftMotor.set(limiter.getOutput(-speed));
+    leftMotor.set(limiter.getOutput(speed));
   }
 
   public double getRightPosition() {

@@ -37,7 +37,7 @@ public class ClimberSetup extends Command {
 
   @Override
   public void initialize() {
-    intake.setIntakeDown();
+    // intake.setIntakeDown();
     shooter.setAnglePosition(30);
   }
 

@@ -19,7 +19,6 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorSensorV3;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -32,7 +31,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.SoftLimiter;
 import frc.robot.constants.IntakeConstants;
 import frc.robot.constants.ShooterConstants;
-import frc.robot.constants.SwerveConstants;
 
 public class Shooter extends SubsystemBase {
   private ColorSensorV3 colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
@@ -169,7 +167,7 @@ public class Shooter extends SubsystemBase {
         break;
       case ShooterConstants.LEDMODE_SPEED_UP:
         int lightLenth = (int) (getFlyWheelSpeed() / 4500 * 30) + 1;
-        lightLenth = lightLenth > 30 ? 30 : lightLenth;
+        lightLenth = lightLenth > 30 ? 30 : lightLenth < 1 ? 1 : lightLenth;
         for (var i = 0; i < lightLenth; i++) {
           // Calculate the hue - hue is easier for rainbows because the color
           // shape is a circle so only one value needs to precess

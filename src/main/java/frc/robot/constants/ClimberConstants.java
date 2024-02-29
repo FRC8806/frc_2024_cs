@@ -21,7 +21,7 @@ public class ClimberConstants {
   public static final double ELEVATOR_HIGH_LIMIT = 0;
   public static final double ELEVATOR_LOW_LIMIT = -250;
 
-  public static final double SETUP_POSE = -66;
+  public static final double SETUP_POSE = -55;
   public static final double DOWN_POSE = -250;
 
   public static final double climberGearRitio = 1/60;
