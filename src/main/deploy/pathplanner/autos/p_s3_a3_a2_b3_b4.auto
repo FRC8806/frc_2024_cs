@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.75,
-      "y": 6.66
+      "x": 0.74,
+      "y": 4.43
     },
-    "rotation": 60.0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -32,7 +32,7 @@
                           {
                             "type": "path",
                             "data": {
-                              "pathName": "s1-a1"
+                              "pathName": "Copy of s3-a3"
                             }
                           },
                           {
@@ -60,13 +60,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.0
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "green stop"
+                        "waitTime": 2.0
                       }
                     }
                   ]
@@ -98,31 +92,7 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "a1-b1"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.2
-                      }
-                    },
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "b1-m"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.2
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "green rolling"
+                        "pathName": "a3-a2"
                       }
                     },
                     {
@@ -143,13 +113,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "intake rolling"
+                  "name": "a2 note"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "second note"
+                  "name": "intake rolling"
                 }
               }
             ]
@@ -166,13 +136,19 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "m_b2_m"
+                        "pathName": "a2-b3"
                       }
                     },
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.2
+                        "waitTime": 0.3
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "b3-m2"
                       }
                     },
                     {
@@ -186,11 +162,55 @@
                       "data": {
                         "waitTime": 1.0
                       }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "second note"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "intake rolling"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "m2-b4"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.3
+                      }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "green stop"
+                        "name": "green rolling"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
                       }
                     }
                   ]
@@ -199,13 +219,13 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "intake rolling"
+                  "name": "second note"
                 }
               },
               {
                 "type": "named",
                 "data": {
-                  "name": "second note"
+                  "name": "intake rolling"
                 }
               }
             ]
