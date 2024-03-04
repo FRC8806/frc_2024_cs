@@ -24,12 +24,12 @@ import frc.robot.subsystems.Shooter;
 
 public class TeleGetNote extends Command {
   private Intake intake;
-  private Shooter shooter;
+  // private Shooter shooter;
   private Supplier<Boolean> inverseTrigger;
   
-  public TeleGetNote(Intake intake, Shooter shooter, Supplier<Boolean> inverseTrigger) {
+  public TeleGetNote(Intake intake, Supplier<Boolean> inverseTrigger) {
     this.intake = intake;
-    this.shooter = shooter;
+    // this.shooter = shooter;
     this.inverseTrigger = inverseTrigger;
     addRequirements(intake);
   }
@@ -50,9 +50,9 @@ public class TeleGetNote extends Command {
       intake.setRollingSpeed(IntakeConstants.rollingSpeed);
       intake.setMicSpeed(IntakeConstants.microPhoneSpeed);
     }
-    if(shooter.isNoteSet()) {
-      shooter.setLED(ShooterConstants.LEDMODE_NOTE_ON);
-    }
+    // if(shooter.isNoteSet()) {
+    //   shooter.setLED(ShooterConstants.LEDMODE_NOTE_ON);
+    // }
   }
 
   @Override

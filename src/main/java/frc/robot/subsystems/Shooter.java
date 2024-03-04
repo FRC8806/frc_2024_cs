@@ -33,8 +33,8 @@ import frc.robot.constants.IntakeConstants;
 import frc.robot.constants.ShooterConstants;
 
 public class Shooter extends SubsystemBase {
-  private ColorSensorV3 colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
-  private ColorMatch colorMatch = new ColorMatch();
+  // private ColorSensorV3 colorSensor = new ColorSensorV3(I2C.Port.kOnboard);
+  // private ColorMatch colorMatch = new ColorMatch();
   // led
   private AddressableLED led = new AddressableLED(ShooterConstants.LED_PORT);
   private AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(ShooterConstants.LED_LENTH);
@@ -63,8 +63,8 @@ public class Shooter extends SubsystemBase {
   private double shooterPosition = 10;
 
   public Shooter() {
-    colorMatch.addColorMatch(IntakeConstants.noteTarget);
-    colorMatch.addColorMatch(IntakeConstants.noneTarget);
+    // colorMatch.addColorMatch(IntakeConstants.noteTarget);
+    // colorMatch.addColorMatch(IntakeConstants.noneTarget);
     led.setLength(ledBuffer.getLength());
     led.start();
     // flyWheelEncoder = leftMotor.getEncoder();
@@ -80,17 +80,18 @@ public class Shooter extends SubsystemBase {
       ledBuffer.setHSV(i + ledBuffer.getLength() / 2, ledState[ledState.length - 1 - i], 255, 128);
     }
     led.setData(ledBuffer);
-    setLED(ShooterConstants.LEDMODE_DEFAULT);
     if (isSetToPosition) {
       angleMotor.set(angleLimiter.getOutput(shooterPID.calculate(getAnglePosition(), shooterPosition)));
     }
+    setLED(ShooterConstants.LEDMODE_DEFAULT);
+
     // SmartDashboard.putNumber("cr", colorSensor.getColor().red * 255);
     // SmartDashboard.putNumber("cg", colorSensor.getColor().green * 255);
     // SmartDashboard.putNumber("cb", colorSensor.getColor().blue * 255);
     SmartDashboard.putBoolean("is tracking", isTracking);
     SmartDashboard.putNumber("shooter position", angleMotor.getEncoder().getPosition());
     SmartDashboard.putNumber("fly wheel speed", leftMotor.getEncoder().getVelocity());
-    SmartDashboard.putBoolean("isNoteSet", isNoteSet());
+    // SmartDashboard.putBoolean("isNoteSet", isNoteSet());
     SmartDashboard.putBoolean("is speed reach", isSpeedReached());
   }
 
@@ -218,9 +219,9 @@ public class Shooter extends SubsystemBase {
     }
   }
 
-  public boolean isNoteSet() {
-    Color detectedColor = colorSensor.getColor();
-    ColorMatchResult match = colorMatch.matchClosestColor(detectedColor);
-    return match.color != null && match.color == IntakeConstants.noteTarget;
-  }
+  // public boolean isNoteSet() {
+  // Color detectedColor = colorSensor.getColor();
+  // ColorMatchResult match = colorMatch.matchClosestColor(detectedColor);
+  // return match.color != null && match.color == IntakeConstants.noteTarget;
+  // }
 }
