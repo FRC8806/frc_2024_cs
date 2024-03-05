@@ -24,9 +24,9 @@ public class IntakeConstants {
   //Spark Flex
   public static final int ROLLING_MOTOR_ID = 54;
   //position
-  public static final double angleHighLimit = 42.5;
+  public static final double angleHighLimit = 41.5;
   public static final double angleLowLimit = 0;
-  public static final double downPosition = 42;
+  public static final double downPosition = 41;
   public static final double upPosition = 11.6;//16
 
   //PID
