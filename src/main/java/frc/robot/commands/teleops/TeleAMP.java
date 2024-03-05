@@ -37,8 +37,8 @@ public class TeleAMP extends Command {
 
   @Override
   public void initialize() {
-    shooter.setAnglePosition(-1); //-3
-    shooter.setFlyWheelSpeed(0.153);//0.174 0.153
+    shooter.setAnglePosition(-4); //-3
+    shooter.setFlyWheelSpeed(0.089);//0.174 0.153
   }
 
   @Override
@@ -49,7 +49,8 @@ public class TeleAMP extends Command {
     } else {
       shooter.setTransportSpeed(0);
     }
-    shooter.setFlyWheelSpeed(0.153 + speedPID.calculate(shooter.getFlyWheelSpeed(), 780)); //780
+    shooter.setFlyWheelSpeed(0.089 + speedPID.calculate(shooter.getFlyWheelSpeed(), 550)); //780
+    //0.083 530
 
   }
 
