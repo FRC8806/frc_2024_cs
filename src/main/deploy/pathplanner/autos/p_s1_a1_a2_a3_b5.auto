@@ -62,6 +62,18 @@
                       "data": {
                         "waitTime": 2.0
                       }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "a1_a2"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.5
+                      }
                     }
                   ]
                 }
@@ -69,7 +81,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "a2 note"
+                  "name": "a1 note"
                 }
               },
               {
@@ -89,18 +101,6 @@
                 "type": "sequential",
                 "data": {
                   "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "a1_a2"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 2.0
-                      }
-                    },
                     {
                       "type": "path",
                       "data": {
@@ -199,7 +199,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "a2 note"
+                  "name": "second note"
                 }
               },
               {
