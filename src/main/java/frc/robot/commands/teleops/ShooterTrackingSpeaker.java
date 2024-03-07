@@ -49,7 +49,7 @@ public class ShooterTrackingSpeaker extends Command {
   @Override
   public void initialize() {
     shooter.isTracking = true;
-    targetPosition = 10;
+    targetPosition = -10;
   }
 
   @Override

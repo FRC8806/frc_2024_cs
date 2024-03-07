@@ -50,7 +50,8 @@ public class TeleAMP extends Command {
       shooter.setTransportSpeed(0);
     }
     shooter.setFlyWheelSpeed(0.089 + speedPID.calculate(shooter.getFlyWheelSpeed(), 550)); //780
-    //0.083 530
+    //0.083 530 -1
+    //0.089 550 -4
 
   }
 
