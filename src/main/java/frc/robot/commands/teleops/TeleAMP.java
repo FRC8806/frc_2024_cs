@@ -27,7 +27,7 @@ import frc.robot.subsystems.Shooter;
 public class TeleAMP extends Command {
   private Shooter shooter;
   private Supplier<Boolean> trigger;
-  private PIDController speedPID = new PIDController(0.0001, ShooterConstants.shooterSpeedKI,
+  private PIDController speedPID = new PIDController(0.0003, 0.0001,
       ShooterConstants.shooterSpeedKD);
   public TeleAMP(Shooter shooter, Supplier<Boolean> trigger) {
     this.shooter = shooter;
@@ -37,8 +37,8 @@ public class TeleAMP extends Command {
 
   @Override
   public void initialize() {
-    shooter.setAnglePosition(-4); //-3
-    shooter.setFlyWheelSpeed(0.089);//0.174 0.153
+    shooter.setAnglePosition(-6); //-3
+    shooter.setFlyWheelSpeed(0.092);//0.174 0.153
   }
 
   @Override
@@ -49,7 +49,7 @@ public class TeleAMP extends Command {
     } else {
       shooter.setTransportSpeed(0);
     }
-    shooter.setFlyWheelSpeed(0.089 + speedPID.calculate(shooter.getFlyWheelSpeed(), 550)); //780
+    shooter.setFlyWheelSpeed(0.092 + speedPID.calculate(shooter.getFlyWheelSpeed(), 500)); //780
     //0.083 530 -1
     //0.089 550 -4
 
