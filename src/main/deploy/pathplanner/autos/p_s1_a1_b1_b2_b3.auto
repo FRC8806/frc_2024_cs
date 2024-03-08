@@ -60,7 +60,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.0
+                        "waitTime": 0.8
                       }
                     },
                     {
@@ -75,7 +75,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "a1 note"
+                  "name": "test note"
                 }
               },
               {
@@ -114,12 +114,6 @@
                       }
                     },
                     {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.2
-                      }
-                    },
-                    {
                       "type": "named",
                       "data": {
                         "name": "green rolling"
@@ -128,7 +122,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.0
+                        "waitTime": 0.8
                       }
                     },
                     {
@@ -149,7 +143,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "second note"
+                  "name": "m2 note"
                 }
               }
             ]
@@ -170,12 +164,6 @@
                       }
                     },
                     {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.2
-                      }
-                    },
-                    {
                       "type": "named",
                       "data": {
                         "name": "green rolling"
@@ -184,7 +172,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.0
+                        "waitTime": 0.8
                       }
                     },
                     {
@@ -205,7 +193,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "second note"
+                  "name": "m2 note"
                 }
               }
             ]

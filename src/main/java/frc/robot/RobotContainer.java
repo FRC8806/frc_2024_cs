@@ -108,11 +108,12 @@ public class RobotContainer {
     NamedCommands.registerCommand("second note", new AutoSencondNote(shooter, ShooterConstants.AUTO_SECOND_NOTE_POSITION));
     NamedCommands.registerCommand("a2 note", new AutoFirstNote(shooter, ShooterConstants.AUTO_A2_NOTE_POSITION));
     NamedCommands.registerCommand("a1 note", new AutoFirstNote(shooter, ShooterConstants.AUTO_A1_NOTE_POSITION));
+    NamedCommands.registerCommand("test note", new AutoFirstNote(shooter, 32));
+    NamedCommands.registerCommand("m2 note", new AutoSencondNote(shooter, 60));
     NamedCommands.registerCommand("intake rolling", new AutoGetNote(intake));
     NamedCommands.registerCommand("green rolling", new AutoTransport(shooter, true));
     NamedCommands.registerCommand("green stop", new AutoTransport(shooter, false));
     NamedCommands.registerCommand("stop", new AutoAllStop(shooter, intake, chassis));
-
 
     NamedCommands.registerCommand("shooterAngle", new AutoSpeakerTracking(shooter, limelightShooter));
     NamedCommands.registerCommand("intakeDown", new AutoIntakeDown(intake));
