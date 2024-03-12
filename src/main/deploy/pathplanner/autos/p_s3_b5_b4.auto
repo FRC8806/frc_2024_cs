@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7518994781213513,
-      "y": 6.660186397295872
+      "x": 0.73,
+      "y": 4.41
     },
-    "rotation": 60.0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -26,41 +26,27 @@
                 "data": {
                   "commands": [
                     {
-                      "type": "deadline",
+                      "type": "wait",
                       "data": {
-                        "commands": [
-                          {
-                            "type": "path",
-                            "data": {
-                              "pathName": "s1-a1"
-                            }
-                          },
-                          {
-                            "type": "sequential",
-                            "data": {
-                              "commands": [
-                                {
-                                  "type": "wait",
-                                  "data": {
-                                    "waitTime": 1.4
-                                  }
-                                },
-                                {
-                                  "type": "named",
-                                  "data": {
-                                    "name": "green rolling"
-                                  }
-                                }
-                              ]
-                            }
-                          }
-                        ]
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "green rolling"
                       }
                     },
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.5
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "green stop"
                       }
                     }
                   ]
@@ -69,7 +55,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "test note"
+                  "name": "start note"
                 }
               },
               {
@@ -92,22 +78,46 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "a1_a2"
+                        "pathName": "s3-b5"
                       }
                     },
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.5
+                        "waitTime": 0.2
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "b5-m2"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.2
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "green rolling"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "green stop"
                       }
                     }
                   ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "a1 note"
                 }
               },
               {
@@ -119,7 +129,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "green rolling"
+                  "name": "second note"
                 }
               }
             ]
@@ -136,22 +146,34 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "a2-a3"
+                        "pathName": "m2-b4"
                       }
                     },
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.5
+                        "waitTime": 0.2
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "green rolling"
+                      }
+                    },
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.0
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "green stop"
                       }
                     }
                   ]
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "a2 note"
                 }
               },
               {
@@ -163,7 +185,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "green rolling"
+                  "name": "second note"
                 }
               }
             ]

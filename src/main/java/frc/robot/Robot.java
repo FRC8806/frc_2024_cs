@@ -41,6 +41,7 @@ public class Robot extends TimedRobot {
     // and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer(() -> isRedAlliance());
+
   }
 
   /**
@@ -69,7 +70,6 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    m_robotContainer.setDefaultCommand();
     SoftLimiter.onWorked = true;
   }
 
@@ -83,14 +83,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    m_robotContainer.setDefaultCommand();
+
     m_robotContainer.chassis.updatePose = false;
-    m_robotContainer.cancelDefaultCommand();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+
   }
 
   /** This function is called periodically during autonomous. */
@@ -108,6 +110,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    m_robotContainer.setDefaultCommand();
+
   }
 
   /** This function is called periodically during operator control. */
@@ -119,7 +123,6 @@ public class Robot extends TimedRobot {
   public void testInit() {
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
-    m_robotContainer.cancelDefaultCommand();
     SoftLimiter.onWorked = false;
   }
 
@@ -127,6 +130,8 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     CommandScheduler.getInstance().cancelAll();
+    m_robotContainer.setDefaultCommand();
+
     m_robotContainer.climber.setSpeed(-m_robotContainer.testController.getRightY());
     m_robotContainer.intake.setAngleSpeed(m_robotContainer.testController.getYButton() ? 0.2
         : m_robotContainer.testController.getXButton() ? -0.2 : 0);
@@ -137,6 +142,8 @@ public class Robot extends TimedRobot {
       m_robotContainer.intake.resetAngleEncoder();
       m_robotContainer.shooter.resetAngleEncoder();
     }
+    m_robotContainer.setDefaultCommand();
+
   }
 
   /** This function is called once when the robot is first started up. */
