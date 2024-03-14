@@ -15,7 +15,7 @@
 package frc.robot.constants;
 
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+// import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 
 public final class SwerveConstants {
   public static final double deadband = 0.12;
@@ -48,7 +48,7 @@ public final class SwerveConstants {
 
   public static final double A_OFFSET = -0.471923828125;// 0.143798828125
   public static final double B_OFFSET = -0.2099609375;// 0.09619140625
-  public static final double C_OFFSET =-0.332519;// 0.043701171875
+  public static final double C_OFFSET = -0.332519;// 0.043701171875
   public static final double D_OFFSET = -0.15869140625;// 0.19970704
 
   public static final Translation2d A_TRANSLATION2D = new Translation2d(0.29, 0.29);

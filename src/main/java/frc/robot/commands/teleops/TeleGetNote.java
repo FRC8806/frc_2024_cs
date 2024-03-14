@@ -18,9 +18,7 @@ import java.util.function.Supplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.IntakeConstants;
-import frc.robot.constants.ShooterConstants;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Shooter;
 
 public class TeleGetNote extends Command {
   private Intake intake;
@@ -44,8 +42,8 @@ public class TeleGetNote extends Command {
   @Override
   public void execute() {
     if(inverseTrigger.get()) {
-      intake.setRollingSpeed(-0.2);
-      intake.setMicSpeed(-0.2);
+      intake.setRollingSpeed(IntakeConstants.reverseSpeed);
+      intake.setMicSpeed(IntakeConstants.reverseSpeed);
     } else {
       intake.setRollingSpeed(IntakeConstants.rollingSpeed);
       intake.setMicSpeed(IntakeConstants.microPhoneSpeed);

@@ -35,7 +35,8 @@ public class ShooterTrackingSpeaker extends Command {
   private PIDController speedPID = new PIDController(ShooterConstants.shooterSpeedKP, ShooterConstants.shooterSpeedKI,
       ShooterConstants.shooterSpeedKD);
 
-  private double targetPosition, angleSpeed;
+  private double targetPosition;
+  // private double angleSpeed;
 
   public ShooterTrackingSpeaker(Shooter shooter, Intake intake, NetworkTable shooterLimelight,
       Supplier<Double> transportTrigger) {
@@ -68,8 +69,8 @@ public class ShooterTrackingSpeaker extends Command {
     shooter.setAnglePosition(targetPosition);
     // shooter.setFlyWheelSpeed(0.9);
     shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getFlyWheelSpeed(),
-        4500));
-    if (shooter.getFlyWheelSpeed() > 4500 && Math.abs(shooter.getAnglePosition() - targetPosition) < 1) {
+        ShooterConstants.FLYWHEEL_SPEED));
+    if (shooter.getFlyWheelSpeed() > ShooterConstants.FLYWHEEL_SPEED && Math.abs(shooter.getAnglePosition() - targetPosition) < 1) {
       shooter.setLED(ShooterConstants.LEDMODE_SHOOTER_READY);
     } else {
       shooter.setLED(ShooterConstants.LEDMODE_SPEED_UP);
@@ -77,8 +78,7 @@ public class ShooterTrackingSpeaker extends Command {
 
     if (trigger.get() > 0.2) {
       intake.setMicSpeed(IntakeConstants.microPhoneSpeed);
-      // 移入
-      shooter.setTransportSpeed(0.4);
+      shooter.setTransportSpeed(ShooterConstants.TRANSPORT_MOTOR_SPEED);
     } else {
       intake.setMicSpeed(0);
       shooter.setTransportSpeed(0);

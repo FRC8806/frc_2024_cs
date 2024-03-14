@@ -60,7 +60,7 @@ public class Climber extends SubsystemBase {
     return leftMotor.getRotorPosition().getValue();
   }
 
-  public void setToZero() {
+  public void resetAngleEncoder() {
     leftMotor.setPosition(0);
     rightMotor.setPosition(0);
   }

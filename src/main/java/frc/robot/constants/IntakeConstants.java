@@ -14,7 +14,7 @@
 //    2024202420242024      2024202420242024      2024202420242024      2024202420242024
 package frc.robot.constants;
 
-import edu.wpi.first.wpilibj.util.Color;
+// import edu.wpi.first.wpilibj.util.Color;
 
 public class IntakeConstants {
   //Talon FX
@@ -37,8 +37,8 @@ public class IntakeConstants {
   //speed
   public static final double rollingSpeed = 0.6;
   public static final double microPhoneSpeed = 0.2;
-  public static final double reverseSpeed = -0.6;
+  public static final double reverseSpeed = -0.2;
 
-  public static final Color noteTarget = new Color(145, 90, 20);
-  public static final Color noneTarget = new Color(66, 118, 70);
+  // public static final Color noteTarget = new Color(145, 90, 20);
+  // public static final Color noneTarget = new Color(66, 118, 70);
 }

@@ -106,11 +106,11 @@ public class RobotContainer {
     NamedCommands.registerCommand("setup", new AutoSetup(intake, shooter));
     NamedCommands.registerCommand("first note", new AutoFirstNote(shooter, ShooterConstants.AUTO_FIRST_NOTE_POSITION));
     NamedCommands.registerCommand("second note", new AutoSencondNote(shooter, ShooterConstants.AUTO_SECOND_NOTE_POSITION));
-    NamedCommands.registerCommand("a2 note", new AutoFirstNote(shooter, ShooterConstants.AUTO_A2_NOTE_POSITION));
     NamedCommands.registerCommand("a1 note", new AutoFirstNote(shooter, ShooterConstants.AUTO_A1_NOTE_POSITION));
-    NamedCommands.registerCommand("start note", new AutoFirstNote(shooter, -10));
-    NamedCommands.registerCommand("test note", new AutoFirstNote(shooter, 32));
-    NamedCommands.registerCommand("m2 note", new AutoSencondNote(shooter, 60));
+    NamedCommands.registerCommand("start note", new AutoFirstNote(shooter, ShooterConstants.AUTO_START_NOTE_POSITION));
+    NamedCommands.registerCommand("m2 note", new AutoSencondNote(shooter, ShooterConstants.AUTO_M2_NOTE_POSITION));
+    // NamedCommands.registerCommand("a2 note", new AutoFirstNote(shooter, ShooterConstants.AUTO_A2_NOTE_POSITION));
+    // NamedCommands.registerCommand("test note", new AutoFirstNote(shooter, 32));
     NamedCommands.registerCommand("intake rolling", new AutoGetNote(intake));
     NamedCommands.registerCommand("green rolling", new AutoTransport(shooter, true));
     NamedCommands.registerCommand("green stop", new AutoTransport(shooter, false));

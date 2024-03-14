@@ -138,7 +138,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.shooter.setAngleSpeed(m_robotContainer.testController.getBButton() ? 0.2
         : m_robotContainer.testController.getAButton() ? -0.2 : 0);
     if (m_robotContainer.testController.getStartButton()) {
-      m_robotContainer.climber.setToZero();
+      m_robotContainer.climber.resetAngleEncoder();
       m_robotContainer.intake.resetAngleEncoder();
       m_robotContainer.shooter.resetAngleEncoder();
     }

@@ -27,7 +27,7 @@ public class AutoTransport extends Command {
   }
 
   @Override
-  public void initialize() {shooter.setTransportSpeed(rolling?ShooterConstants.TRANSPORT_MOTOR_SPEED:0);}
+  public void initialize() {shooter.setTransportSpeed(rolling ? ShooterConstants.TRANSPORT_MOTOR_SPEED : 0);}
 
   @Override
   public void execute() {

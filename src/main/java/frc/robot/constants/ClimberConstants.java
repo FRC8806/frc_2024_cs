@@ -24,7 +24,7 @@ public class ClimberConstants {
   public static final double SETUP_POSE = -55;
   public static final double DOWN_POSE = -250;
 
-  public static final double climberGearRitio = 1/60;
+  //public static final double climberGearRitio = 1/60;
 
   public static final double climberKP = 0.03;
   public static final double climberKI = 0;
