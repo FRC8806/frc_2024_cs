@@ -31,25 +31,25 @@ public final class SwerveConstants {
   public static final double kThrottlePositionConversionFactor = (kWheelDiameterMeters * Math.PI) / (kThrottleGearRatio);
 
   // CAN_ID
-  public static final int A_THROTTLE_ID = 1;//2
-  public static final int B_THROTTLE_ID = 7;//4
-  public static final int C_THROTTLE_ID = 2;//6
-  public static final int D_THROTTLE_ID = 5;//8
+  public static final int A_THROTTLE_ID = 1;//2 1 8
+  public static final int B_THROTTLE_ID = 7;//4 7 4
+  public static final int C_THROTTLE_ID = 2;//6 2 6
+  public static final int D_THROTTLE_ID = 5;//8 5 2
 
-  public static final int A_ROTOR_ID = 4;//1
-  public static final int B_ROTOR_ID = 3;//3
-  public static final int C_ROTOR_ID = 8;//5
-  public static final int D_ROTOR_ID = 6;//7
+  public static final int A_ROTOR_ID = 4;//1 4 7
+  public static final int B_ROTOR_ID = 3;//3 3 3
+  public static final int C_ROTOR_ID = 8;//5 8 5
+  public static final int D_ROTOR_ID = 6;//7 6 1
 
-  public static final int A_ENCODER_ID = 3;//2
-  public static final int B_ENCODER_ID = 2;//1
-  public static final int C_ENCODER_ID = 1;//3
-  public static final int D_ENCODER_ID = 4;//4
+  public static final int A_ENCODER_ID = 3;//2 3 4
+  public static final int B_ENCODER_ID = 2;//1 2 2
+  public static final int C_ENCODER_ID = 1;//3 1 3
+  public static final int D_ENCODER_ID = 4;//4 4 1
 
-  public static final double A_OFFSET = -0.471923828125;// 0.143798828125
-  public static final double B_OFFSET = -0.2099609375;// 0.09619140625
-  public static final double C_OFFSET = -0.332519;// 0.043701171875
-  public static final double D_OFFSET = -0.15869140625;// 0.19970704
+  public static final double A_OFFSET =  -0.471923828125;// 0.143798828125 -0.471923828125 0.3298339
+  public static final double B_OFFSET = 0.79159765;// 0.09619140625 -0.2099609375 -0.083496
+  public static final double C_OFFSET = 0.059472656;// 0.043701171875 -0.332519 0.1665039
+  public static final double D_OFFSET = -0.15869140625;// 0.19970704 -0.15869140625 0.1770019
 
   public static final Translation2d A_TRANSLATION2D = new Translation2d(0.29, 0.29);
   public static final Translation2d B_TRANSLATION2D = new Translation2d(0.29, -0.29);

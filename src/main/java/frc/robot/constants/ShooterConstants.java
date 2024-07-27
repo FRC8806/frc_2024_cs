@@ -18,15 +18,15 @@ public final class ShooterConstants {
   // PWM
   public static final int LED_PORT = 9;
   // spark flex
-  public static final int LEFT_MOTOR_ID = 52;
-  public static final int RIGHT_MOTOR_ID = 51;
-  // spark max
+  public static final int DOWN_MOTOR_ID = 51;//52
+  public static final int UP_MOTOR_ID = 52;//51
   public static final int TRANSPORT_MOTOR_ID = 53;
+  // spark max
   public static final int ANGLE_MOTOR_ID = 10;//4
   // position
-  public static final double angleHighLimit = 60;
-  public static final double angleLowLimit = -18;
-  public static final double angleAMP = -6;//7.928
+  public static final double angleHighLimit = 55;
+  public static final double angleLowLimit = -15;
+  public static final double angleAMP = 0;//7.928 15
   // PID
   public static final double shooterSpeedKP = 0.001;
   public static final double shooterSpeedKI = 0;
@@ -40,8 +40,10 @@ public final class ShooterConstants {
   public static final double shooterKI = 0;
   public static final double shooterKD = 0;
   // speed
-  public static final double TRANSPORT_MOTOR_SPEED = 0.4;
-  public static final double speedAMP = 0.092;//0.18
+  public static final double TRANSPORT_MOTOR_SPEED = 0.55;
+  public static final double UpSpeedAMP = -0.05;//0.18 0.092 0.04 -0.05 要調
+  public static final double DownSpeedAMP = 1;//0.36  0.35要調成負的(反轉)
+
   // led
   public static final int LED_LENTH = 60;
   public static final int LEDMODE_DEFAULT = 0;
@@ -49,7 +51,7 @@ public final class ShooterConstants {
   public static final int LEDMODE_SHOOTER_READY = 2;
   public static final int LEDMODE_AMP = 3;
   public static final int LEDMODE_NOTE_ON = 4;
-  public static final double FLYWHEEL_SPEED = 4500;
+  public static final double FLYWHEEL_SPEED = 5200;//4500
 
   //Auto
   public static final double AUTO_START_NOTE_POSITION = -10;

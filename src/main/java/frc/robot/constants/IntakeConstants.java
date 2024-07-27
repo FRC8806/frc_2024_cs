@@ -26,8 +26,8 @@ public class IntakeConstants {
   //position
   public static final double angleHighLimit = 41.5;
   public static final double angleLowLimit = 0;
-  public static final double downPosition = 41;
-  public static final double upPosition = 11.6;//16
+  public static final double downPosition = 40;//41
+  public static final double upPosition = 10;//16 12
 
   //PID
   public static final double intakrKP = 0.05;
@@ -36,7 +36,7 @@ public class IntakeConstants {
 
   //speed
   public static final double rollingSpeed = 0.6;
-  public static final double microPhoneSpeed = 0.2;
+  public static final double microPhoneSpeed = 0.8;
   public static final double reverseSpeed = -0.2;
 
   // public static final Color noteTarget = new Color(145, 90, 20);

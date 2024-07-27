@@ -38,7 +38,7 @@ public class AutoSencondNote extends Command {
   @Override
   public void execute() {
     shooter.setAnglePosition(position);
-    shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getFlyWheelSpeed(),
+    shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getUpFlyWheelSpeed(),
         4800));
   }
 

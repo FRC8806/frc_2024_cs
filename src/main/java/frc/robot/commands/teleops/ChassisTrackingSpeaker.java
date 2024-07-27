@@ -47,7 +47,7 @@ public class ChassisTrackingSpeaker extends Command {
     xSpeed *= SwerveConstants.kMaxThrottleSpeed;
     ySpeed *= SwerveConstants.kMaxThrottleSpeed;
     double tx = shooterLimelight.getEntry("tx").getDouble(-1);
-    chassis.drive(new ChassisSpeeds(xSpeed, ySpeed, (-1-tx) * 0.05));
+    chassis.drive(new ChassisSpeeds(xSpeed, ySpeed, (-tx) * 0.075));
   }
 
   @Override

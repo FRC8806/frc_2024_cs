@@ -69,11 +69,11 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    new JoystickButton(driveController, Button.kA.value).whileTrue(new ChassisTrackingSpeaker(limelightShooter, chassis,
+    new JoystickButton(driveController,Button.kRightBumper.value).whileTrue(new ChassisTrackingSpeaker(limelightShooter, chassis,
         () -> driveController.getLeftY(), () -> driveController.getLeftX()));
     new JoystickButton(operatorController, Button.kY.value)
         .toggleOnTrue(new ShooterTrackingSpeaker(shooter, intake, limelightShooter,
-            () -> operatorController.getLeftTriggerAxis()));
+            () -> operatorController.getLeftTriggerAxis(), operatorController));
     // new JoystickButton(operatorController, Button.kB.value)
     //     .whileTrue(new TeleAMP(shooter, chassis, () -> operatorController.getLeftTriggerAxis(), limelightShooter));
     new JoystickButton(operatorController, Button.kA.value)
@@ -81,14 +81,15 @@ public class RobotContainer {
     new JoystickButton(operatorController, Button.kBack.value)
         .onTrue(new ClimberSetup(climber, intake, shooter, () -> operatorController.getStartButton())
             .andThen(new ClimbUp(climber, () -> operatorController.getBackButton())));
-    new JoystickButton(operatorController, Button.kRightBumper.value).toggleOnTrue(new TeleAMP(shooter, () -> operatorController.getLeftBumper()));
-    // new JoystickButton(operatorController, Button.kLeftBumper.value).whileTrue(new TeleAMP2(intake));
+
+    //new JoystickButton(operatorController, Button.kRightBumper.value).toggleOnTrue(new TeleAMP(shooter, intake, () -> operatorController.getLeftBumper()));
+    //new JoystickButton(operatorController, Button.kLeftBumper.value).whileTrue(new TeleAMP2(intake));
   }
 
   public Command getAutonomousCommand() {
     return autoChooser.getSelected();
   }
-
+  
   public void setDefaultCommand() {
     chassis.setDefaultCommand(new SwerveControl(chassis, () -> driveController.getLeftY(),
         () -> driveController.getLeftX(), () -> driveController.getRightX()));
@@ -96,7 +97,7 @@ public class RobotContainer {
     //     () -> operatorController.getLeftTriggerAxis(), () -> operatorController.getRightBumper(),
     //     () -> operatorController.getLeftBumper(), limelightShooter));
   }
-
+  
   public void cancelDefaultCommand() {
     CommandScheduler.getInstance().removeDefaultCommand(chassis);
     // CommandScheduler.getInstance().removeDefaultCommand(shooter);

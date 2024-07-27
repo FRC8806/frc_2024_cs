@@ -48,8 +48,8 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Intake position", angleMotor.getPosition().getValue());
-    if(isSetToPosition) { angleMotor.set(angleLimiter.getOutput(intakePID.calculate(angleMotor.getPosition().getValue(), intakePosition)));}
+    SmartDashboard.putNumber("Intake position", getAnglePosition());
+    if(isSetToPosition) { angleMotor.set(angleLimiter.getOutput(intakePID.calculate(getAnglePosition(), intakePosition)));}
   }
 
   public double getAnglePosition(){
