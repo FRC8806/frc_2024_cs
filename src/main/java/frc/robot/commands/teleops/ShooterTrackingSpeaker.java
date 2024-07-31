@@ -70,8 +70,8 @@ public class ShooterTrackingSpeaker extends Command {
     }
     // angleSpeed = shooterPID.calculate(shooter.getAnglePosition(), targetPosition);
     // shooter.setAngleSpeed(angleSpeed);
-    //shooter.setAnglePosition(targetPosition);
-    shooter.setAngleSpeed(operatorController.getLeftBumper() ? 0.2 : operatorController.getRightBumper() ? -0.2 : 0);//如果要測自動校正把這行註解掉 復原上面那行
+    shooter.setAnglePosition(targetPosition);
+    //shooter.setAngleSpeed(operatorController.getLeftBumper() ? 0.2 : operatorController.getRightBumper() ? -0.2 : 0);//如果要測自動校正把這行註解掉 復原上面那行
     // shooter.setFlyWheelSpeed(0.9);
     shooter.setFlyWheelSpeed(0.9 + speedPID.calculate(shooter.getUpFlyWheelSpeed(),
         ShooterConstants.FLYWHEEL_SPEED));
