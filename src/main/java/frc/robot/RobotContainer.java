@@ -107,6 +107,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("setup", new AutoSetup(intake, shooter));
     NamedCommands.registerCommand("first note", new AutoFirstNote(shooter, ShooterConstants.AUTO_FIRST_NOTE_POSITION));
     NamedCommands.registerCommand("second note", new AutoSencondNote(shooter, ShooterConstants.AUTO_SECOND_NOTE_POSITION));
+    NamedCommands.registerCommand("third note", new AutoSencondNote(shooter, ShooterConstants.AUTO_THIRD_NOTE_POSITION));
     NamedCommands.registerCommand("a1", new AutoFirstNote(shooter, ShooterConstants.AUTO_A1_NOTE_POSITION));
     NamedCommands.registerCommand("start note", new AutoFirstNote(shooter, ShooterConstants.AUTO_START_NOTE_POSITION));
     NamedCommands.registerCommand("m2 note", new AutoSencondNote(shooter, ShooterConstants.AUTO_M2_NOTE_POSITION));

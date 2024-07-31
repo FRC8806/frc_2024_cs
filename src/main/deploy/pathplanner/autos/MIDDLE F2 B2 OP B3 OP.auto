@@ -174,7 +174,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.5
+                        "waitTime": 0.3
                       }
                     },
                     {
@@ -242,7 +242,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 1.5
+                        "waitTime": 0.3
                       }
                     },
                     {
@@ -275,7 +275,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "second note"
+                  "name": "third note"
                 }
               }
             ]
